@@ -17,8 +17,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
 	  <ProjectReference Include="..\iParkingv8.Ultility\iParkingv8.Ultility.csproj" />
+	  <ProjectReference Include="..\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
 	</ItemGroup>
 
 </Project>

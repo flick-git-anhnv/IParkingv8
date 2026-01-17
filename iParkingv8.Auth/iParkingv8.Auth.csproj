@@ -22,7 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
 		<ProjectReference Include="..\IParkingv8.API\IParkingv8.API.csproj" />
 		<ProjectReference Include="..\Kztek.Control8\Kztek.Control8.csproj" />
 	</ItemGroup>

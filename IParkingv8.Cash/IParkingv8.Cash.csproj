@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
     <ProjectReference Include="..\iParkingv8.Object\iParkingv8.Object.csproj" />
   </ItemGroup>
 

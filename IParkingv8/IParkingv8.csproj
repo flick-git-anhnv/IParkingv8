@@ -37,9 +37,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\0.BaseLIB\Kztek.API\1.Main\Kztek.API\1.Source\Kztek.Api\Kztek.Api.csproj" />
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
 		<ProjectReference Include="..\iParking.ConfigurationManager\iParking.ConfigurationManager.csproj" />
 		<ProjectReference Include="..\iParkingv5.LedDisplay\iParkingv5.LedDisplay.csproj" />
 		<ProjectReference Include="..\iParkingv8.Auth\iParkingv8.Auth.csproj" />
@@ -47,6 +44,9 @@
 		<ProjectReference Include="..\IParkingv8.Printer\IParkingv8.Printer.csproj" />
 		<ProjectReference Include="..\IParkingv8.Reporting\IParkingv8.Reporting.csproj" />
 		<ProjectReference Include="..\iParkingv8.Ultility\iParkingv8.Ultility.csproj" />
+		<ProjectReference Include="..\Kztek.Api\Kztek.Api.csproj" />
+		<ProjectReference Include="..\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+		<ProjectReference Include="..\Kztek.Tool\Kztek.Tool.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

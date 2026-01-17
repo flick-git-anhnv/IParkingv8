@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Authors>Kztek.Software Dept</Authors>
+    <Company>Kztek</Company>
+    <AssemblyVersion>6.0.0.3</AssemblyVersion>
+    <FileVersion>6.0.0.3</FileVersion>
+    <Version>1.0.0.2</Version>
+    <Copyright>Kztek copyright</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>E:\Kztek.Libraries\bin x64\Cameras\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Players\GtsPlayer.cs" />
+    <Compile Remove="Players\GtsPlayer.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Players\GtsPlayer.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AForge.Imaging">
+      <HintPath>External_Libs\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShowEx">
+      <HintPath>..\..\..\NXT.Libraries\bin\AforgeEx\AForge.Video.DirectShowEx.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.VideoEx">
+      <HintPath>..\..\..\NXT.Libraries\bin\AforgeEx\AForge.VideoEx.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Vision">
+      <HintPath>External_Libs\AForge.Vision.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

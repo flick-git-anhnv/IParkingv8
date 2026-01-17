@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <NuGetAudit>false</NuGetAudit>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Platforms>x64;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="Device\CAMERA\**" />
+    <Compile Remove="Parking\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="Device\CAMERA\**" />
+    <EmbeddedResource Remove="Parking\**" />
+    <None Remove="bin\**" />
+    <None Remove="Device\CAMERA\**" />
+    <None Remove="Parking\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Minio" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="9.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Access\Languages\" />
+  </ItemGroup>
+
+</Project>

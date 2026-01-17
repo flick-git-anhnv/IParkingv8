@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
-    <ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
+    <ProjectReference Include="..\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+    <ProjectReference Include="..\Kztek.Tool\Kztek.Tool.csproj" />
   </ItemGroup>
 </Project>

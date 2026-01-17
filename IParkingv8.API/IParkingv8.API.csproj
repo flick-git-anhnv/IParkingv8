@@ -18,10 +18,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\0.BaseLIB\Kztek.API\1.Main\Kztek.API\1.Source\Kztek.Api\Kztek.Api.csproj" />
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
 		<ProjectReference Include="..\iParkingv8.Object\iParkingv8.Object.csproj" />
+		<ProjectReference Include="..\Kztek.Api\Kztek.Api.csproj" />
+		<ProjectReference Include="..\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+		<ProjectReference Include="..\Kztek.Tool\Kztek.Tool.csproj" />
 	</ItemGroup>
 
 </Project>

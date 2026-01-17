@@ -25,9 +25,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Camera\Kztek.Camera\1.Source\Kztek.Cameras\Kztek.Cameras.csproj" />
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
-		<ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
 		<ProjectReference Include="..\iParkingv5.Controller\iParkingv5.Controller.csproj" />
 		<ProjectReference Include="..\iParkingv5.LedDisplay\iParkingv5.LedDisplay.csproj" />
 		<ProjectReference Include="..\iParkingv5.Lpr\iParkingv5.Lpr.csproj" />
@@ -36,6 +33,9 @@
 		<ProjectReference Include="..\iParkingv8.Object\iParkingv8.Object.csproj" />
 		<ProjectReference Include="..\IParkingv8.QRScreenController\IParkingv8.QRScreenController.csproj" />
 		<ProjectReference Include="..\iParkingv8.Ultility\iParkingv8.Ultility.csproj" />
+		<ProjectReference Include="..\Kztek.Cameras\Kztek.Cameras.csproj" />
+		<ProjectReference Include="..\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+		<ProjectReference Include="..\Kztek.Tool\Kztek.Tool.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
