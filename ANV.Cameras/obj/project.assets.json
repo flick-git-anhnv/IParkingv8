@@ -1,0 +1,185 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0-windows7.0": {
+      "RtspClientSharp/1.3.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RtspClientSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/RtspClientSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RtspClientSharpSPG/0.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RtspClientSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RtspClientSharp.dll": {}
+        }
+      },
+      "Kztek.Cameras/1.0.0.2": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Kztek.RtspPlayer": "1.0.0.2"
+        },
+        "compile": {
+          "bin/placeholder/Kztek.Cameras.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Kztek.Cameras.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "Kztek.RtspPlayer/1.0.0.2": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "RtspClientSharp": "1.3.3",
+          "RtspClientSharpSPG": "0.0.3"
+        },
+        "compile": {
+          "bin/placeholder/Kztek.RtspPlayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Kztek.RtspPlayer.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "RtspClientSharp/1.3.3": {
+      "sha512": "HhzNkE5mn/DwvlL/JZ+8LIrdSOlcl5uqL9uM6L43juzUO+huA6m/p8yLyyju8UujmaQX19iYhr+YLbHfDxtUvg==",
+      "type": "package",
+      "path": "rtspclientsharp/1.3.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/RtspClientSharp.dll",
+        "lib/netstandard2.0/RtspClientSharp.xml",
+        "rtspclientsharp.1.3.3.nupkg.sha512",
+        "rtspclientsharp.nuspec"
+      ]
+    },
+    "RtspClientSharpSPG/0.0.3": {
+      "sha512": "zynym3QRbFwgZhuiu2KvroJ2HnT0M+Y/Io7SbI8V/w0X3hS3YrpfN4OwxsyLa/Je981NSeOFsaT1pe2bEgtoEQ==",
+      "type": "package",
+      "path": "rtspclientsharpspg/0.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/RtspClientSharp.dll",
+        "rtspclientsharpspg.0.0.3.nupkg.sha512",
+        "rtspclientsharpspg.nuspec"
+      ]
+    },
+    "Kztek.Cameras/1.0.0.2": {
+      "type": "project",
+      "path": "../../../../../0.BaseLIB/Kztek.Camera/Kztek.Camera/1.Source/Kztek.Cameras/Kztek.Cameras.csproj",
+      "msbuildProject": "../../../../../0.BaseLIB/Kztek.Camera/Kztek.Camera/1.Source/Kztek.Cameras/Kztek.Cameras.csproj"
+    },
+    "Kztek.RtspPlayer/1.0.0.2": {
+      "type": "project",
+      "path": "../../../../../0.BaseLIB/Kztek.Camera/Kztek.Camera/1.Source/Kztek.RtspPlayer/Kztek.RtspPlayer/Kztek.RtspPlayer.csproj",
+      "msbuildProject": "../../../../../0.BaseLIB/Kztek.Camera/Kztek.Camera/1.Source/Kztek.RtspPlayer/Kztek.RtspPlayer/Kztek.RtspPlayer.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0-windows7.0": [
+      "Kztek.Cameras >= 1.0.0.2"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\nguye\\.nuget\\packages\\": {},
+    "C:\\Program Files\\DevExpress 24.2\\Components\\Offline Packages": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ANV.Cameras\\ANV.Cameras.csproj",
+      "projectName": "ANV.Cameras",
+      "projectPath": "E:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ANV.Cameras\\ANV.Cameras.csproj",
+      "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
+      "outputPath": "E:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ANV.Cameras\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\DevExpress 24.2\\Components\\Offline Packages",
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\ComponentOne.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 24.2.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
+          "projectReferences": {
+            "E:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj": {
+              "projectPath": "E:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net5.0-windows7.0": {
+        "targetAlias": "net5.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
