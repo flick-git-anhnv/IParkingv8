@@ -30,36 +30,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
-		<ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
+		<ProjectReference Include="..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+		<ProjectReference Include="..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
 		<ProjectReference Include="..\iParkingv8.Object\iParkingv8.Object.csproj" />
 		<ProjectReference Include="..\IParkingv8.QRScreenController\IParkingv8.QRScreenController.csproj" />
 		<ProjectReference Include="..\iParkingv8.Ultility\iParkingv8.Ultility.csproj" />
 		<ProjectReference Include="..\Kztek.Control8\Kztek.Control8.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="NXT.Net6.LPR_AI">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\NXT.Net6.LPR_AI.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Sdcb.PaddleInference">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\Sdcb.PaddleInference.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Sdcb.PaddleOCR">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\Sdcb.PaddleOCR.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Sdcb.PaddleOCR.Models.Local">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\Sdcb.PaddleOCR.Models.Local.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Sdcb.PaddleOCR.Models.LocalV3">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\Sdcb.PaddleOCR.Models.LocalV3.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Sdcb.PaddleOCR.Models.LocalV4">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\Sdcb.PaddleOCR.Models.LocalV4.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Sdcb.PaddleOCR.Models.Shared">
-	    <HintPath>..\..\..\..\..\..\..\..\KZTEK.LIB.REF\Package\LprLib\LPR_09082024\Sdcb.PaddleOCR.Models.Shared.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
