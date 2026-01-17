@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ControllerTool\\ControllerTool.csproj",
+      "projectUniqueName": "K:\\MyGithub\\IParkingv8\\ControllerTool\\ControllerTool.csproj",
       "projectName": "ControllerTool",
-      "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ControllerTool\\ControllerTool.csproj",
+      "projectPath": "K:\\MyGithub\\IParkingv8\\ControllerTool\\ControllerTool.csproj",
       "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-      "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ControllerTool\\obj\\",
+      "outputPath": "K:\\MyGithub\\IParkingv8\\ControllerTool\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

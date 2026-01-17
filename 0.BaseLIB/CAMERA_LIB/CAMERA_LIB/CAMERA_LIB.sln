@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAMERA_LIB", "CAMERA_LIB\CAMERA_LIB.csproj", "{D680EDF1-993F-47B6-8ACD-E21793E32701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kztek.Cameras", "..\..\Kztek.Camera\Kztek.Camera\1.Source\Kztek.Cameras\Kztek.Cameras.csproj", "{54E90117-018B-87B4-1F0C-00568A93928F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kztek.RtspPlayer", "..\..\Kztek.Camera\Kztek.Camera\1.Source\Kztek.RtspPlayer\Kztek.RtspPlayer\Kztek.RtspPlayer.csproj", "{95E74267-0CE3-7C79-0356-214166BA3A61}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Debug|x64.Build.0 = Debug|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Debug|x86.Build.0 = Debug|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Release|x64.ActiveCfg = Release|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Release|x64.Build.0 = Release|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Release|x86.ActiveCfg = Release|Any CPU
+		{D680EDF1-993F-47B6-8ACD-E21793E32701}.Release|x86.Build.0 = Release|Any CPU
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Debug|Any CPU.Build.0 = Debug|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Debug|x64.ActiveCfg = Debug|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Debug|x64.Build.0 = Debug|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Debug|x86.ActiveCfg = Debug|x86
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Debug|x86.Build.0 = Debug|x86
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Release|Any CPU.ActiveCfg = Release|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Release|Any CPU.Build.0 = Release|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Release|x64.ActiveCfg = Release|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Release|x64.Build.0 = Release|x64
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Release|x86.ActiveCfg = Release|x86
+		{54E90117-018B-87B4-1F0C-00568A93928F}.Release|x86.Build.0 = Release|x86
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Debug|Any CPU.Build.0 = Debug|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Debug|x64.ActiveCfg = Debug|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Debug|x64.Build.0 = Debug|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Debug|x86.ActiveCfg = Debug|x86
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Debug|x86.Build.0 = Debug|x86
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Release|Any CPU.ActiveCfg = Release|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Release|Any CPU.Build.0 = Release|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Release|x64.ActiveCfg = Release|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Release|x64.Build.0 = Release|x64
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Release|x86.ActiveCfg = Release|x86
+		{95E74267-0CE3-7C79-0356-214166BA3A61}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5371E4E9-4FD2-4A5E-B919-2EDC34B452D6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,698 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Futech.Tools;
+using System.Threading;
+using PrintControl;
+
+namespace Futech.Objects
+{
+    public partial class KZE05NETSettingPage : Form, IControllerSettingPage
+    {
+        private KZE05NET kZE05Net = new KZE05NET();
+
+        public event CardEventHandler CardEvent;
+        public event InputEventHandler InputEvent;
+        public KZE05NETSettingPage()
+        {
+            InitializeComponent();
+            kZE05Net.CardEvent += new CardEventHandler(kZE05Net_CardEvent);
+            kZE05Net.InputEvent += kZE05Net_InputEvent;
+        }
+
+        // Line ID
+        public int LineID
+        {
+            set { kZE05Net.LineID = value; }
+        }
+
+        // Controller Address
+        public int Address
+        {
+            set { kZE05Net.Address = value; }
+        }
+
+        private int controllerTypeID = 0;
+        public int ControllerTypeID
+        {
+            set { controllerTypeID = value; }
+        }
+
+        private int communicationType = 0;
+        public int CommunicationType
+        {
+            set { communicationType = value; }
+        }
+
+        private bool isconnect = false;
+        public bool IsConnect
+        {
+            get { return kZE05Net.IsConnect; }
+            set { isconnect = value; }
+        }
+
+        // Delay time property
+        public int DelayTime
+        {
+            set { kZE05Net.DelayTime = value; }
+        }
+
+        private int downloadTime = 1500;
+        public int DownloadTime
+        {
+            set
+            {
+                downloadTime = value;
+            }
+        }
+
+        // all controller in line
+        private ControllerCollection controllers = new ControllerCollection();
+        public ControllerCollection Controllers
+        {
+            set { 
+                controllers = value;
+                kZE05Net.controllers = controllers;
+            }
+        }
+
+        // all timezones
+        private TimezoneCollection timezones = new TimezoneCollection();
+        public TimezoneCollection Timezones
+        {
+            set
+            {
+                timezones = value;
+            }
+        }
+
+        // all controllerTypes
+        private ControllerTypeCollection controllerTypes = new ControllerTypeCollection();
+        public ControllerTypeCollection ControllerTypes
+        {
+            set { controllerTypes = value; }
+        }
+
+        // all blackLists
+        private BlackListCollection blackLists = new BlackListCollection();
+        public BlackListCollection BlackLists
+        {
+            get { return blackLists; }
+            set { blackLists = value; }
+        }
+
+        public bool Connect(string comPort, int baudRate)
+        {
+            return kZE05Net.Connect(comPort, (short)baudRate, communicationType);
+        }
+
+        public bool DisConnect()
+        {
+            return kZE05Net.Disconnect();
+        }
+
+        // Start
+        public void PollingStart()
+        {
+
+            kZE05Net.PollingStart(controllers);
+        }
+
+        private void kZE05Net_InputEvent(object sender, InputEventArgs e)
+        {
+            if (InputEvent != null)
+                InputEvent(this, e);
+        }
+
+        // Signal to Stop
+        public void SignalToStop()
+        {
+            kZE05Net.SignalToStop();
+        }
+
+        // Stop
+        public void PollingStop()
+        {
+            kZE05Net.PollingStop();
+           // kZE05Net.CardEvent -= new CardEventHandler(kZE05Net_CardEvent);
+        }
+
+        private void kZE05Net_CardEvent(object sender, CardEventArgs e)
+        {
+            if (CardEvent != null)
+            {
+                CardEvent(this, e);
+            }
+        }
+
+        public bool DownloadCard(Employee employee, int timezoneID, int memoryID)
+        {
+            if (memoryID < 0)
+                return false;
+            return true;// kZE05Net.DownloadCard(employee.CardNumber, employee.Passwords, memoryID, "01", timezoneID);
+        }
+
+        public bool DeleteCard(Employee employee, int memoryID)
+        {
+            if (memoryID < 0)
+                return false;
+            return true;// kZE05Net.DeleteCard(memoryID);
+        }
+
+        public string GetFinger(string cardNumber, int fingerID)
+        {
+            return "";
+        }
+
+        public bool Unlock(int delay)
+        {
+            kZE05Net.OpenDoor(1);
+            Thread.Sleep(100);
+            kZE05Net.OpenDoor(1);
+            //Thread.Sleep(100);
+            //kZE05Net.OpenDoor();
+            return true;
+        }
+
+        public bool Unlock2(int outputNo, int delay)
+        {
+            kZE05Net.OpenDoor(outputNo);
+            //Thread.Sleep(100);
+            //kZE05Net.OpenDoor(outputNo);
+            //Thread.Sleep(100);
+            //kZE05Net.OpenDoor();
+            return false;
+        }
+
+        // Test connection
+        public bool TestConnection()
+        {
+            return IsConnect;
+        }
+
+        private void kZE05NetSettingPage_Load(object sender, EventArgs e)
+        {
+            PollingStop();
+
+            Controller controller = controllers.GetControllerByAddress(kZE05Net.Address);
+            txtKeyA.Text = controller.KeyA;
+            txtKeyB.Text = controller.KeyB;
+            txtIP.Text = kZE05Net.ComPort;
+
+            dgvEventRecover.Rows.Clear();
+        }
+
+        private void kZE05NetSettingPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PollingStart();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Thay doi dia chi thiet bi (MID)
+            //if (kZE05Net.ChangeAddress(cbMID.Text))
+            //    MessageBox.Show("Đã đặt lại địa chỉ thiết bị lên bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //else
+            //    MessageBox.Show("Đã xảy ra lỗi khi đặt lại địa chỉ thiết bị lên bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnGetVersion_Click(object sender, EventArgs e)
+        {
+            lbControllerInfo.Text = kZE05Net.GetVersion();
+        }
+
+        private void btnWriteKeyA_Click(object sender, EventArgs e)
+        {
+            if (kZE05Net.ChangeSysKey(txtKeyA.Text, txtKeyB.Text))
+                MessageBox.Show("Đã đặt lại Key A, Key B lên bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi đặt lại Key A, Key B lên bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (kZE05Net.Reset())
+                MessageBox.Show("Đã khởi động lại bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi khởi động lại bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnInitDefault_Click(object sender, EventArgs e)
+        {
+            if (kZE05Net.InitDefault())
+                MessageBox.Show("Đã khởi tạo lại mặc định bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi khởi tạo lại mặc định bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnChangeIP_Click(object sender, EventArgs e)
+        {
+            // Thay doi dia chi IP
+            if (kZE05Net.ChangeIP(txtIP.Text, txtPort.Text, txtSubnetMask.Text, txtDefaultGateway.Text))
+                MessageBox.Show("Đã đặt lại địa chỉ IP lên bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi đặt lại địa chỉ IP lên bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnBroadcast_Click(object sender, EventArgs e)
+        {
+            dgvShow.Rows.Clear();
+            string[] msg = kZE05Net.Broadcast();
+            if (msg != null)
+            {
+                for (int i = 0; i < msg.Length; i++)
+                {
+                    if (msg[i] != null)
+                    {
+                        string[] row = msg[i].Split('/');
+                        dgvShow.Rows.Add(row);
+                    }
+                    else
+                        break;
+                }
+            }
+        }
+
+        private void btnDateTimeUpload_Click(object sender, EventArgs e)
+        {
+            string strDateTime = kZE05Net.GetDateTime();
+            try
+            {
+                DateTime dtpDateTime = DateTime.Parse(strDateTime);
+                dtpDate.Value = dtpDateTime;
+                dtpTime.Value = dtpDateTime;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnDateTimeDownload_Click(object sender, EventArgs e)
+        {
+            string strDateTime = dtpDate.Value.ToString("yyMMdd") + dtpTime.Value.ToString("HHmmss");
+            if (kZE05Net.SetDateTime(strDateTime))
+                MessageBox.Show("Thiết lập thời gian cho bộ điều khiển thành công.!", "Đặt lại thời gian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Lỗi thiết lập thời gian cho bộ điều khiển.!", "Lỗi đặt lại thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPage == tabPage5 && cbFromID.Items.Count == 0 && cbToID.Items.Count == 0)
+            {
+                cbFromID.Items.Clear();
+                cbToID.Items.Clear();
+                for (int i = 1; i <= 4500; i++)
+                {
+                    cbFromID.Items.Add(i.ToString());
+                    cbToID.Items.Add(i.ToString());
+                }
+
+            }
+        }
+
+        private void btnGetLastEventID_Click(object sender, EventArgs e)
+        {
+            string tempLastEventID = kZE05Net.GetLastEventID();
+            if (tempLastEventID != "")
+                MessageBox.Show("Last EventID = " + tempLastEventID, "Last EventID", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Lỗi khi nhận Last EventID" + tempLastEventID, "Lỗi nhận Last EventID", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        // Chay ngam
+        private BackgroundWorker backgroundWorker1;
+        private bool IsSaveEventRecover = false;
+        private int FromID = 0, ToID = 0;
+        private void btnRecoverRecord_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cbFromID.Text == "" || cbToID.Text == "")
+                    MessageBox.Show("Làm ơn chọn bản ghi cần khôi phục.!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    FromID = int.Parse(cbFromID.Text);
+                    ToID = int.Parse(cbToID.Text);
+                    if (FromID <= ToID)
+                    {
+                        dgvEventRecover.Rows.Clear();
+                        progressBar1.Visible = true;
+                        progressBar1.Minimum = 0;
+                        progressBar1.Maximum = ToID - FromID + 1;
+                        progressBar1.Value = 0;
+                        btnRecoverRecord.Enabled = false;
+
+                        IsSaveEventRecover = chbSaveEventRecover.Checked;
+
+                        // Khoi tao chay ngam
+                        //Control.CheckForIllegalCrossThreadCalls = false;
+                        backgroundWorker1 = new BackgroundWorker();
+                        backgroundWorker1.WorkerReportsProgress = true;
+                        backgroundWorker1.WorkerSupportsCancellation = true;
+
+                        backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
+                        backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
+                        backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
+
+                        // Start the asynchronous operation.
+                        backgroundWorker1.RunWorkerAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // This event handler is where the time-consuming work is done.
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                BackgroundWorker worker = sender as BackgroundWorker;
+
+                kZE05Net.CardEvent += new CardEventHandler(kZE05Net_CardEvent);
+                for (int i = FromID; i <= ToID; i++)
+                {
+                    CardEventArgs ex = null;
+                    kZE05Net.GetEventByID(i.ToString("00000"), ref ex, IsSaveEventRecover);
+                    if (ex != null)
+                    {
+                        DisplayEvent(ex);
+                    }
+                    else
+                        break;
+                    Thread.Sleep(10);
+                }
+                kZE05Net.CardEvent -= new CardEventHandler(kZE05Net_CardEvent);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private delegate void NewDisplayEvent(CardEventArgs ex);
+        private void DisplayEvent(CardEventArgs ex)
+        {
+            try
+            {
+                if (this.dgvEventRecover.InvokeRequired)
+                {
+                    NewDisplayEvent d = new NewDisplayEvent(DisplayEvent);
+                    this.Invoke(d, new object[] { ex });
+                }
+                else
+                {
+                    Controller controller = kZE05Net.controllers.GetControllerByAddressAndCode(ex.LineCode, ex.ControllerAddress);
+                    string[] row = new string[] { Convert.ToString(dgvEventRecover.Rows.Count + 1), Convert.ToDateTime(ex.Date).ToString("dd/MM/yyyy") + " " + Convert.ToDateTime(ex.Time).ToString("HH:mm:ss"),
+                                    ex.CardNumber, String.Format("{0:0,0}", ex.Value1), String.Format("{0:0,0}", ex.Balance), ex.Action, controller.Name, ex.Desc, ex.EventID };
+
+                    dgvEventRecover.Rows.Add(row);
+                    dgvEventRecover.Rows[dgvEventRecover.Rows.Count - 1].Selected = true;
+                    dgvEventRecover.CurrentCell = dgvEventRecover.Rows[dgvEventRecover.Rows.Count - 1].Cells[0];
+                    progressBar1.Value++;
+                }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.Message);
+            }
+        }
+
+        // This event handler updates the progress.
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //resultLabel.Text = (e.ProgressPercentage.ToString() + "%");
+        }
+
+        // This event handler deals with the results of the background operation.
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                //resultLabel.Text = "Canceled!";
+            }
+            else if (e.Error != null)
+            {
+                //resultLabel.Text = "Error: " + e.Error.Message;
+            }
+            else
+            {
+                //resultLabel.Text = "Done!";
+                //btnStart.Enabled = true;
+                //btnStop.Enabled = false;
+                //progressBar1.Visible = false;
+                //progressBar1.Minimum = 0;
+                //progressBar1.Maximum = lstImage.Items.Count + 1;
+                //progressBar1.Value = 0;
+            }
+
+            progressBar1.Visible = false;
+            progressBar1.Minimum = 0;
+            progressBar1.Value = 0;
+            btnRecoverRecord.Enabled = true;
+
+            backgroundWorker1.DoWork -= new DoWorkEventHandler(backgroundWorker1_DoWork);
+            backgroundWorker1.RunWorkerCompleted -= new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
+            backgroundWorker1.ProgressChanged -= new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
+
+            // Cancel the asynchronous operation.
+            backgroundWorker1.CancelAsync();
+        }
+
+        private void tsmExportEvent_Click(object sender, EventArgs e)
+        {
+            ExportToExcel.PrintTitle = "Danh sách dữ liệu khôi phục lại";
+            ExportToExcel.PrintTitleDetail1 = "";
+            ExportToExcel.PrintTitleDetail2 = "";
+            ExportToExcel.IsLanscape = false;
+            ExportToExcel.ZoomSize = 100;
+            ExportToExcel.HeaderHeight = 25;
+            ExportToExcel.PrintDateTime = false;
+            ExportToExcel.PrintNotice = false;
+            ExportToExcel.Export(dgvEventRecover);
+        }
+
+        private void btnAddToBlackList_Click(object sender, EventArgs e)
+        {
+            string strID = "00000";
+            int intID = 0;
+            if (dgvBlackList.Rows.Count > 0)
+            {
+                for (int i = 0; i < dgvBlackList.Rows.Count; i++)
+                {
+                    strID = dgvBlackList.Rows[i].Cells[1].Value.ToString();
+                }
+                intID = int.Parse(strID) + 1;
+            }
+
+            string[] row = new string[] { Convert.ToString(dgvBlackList.Rows.Count + 1), intID.ToString("00000"), txtCardNumber.Text, "Đọc", "Ghi", "Xóa", "" };
+            dgvBlackList.Rows.Add(row);
+        }
+
+        private void btnRemoveFromBlackList_Click(object sender, EventArgs e)
+        {
+            if (dgvBlackList.Rows.Count > 0)
+                dgvBlackList.Rows.Remove(dgvBlackList.CurrentRow);
+        }
+
+        private void btnGetMID_Click(object sender, EventArgs e)
+        {
+            txtGetMID.Text = kZE05Net.GetMID();
+        }
+
+        private void btnSetMID_Click(object sender, EventArgs e)
+        {
+            int newMID = Convert.ToInt32(txtSetMID.Text);
+            if (kZE05Net.SetMID(newMID))
+            {
+                Thread.Sleep(1000);
+                btnGetMID_Click(null, null);
+            }
+        }
+
+        private void btnGetValue_Click(object sender, EventArgs e)
+        {
+            txtGetValue.Text = kZE05Net.GetValue();
+        }
+
+        private void btnSetValue_Click(object sender, EventArgs e)
+        {
+            int newValue = Convert.ToInt32(txtSetValue.Text);
+            if (kZE05Net.SetValue(newValue))
+            {
+                Thread.Sleep(1000);
+                btnGetValue_Click(null, null);
+            }
+        }
+
+        private void btnReadSystemCode_Click(object sender, EventArgs e)
+        {
+            txtSystemCode.Text = kZE05Net.GetSystemCode();
+            if (txtSystemCode.Text == "")
+                MessageBox.Show("Lỗi đọc SystemCode!?");
+        }
+
+        private void btnWriteSystemCode_Click(object sender, EventArgs e)
+        {
+            if (kZE05Net.SetSystemCode(txtSystemCode.Text))
+                MessageBox.Show("Ghi SystemCode thành công.");
+            else
+                MessageBox.Show("Lỗi ghi SystemCode!?");
+        }
+
+        private void btnReadBlackList_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            dgvBlackList.Rows.Clear();
+            for (int i = 0; i <= 999; i++)
+            {
+                string Value = kZE05Net.GetBlackList(i.ToString("00000"));
+                string[] row = new string[] { Convert.ToString(dgvBlackList.Rows.Count + 1), i.ToString("00000"), "?", "Đọc", "Ghi", "Xóa", "" };
+                dgvBlackList.Rows.Add(row);
+
+                if (Value != "" && Value != "-1")
+                {
+                    dgvBlackList.Rows[i].Cells[2].Value = Value;
+                    dgvBlackList.Rows[i].Cells[6].Value = "Đọc Ok";
+                }
+                else if (Value != "" && Value == "-1")
+                {
+                    dgvBlackList.Rows[i].Cells[6].Value = "NoCard";
+                    break;
+                }
+                else
+                {
+                    dgvBlackList.Rows[i].Cells[6].Value = "Lỗi đọc";
+                    break;
+                }
+
+                dgvBlackList.CurrentCell = dgvBlackList[0, dgvBlackList.RowCount - 1];
+                Thread.Sleep(10);
+            }
+            this.Cursor = Cursors.Default;
+        }
+
+        private void btnWriteBlackList_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            foreach (DataGridViewRow dgv in dgvBlackList.Rows)
+            {
+                if (kZE05Net.SaveBlackList(dgv.Cells[1].Value.ToString(), dgv.Cells[2].Value.ToString()))
+                    dgv.Cells[6].Value = "Ghi Ok";
+                else
+                {
+                    dgv.Cells[6].Value = "Lỗi ghi";
+                    break;
+                }
+
+                dgvBlackList.CurrentCell = dgvBlackList[0, dgvBlackList.RowCount - 1];
+                Thread.Sleep(10);
+            }
+            this.Cursor = Cursors.Default;
+        }
+
+        private void btnClearBalckList_Click(object sender, EventArgs e)
+        {
+            if (kZE05Net.DeleteAllBlackList())
+            {
+                lbBlackListStatus.Text = "Xóa Ok";
+                dgvBlackList.Rows.Clear();
+            }
+            else
+            {
+                lbBlackListStatus.Text = "Lỗi xóa";
+            }
+        }
+
+        private void btnLoadFromDatabase_Click(object sender, EventArgs e)
+        {
+            dgvBlackList.Rows.Clear();
+            foreach (BlackList blacklist in blackLists)
+            {
+                txtCardNumber.Text = blacklist.CardNumber;
+                btnAddToBlackList_Click(null, null);
+            }
+        }
+
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            ExportToExcel.PrintTitle = "Danh sách đen lúc " + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy");
+            ExportToExcel.PrintTitleDetail1 = "";
+            ExportToExcel.PrintTitleDetail2 = "";
+            ExportToExcel.IsLanscape = false;
+            ExportToExcel.ZoomSize = 100;
+            ExportToExcel.HeaderHeight = 25;
+            ExportToExcel.PrintDateTime = false;
+            ExportToExcel.PrintNotice = false;
+            ExportToExcel.Export(dgvBlackList);
+        }
+
+        // Doc/Ghi/Xoa tung the mot
+        private void dgvBlackList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgvBlackList.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex != -1)
+                {
+                    if (e.ColumnIndex == 3) // Doc
+                    {
+                        string Value = kZE05Net.GetBlackList(dgvBlackList.Rows[e.RowIndex].Cells[1].Value.ToString());
+                        if (Value != "" && Value != "-1")
+                        {
+                            dgvBlackList.Rows[e.RowIndex].Cells[2].Value = Value;
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "Đọc Ok";
+                        }
+                        else if (Value != "" && Value == "-1")
+                        {
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "NoCard";
+                        }
+                        else
+                        {
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "Lỗi đọc";
+                        }
+                    }
+                    else if (e.ColumnIndex == 4) // Ghi
+                    {
+                        if (kZE05Net.SaveBlackList(dgvBlackList.Rows[e.RowIndex].Cells[1].Value.ToString(), dgvBlackList.Rows[e.RowIndex].Cells[2].Value.ToString()))
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "Ghi Ok";
+                        else
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "Lỗi ghi";
+                    }
+                    else if (e.ColumnIndex == 5) // Xoa
+                    {
+                        if (kZE05Net.DeleteBlackList(dgvBlackList.Rows[e.RowIndex].Cells[1].Value.ToString()))
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "Xóa Ok";
+                        else
+                            dgvBlackList.Rows[e.RowIndex].Cells[6].Value = "Lỗi xóa";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void DelAllEvent()
+        {
+        }
+        public string GetInputState()
+        {
+            return "";
+        }
+    }
+}

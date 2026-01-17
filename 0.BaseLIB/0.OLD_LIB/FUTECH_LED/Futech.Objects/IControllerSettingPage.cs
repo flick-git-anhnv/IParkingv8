@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Futech.Objects
+{
+    public interface IControllerSettingPage
+    {
+        // Events
+        event CardEventHandler CardEvent;
+        event InputEventHandler InputEvent;
+        // Properties
+        // line id
+        int LineID { set;}
+        
+        // address of controller
+        int Address { set;}
+
+        // controller type
+        int ControllerTypeID { set;}
+
+        // communication type
+        int CommunicationType { set;}
+
+        // delay time
+        int DelayTime { set;}
+
+        // download time
+        int DownloadTime { set;}
+
+        // controller collection in line
+        ControllerCollection Controllers { set;}
+
+        // timezone collection
+        TimezoneCollection Timezones { set;}
+
+        ControllerTypeCollection ControllerTypes { set;}
+
+        // black list
+        BlackListCollection BlackLists { get;set;}
+
+        // Methods
+        // connect
+        bool Connect(string comPort, int baudRate);
+
+        // Kiem tra ket noi
+        bool IsConnect { get; set;}
+        // disconnect
+        bool DisConnect();
+
+        // pooling start
+        void PollingStart();
+
+        // signal to stop
+        void SignalToStop();
+
+        // pooling stop
+        void PollingStop();
+
+        // download card
+        bool DownloadCard(Employee employee, int timezoneID, int memoryID);
+
+        // delete card
+        bool DeleteCard(Employee employee, int memoryID);
+
+        // Get finger
+        string GetFinger(string cardNumber, int fingerID);
+
+        // Unlock
+        bool Unlock(int delay);
+
+        // Unlock2
+        bool Unlock2(int outputNo, int delay);
+
+        // Test Connection
+        bool TestConnection();
+
+        void DelAllEvent();
+
+        string GetInputState();
+           }
+}

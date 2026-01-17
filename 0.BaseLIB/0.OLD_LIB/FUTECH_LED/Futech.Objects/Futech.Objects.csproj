@@ -1,0 +1,1573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F29C3B77-A417-4DB5-A95E-451843648708}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Futech.Objects</RootNamespace>
+    <AssemblyName>Futech.Objects</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.BioBridgeSDK">
+      <HintPath>..\..\2023\9.Parking\Parking_FaceID\Parking_FaceID\Futech.Objects\Futech.Objects\obj\Debug\AxInterop.BioBridgeSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.BioBridgeSDKLib">
+      <HintPath>..\..\2023\9.Parking\Parking_FaceID\Parking_FaceID\Futech.Objects\Futech.Objects\obj\Debug\AxInterop.BioBridgeSDKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.IPSLIB3">
+      <HintPath>..\SDK\AxInterop.IPSLIB3.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.STARBIOREADERLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\4..Library Reference\New folder\AxInterop.STARBIOREADERLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.STARINTERFACELib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\4..Library Reference\New folder\AxInterop.STARINTERFACELib.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlPrint">
+      <HintPath>..\bin\ControlPrint.dll</HintPath>
+    </Reference>
+    <Reference Include="Futech.Sockets">
+      <HintPath>..\..\2023\9.Parking\v3_trunk02\packages\Futech.Objects\Debug\Futech.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="Ingressus">
+      <HintPath>..\..\2023\9.Parking\Parking_FaceID\Parking_FaceID\Futech.Objects\Futech.Objects\bin\x86\Debug\Ingressus.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AccessTcp">
+      <HintPath>..\..\..\4..Library Reference\New folder\Interop.AccessTcp.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\Parking_FaceID\Parking_FaceID\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="RawInput">
+      <HintPath>..\packages\rawinput\RawInput.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\v3_trunk\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\v3_trunk\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\v3_trunk\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\v3_trunk\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\Parking_FaceID\Parking_FaceID\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\Parking_FaceID\Parking_FaceID\packages\System.Text.Json.8.0.2\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\v3_trunk\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\2023\9.Parking\v3_trunk\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TcpClass">
+      <HintPath>..\packages\tcp_pull\TcpClass.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AC9xx\AC9xx.cs" />
+    <Compile Include="AC9xx\AC9xxPCR.cs" />
+    <Compile Include="AC9xx\AC9xxPCRSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxPCRSettingPage.designer.cs">
+      <DependentUpon>AC9xxPCRSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxPCRSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxPCRSetupPage.designer.cs">
+      <DependentUpon>AC9xxPCRSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxSettingPage.Designer.cs">
+      <DependentUpon>AC9xxSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AC9xx\AC9xxSetupPage.Designer.cs">
+      <DependentUpon>AC9xxSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Aopu_TCPIP\TcpIp.cs" />
+    <Compile Include="Aopu_TCPIP\TCPIPSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Aopu_TCPIP\TCPIPSettingPage.designer.cs">
+      <DependentUpon>TCPIPSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Aopu_TCPIP\TCPIPSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Aopu_TCPIP\TCPIPSetupPage.Designer.cs">
+      <DependentUpon>TCPIPSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Barriers.cs" />
+    <Compile Include="ByteUntils.cs" />
+    <Compile Include="CS2000\CS2000.cs" />
+    <Compile Include="CS2000\CS2000SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CS2000\CS2000SettingPage.designer.cs">
+      <DependentUpon>CS2000SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CS2000\CS2000SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CS2000\CS2000SetupPage.Designer.cs">
+      <DependentUpon>CS2000SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DS3000\DS3000.cs" />
+    <Compile Include="DS3000\DS3000SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DS3000\DS3000SettingPage.Designer.cs">
+      <DependentUpon>DS3000SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DS3000\DS3000SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DS3000\DS3000SetupPage.Designer.cs">
+      <DependentUpon>DS3000SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E01\E01.cs" />
+    <Compile Include="E01\E01SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E01\E01SettingPage.designer.cs">
+      <DependentUpon>E01SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E01\E01SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E01\E01SetupPage.designer.cs">
+      <DependentUpon>E01SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Card_Int\E02CardInt.cs" />
+    <Compile Include="E02_Card_Int\E02CardIntSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Card_Int\E02CardIntSettingPage.designer.cs">
+      <DependentUpon>E02CardIntSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Card_Int\E02CardIntSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Card_Int\E02CardIntSetupPage.designer.cs">
+      <DependentUpon>E02CardIntSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_FPT\E02_FPT.cs" />
+    <Compile Include="E02_FPT\E02_FPTSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_FPT\E02_FPTSettingPage.designer.cs">
+      <DependentUpon>E02_FPTSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare\E02Mifare.cs" />
+    <Compile Include="E02_Group\E02_Mifare\E02MifareSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare\E02MifareSettingPage.designer.cs">
+      <DependentUpon>E02MifareSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare\E02MifareSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare\E02MifareSetupPage.designer.cs">
+      <DependentUpon>E02MifareSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_As_Int\E02MifareAsInt.cs" />
+    <Compile Include="E02_Group\E02_Mifare_As_Int\E02MifareAsIntSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_As_Int\E02MifareAsIntSettingPage.designer.cs">
+      <DependentUpon>E02MifareAsIntSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_As_Int\E02MifareAsIntSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_As_Int\E02MifareAsIntSetupPage.designer.cs">
+      <DependentUpon>E02MifareAsIntSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_SR30\E02MifareSR30.cs" />
+    <Compile Include="E02_Group\E02_Mifare_SR30\E02MifareSR30SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_SR30\E02MifareSR30SettingPage.designer.cs">
+      <DependentUpon>E02MifareSR30SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_SR30\E02MifareSR30SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_Mifare_SR30\E02MifareSR30SetupPage.designer.cs">
+      <DependentUpon>E02MifareSR30SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E02_Group\E02_QR_Code\E02QRCode.cs" />
+    <Compile Include="E02_Group\E02_QR_Code\E02QRCodeSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E02_Group\E02_QR_Code\E02QRCodeSettingPage.designer.cs">
+      <DependentUpon>E02QRCodeSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E04Controller\E04.cs" />
+    <Compile Include="E04Controller\E04Mifare.cs" />
+    <Compile Include="E04Controller\E04MifareSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E04Controller\E04MifareSettingPage.designer.cs">
+      <DependentUpon>E04MifareSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E04Controller\E04SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E04Controller\E04SettingPage.designer.cs">
+      <DependentUpon>E04SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_Dispenser.cs" />
+    <Compile Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSettingPage.designer.cs">
+      <DependentUpon>FAT810W_Proximity_DispenserSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSetupPage.designer.cs">
+      <DependentUpon>FAT810W_Proximity_DispenserSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPage.Designer.cs">
+      <DependentUpon>IDTECKSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPage8Number.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPage8Number.designer.cs">
+      <DependentUpon>IDTECKSettingPage8Number.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPageMifare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPageMifare.designer.cs">
+      <DependentUpon>IDTECKSettingPageMifare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPageSR30.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSettingPageSR30.designer.cs">
+      <DependentUpon>IDTECKSettingPageSR30.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSetupPage.Designer.cs">
+      <DependentUpon>IDTECKSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSetupPage8Number.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IDTECK_Controller\IDTECKSetupPage8Number.designer.cs">
+      <DependentUpon>IDTECKSetupPage8Number.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ingress\clsConst.cs" />
+    <Compile Include="Ingress\IngressSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ingress\IngressSettingPage.Designer.cs">
+      <DependentUpon>IngressSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ingress\IngressTask.cs" />
+    <Compile Include="KZE02NETControllerv2\KZE02NETv2.cs" />
+    <Compile Include="KZE02NETControllerv2\KZE02NETv2SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KZE02NETControllerv2\KZE02NETv2SettingPage.Designer.cs">
+      <DependentUpon>KZE02NETv2SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KZE05NETController\KZE05NET.cs" />
+    <Compile Include="KZE05NETController\KZE05NETSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KZE05NETController\KZE05NETSettingPage.designer.cs">
+      <DependentUpon>KZE05NETSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenser.cs" />
+    <Compile Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSettingPage.designer.cs">
+      <DependentUpon>FAT810WDispenserSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSetupPage.designer.cs">
+      <DependentUpon>FAT810WDispenserSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteen.cs" />
+    <Compile Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSettingPage.Designer.cs">
+      <DependentUpon>FAT810WKanteenSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSetupPage.Designer.cs">
+      <DependentUpon>FAT810WKanteenSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Parking\FAT810WParking.cs" />
+    <Compile Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSettingPage.Designer.cs">
+      <DependentUpon>FAT810WParkingSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSetupPage.Designer.cs">
+      <DependentUpon>FAT810WParkingSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachine.cs" />
+    <Compile Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSettingPage.Designer.cs">
+      <DependentUpon>FAT810WVendingMachineSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSetupPage.Designer.cs">
+      <DependentUpon>FAT810WVendingMachineSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FINGERTEC\FINGERTECSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FINGERTEC\FINGERTECSettingPage.designer.cs">
+      <DependentUpon>FINGERTECSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FINGERTEC\FINGERTECSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FINGERTEC\FINGERTECSetupPage.Designer.cs">
+      <DependentUpon>FINGERTECSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUCM100\FUCM100.cs" />
+    <Compile Include="FUCM100\FUCM100SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUCM100\FUCM100SettingPage.designer.cs">
+      <DependentUpon>FUCM100SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUCM100\FUCM100SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUCM100\FUCM100SetupPage.designer.cs">
+      <DependentUpon>FUCM100SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUCM100_HID\FUCMHID100.cs" />
+    <Compile Include="FUCM100_HID\FUCMHID100SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUCM100_HID\FUCMHID100SettingPage.designer.cs">
+      <DependentUpon>FUCMHID100SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUPC100\FUPC100.cs" />
+    <Compile Include="FUPC100\FUPC100SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUPC100\FUPC100SettingPage.designer.cs">
+      <DependentUpon>FUPC100SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUPC100\FUPC100SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUPC100\FUPC100SetupPage.designer.cs">
+      <DependentUpon>FUPC100SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HSR900\HSR900.cs" />
+    <Compile Include="HSR900\HSR900SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HSR900\HSR900SettingPage.designer.cs">
+      <DependentUpon>HSR900SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HSR900\HSR900SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HSR900\HSR900SetupPage.designer.cs">
+      <DependentUpon>HSR900SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KZE02NETController\KZE02NET.cs" />
+    <Compile Include="KZE02NETController\KZE02NETSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KZE02NETController\KZE02NETSettingPage.designer.cs">
+      <DependentUpon>KZE02NETSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KZE16AccessControl\KZE16.cs" />
+    <Compile Include="KZE16AccessControl\KZE16SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KZE16AccessControl\KZE16SettingPage.Designer.cs">
+      <DependentUpon>KZE16SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KZMFCController\KZMFC01NET.cs" />
+    <Compile Include="KZMFCController\KZMFC01NETSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KZMFCController\KZMFC01NETSettingPage.designer.cs">
+      <DependentUpon>KZMFC01NETSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KZMFCController\MessageBoxEx.cs" />
+    <Compile Include="MT166_CardDispenser\MT166_CardDispenser.cs" />
+    <Compile Include="MT166_CardDispenser\MT166_SettingsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MT166_CardDispenser\MT166_SettingsPage.Designer.cs" />
+    <Compile Include="NStar\NStar.cs" />
+    <Compile Include="NStar\NStarSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NStar\NStarSettingPage.Designer.cs">
+      <DependentUpon>NStarSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NStar\NStarSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NStar\NStarSetupPage.Designer.cs">
+      <DependentUpon>NStarSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\BlackList.cs" />
+    <Compile Include="Objects\BlackListCollection.cs" />
+    <Compile Include="Objects\Device.cs" />
+    <Compile Include="Objects\DeviceCategoryCollection.cs" />
+    <Compile Include="Objects\DeviceCategory.cs" />
+    <Compile Include="Objects\DeviceCollection.cs" />
+    <Compile Include="Objects\Door.cs" />
+    <Compile Include="Objects\DoorCollection.cs" />
+    <Compile Include="Objects\Enums.cs" />
+    <Compile Include="Objects\Utils.cs" />
+    <Compile Include="Objects\Function.cs" />
+    <Compile Include="Objects\FunctionCollection.cs" />
+    <Compile Include="Objects\Permission.cs" />
+    <Compile Include="Objects\PermissionCollection.cs" />
+    <Compile Include="Pack\Pack.cs" />
+    <Compile Include="Pack\PackSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pack\PackSettingPage.Designer.cs">
+      <DependentUpon>PackSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pack\PackSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pack\PackSetupPage.Designer.cs">
+      <DependentUpon>PackSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PEGASUSFINGERSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PEGASUSFINGERSetupPage.Designer.cs">
+      <DependentUpon>PEGASUSFINGERSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PFP3700\PFP3700.cs" />
+    <Compile Include="PFP3700\PFP3700SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PFP3700\PFP3700SettingPage.Designer.cs">
+      <DependentUpon>PFP3700SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PFP3700\PFP3700SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PFP3700\PFP3700SetupPage.Designer.cs">
+      <DependentUpon>PFP3700SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PP3760\PP3760.cs" />
+    <Compile Include="PP3760\PP3760SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PP3760\PP3760SettingPage.Designer.cs">
+      <DependentUpon>PP3760SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PP3760\PP3760SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PP3760\PP3760SetupPage.Designer.cs">
+      <DependentUpon>PP3760SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PP6750\PP6750.cs" />
+    <Compile Include="PP6750\PP6750SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PP6750\PP6750SettingPage.Designer.cs">
+      <DependentUpon>PP6750SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PP6750\PP6750SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PP6750\PP6750SetupPage.Designer.cs">
+      <DependentUpon>PP6750SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Events.cs" />
+    <Compile Include="GraphControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IControllerSettingPage.cs" />
+    <Compile Include="IControllerSetupPage.cs" />
+    <Compile Include="Objects\AccessLevel.cs" />
+    <Compile Include="Objects\AccessLevelCollection.cs" />
+    <Compile Include="Objects\AccessLevelDetail.cs" />
+    <Compile Include="Objects\AccessLevelDetailCollection.cs" />
+    <Compile Include="Objects\Controller.cs" />
+    <Compile Include="Objects\ControllerCollection.cs" />
+    <Compile Include="Objects\ControllerType.cs" />
+    <Compile Include="Objects\ControllerTypeCollection.cs" />
+    <Compile Include="Objects\HolidayTypeCollection.cs" />
+    <Compile Include="Objects\HolidayType.cs" />
+    <Compile Include="Objects\Department.cs" />
+    <Compile Include="Objects\DepartmentCollection.cs" />
+    <Compile Include="Objects\Employee.cs" />
+    <Compile Include="Objects\EmployeeCollection.cs" />
+    <Compile Include="Objects\Group.cs" />
+    <Compile Include="Objects\GroupCollection.cs" />
+    <Compile Include="Objects\Holiday.cs" />
+    <Compile Include="Objects\HolidayCollection.cs" />
+    <Compile Include="Objects\Line.cs" />
+    <Compile Include="Objects\LineCollection.cs" />
+    <Compile Include="Objects\LineType.cs" />
+    <Compile Include="Objects\LineTypeCollection.cs" />
+    <Compile Include="Objects\Map.cs" />
+    <Compile Include="Objects\MapCollection.cs" />
+    <Compile Include="Objects\MapDetail.cs" />
+    <Compile Include="Objects\MapDetailCollection.cs" />
+    <Compile Include="Objects\Title.cs" />
+    <Compile Include="Objects\TitleCollection.cs" />
+    <Compile Include="Objects\VerifyTypeCollection.cs" />
+    <Compile Include="Objects\VerifyType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Objects\Shift.cs" />
+    <Compile Include="Objects\ShiftCollection.cs" />
+    <Compile Include="Objects\SpecialHoliday.cs" />
+    <Compile Include="Objects\SpecialHolidayCollection.cs" />
+    <Compile Include="Objects\Timezone.cs" />
+    <Compile Include="Objects\TimezoneCollection.cs" />
+    <Compile Include="Objects\User.cs" />
+    <Compile Include="Objects\UserCollection.cs" />
+    <Compile Include="Objects\SubGroup.cs" />
+    <Compile Include="Objects\SubGroupCollection.cs" />
+    <Compile Include="PUA310\PUA310.cs" />
+    <Compile Include="PUA310\PUA310SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PUA310\PUA310SettingPage.Designer.cs">
+      <DependentUpon>PUA310SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PUA310\PUA310SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PUA310\PUA310SetupPage.Designer.cs">
+      <DependentUpon>PUA310SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RCP4000\RCP4000.cs" />
+    <Compile Include="RCP4000\RCP4000SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RCP4000\RCP4000SettingPage.Designer.cs">
+      <DependentUpon>RCP4000SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RCP4000\RCP4000SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RCP4000\RCP4000SetupPage.Designer.cs">
+      <DependentUpon>RCP4000SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC100_Group\SC100LANCASTER\SC100LANCASTER.cs" />
+    <Compile Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSettingPage.designer.cs">
+      <DependentUpon>SC100LANCASTERSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSetupPage.designer.cs">
+      <DependentUpon>SC100LANCASTERSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC100_Group\SC100\SC100.cs" />
+    <Compile Include="SC100_Group\SC100\SC100SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC100_Group\SC100\SC100SettingPage.Designer.cs">
+      <DependentUpon>SC100SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC100_Group\SC100\SC100SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC100_Group\SC100\SC100SetupPage.Designer.cs">
+      <DependentUpon>SC100SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC100_Group\SC100_FPT\SC100FPT.cs" />
+    <Compile Include="SC100_Group\SC100_FPT\SC100FPTSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC100_Group\SC100_FPT\SC100FPTSettingPage.designer.cs">
+      <DependentUpon>SC100FPTSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC100_Group\SC100_FPT\SC100FPTSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC100_Group\SC100_FPT\SC100FPTSetupPage.designer.cs">
+      <DependentUpon>SC100FPTSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC101\SC101.cs" />
+    <Compile Include="SC101\SC101SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC101\SC101SettingPage.designer.cs">
+      <DependentUpon>SC101SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC101\SC101SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC101\SC101SetupPage.designer.cs">
+      <DependentUpon>SC101SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC200Group\SC200v1\SC200.cs" />
+    <Compile Include="SC200Group\SC200v1\SC200SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC200Group\SC200v1\SC200SettingPage.Designer.cs">
+      <DependentUpon>SC200SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SC200Group\SC200v1\SC200SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SC200Group\SC200v1\SC200SetupPage.Designer.cs">
+      <DependentUpon>SC200SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2.cs" />
+    <Compile Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SettingPage.designer.cs">
+      <DependentUpon>SOYAL_AR725_v2_SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SetupPage.designer.cs">
+      <DependentUpon>SOYAL_AR725_v2_SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SOYALController\SOYAL.cs" />
+    <Compile Include="SOYALController\SOYALSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SOYALController\SOYALSettingPage.designer.cs">
+      <DependentUpon>SOYALSettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SOYALController\SOYALSetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SOYALController\SOYALSetupPage.designer.cs">
+      <DependentUpon>SOYALSetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SupremaCS40\SupremaCS40.cs" />
+    <Compile Include="SupremaCS40\SFApi.cs" />
+    <Compile Include="SupremaCS40\SFEnum.cs" />
+    <Compile Include="SupremaCS40\SFStruct.cs" />
+    <Compile Include="SupremaCS40\SupremaCS40SettingPage.cs" />
+    <Compile Include="SupremaCS40\Util.cs" />
+    <Compile Include="SYMSA\SYMSA.cs" />
+    <Compile Include="SYMSA\SYMSASettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SYMSA\SYMSASettingPage.Designer.cs">
+      <DependentUpon>SYMSASettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SYMSA\SYMSASetupPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SYMSA\SYMSASetupPage.Designer.cs">
+      <DependentUpon>SYMSASetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="USBMifareSettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="USBMifareSettingPage.designer.cs" />
+    <Compile Include="USBProximitySettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="USBProximitySettingPage.Designer.cs" />
+    <Compile Include="ZKteko\C3-400\C3-400SettingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZKteko\C3-400\C3-400SettingPage.designer.cs">
+      <DependentUpon>C3-400SettingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZKteko\C3-400\PULLHELPER.cs" />
+    <Compile Include="ZKteko\C3-400\PULLSDK.cs" />
+    <Compile Include="ZKteko\C3-400\C3_400.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AC9xx\AC9xxPCRSettingPage.en-US.resx">
+      <DependentUpon>AC9xxPCRSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxPCRSettingPage.resx">
+      <DependentUpon>AC9xxPCRSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxPCRSettingPage.vi.resx">
+      <DependentUpon>AC9xxPCRSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxPCRSetupPage.en-US.resx">
+      <DependentUpon>AC9xxPCRSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxPCRSetupPage.resx">
+      <DependentUpon>AC9xxPCRSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxPCRSetupPage.vi.resx">
+      <DependentUpon>AC9xxPCRSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxSettingPage.en-US.resx">
+      <DependentUpon>AC9xxSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxSettingPage.resx">
+      <DependentUpon>AC9xxSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxSettingPage.vi.resx">
+      <DependentUpon>AC9xxSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxSetupPage.en-US.resx">
+      <DependentUpon>AC9xxSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxSetupPage.resx">
+      <DependentUpon>AC9xxSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AC9xx\AC9xxSetupPage.vi.resx">
+      <DependentUpon>AC9xxSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Aopu_TCPIP\TCPIPSettingPage.resx">
+      <DependentUpon>TCPIPSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Aopu_TCPIP\TCPIPSetupPage.resx">
+      <DependentUpon>TCPIPSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CS2000\CS2000SettingPage.en-US.resx">
+      <DependentUpon>CS2000SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CS2000\CS2000SettingPage.resx">
+      <DependentUpon>CS2000SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CS2000\CS2000SetupPage.en-US.resx">
+      <DependentUpon>CS2000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CS2000\CS2000SetupPage.resx">
+      <DependentUpon>CS2000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CS2000\CS2000SetupPage.vi.resx">
+      <DependentUpon>CS2000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DS3000\DS3000SettingPage.en-US.resx">
+      <DependentUpon>DS3000SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DS3000\DS3000SettingPage.resx">
+      <DependentUpon>DS3000SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DS3000\DS3000SetupPage.en-US.resx">
+      <DependentUpon>DS3000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DS3000\DS3000SetupPage.resx">
+      <DependentUpon>DS3000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DS3000\DS3000SetupPage.vi.resx">
+      <DependentUpon>DS3000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E01\E01SettingPage.en-US.resx">
+      <DependentUpon>E01SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E01\E01SettingPage.en.resx">
+      <DependentUpon>E01SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E01\E01SettingPage.resx">
+      <DependentUpon>E01SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E01\E01SettingPage.vi.resx">
+      <DependentUpon>E01SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E01\E01SetupPage.en-US.resx">
+      <DependentUpon>E01SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E01\E01SetupPage.resx">
+      <DependentUpon>E01SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Card_Int\E02CardIntSettingPage.resx">
+      <DependentUpon>E02CardIntSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Card_Int\E02CardIntSetupPage.resx">
+      <DependentUpon>E02CardIntSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_FPT\E02_FPTSettingPage.resx">
+      <DependentUpon>E02_FPTSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_Mifare\E02MifareSettingPage.resx">
+      <DependentUpon>E02MifareSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_Mifare\E02MifareSetupPage.resx">
+      <DependentUpon>E02MifareSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_Mifare_As_Int\E02MifareAsIntSettingPage.resx">
+      <DependentUpon>E02MifareAsIntSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_Mifare_As_Int\E02MifareAsIntSetupPage.resx">
+      <DependentUpon>E02MifareAsIntSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_Mifare_SR30\E02MifareSR30SettingPage.resx">
+      <DependentUpon>E02MifareSR30SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_Mifare_SR30\E02MifareSR30SetupPage.resx">
+      <DependentUpon>E02MifareSR30SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E02_Group\E02_QR_Code\E02QRCodeSettingPage.resx">
+      <DependentUpon>E02QRCodeSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E04Controller\E04MifareSettingPage.resx">
+      <DependentUpon>E04MifareSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E04Controller\E04SettingPage.resx">
+      <DependentUpon>E04SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSettingPage.en-US.resx">
+      <DependentUpon>FAT810W_Proximity_DispenserSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSettingPage.resx">
+      <DependentUpon>FAT810W_Proximity_DispenserSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSettingPage.vi.resx">
+      <DependentUpon>FAT810W_Proximity_DispenserSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSetupPage.en-US.resx">
+      <DependentUpon>FAT810W_Proximity_DispenserSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSetupPage.resx">
+      <DependentUpon>FAT810W_Proximity_DispenserSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Proximity_Dispenser\FAT810W_Proximity_DispenserSetupPage.vi.resx">
+      <DependentUpon>FAT810W_Proximity_DispenserSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPage.en-US.resx">
+      <DependentUpon>IDTECKSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPage.resx">
+      <DependentUpon>IDTECKSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPage.vi.resx">
+      <DependentUpon>IDTECKSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPage8Number.en-US.resx">
+      <DependentUpon>IDTECKSettingPage8Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPage8Number.resx">
+      <DependentUpon>IDTECKSettingPage8Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPage8Number.vi.resx">
+      <DependentUpon>IDTECKSettingPage8Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPageMifare.en-US.resx">
+      <DependentUpon>IDTECKSettingPageMifare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPageMifare.resx">
+      <DependentUpon>IDTECKSettingPageMifare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPageMifare.vi.resx">
+      <DependentUpon>IDTECKSettingPageMifare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPageSR30.en-US.resx">
+      <DependentUpon>IDTECKSettingPageSR30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPageSR30.resx">
+      <DependentUpon>IDTECKSettingPageSR30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSettingPageSR30.vi.resx">
+      <DependentUpon>IDTECKSettingPageSR30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSetupPage.en-US.resx">
+      <DependentUpon>IDTECKSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSetupPage.resx">
+      <DependentUpon>IDTECKSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSetupPage.vi.resx">
+      <DependentUpon>IDTECKSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSetupPage8Number.en-US.resx">
+      <DependentUpon>IDTECKSetupPage8Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSetupPage8Number.resx">
+      <DependentUpon>IDTECKSetupPage8Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDTECK_Controller\IDTECKSetupPage8Number.vi.resx">
+      <DependentUpon>IDTECKSetupPage8Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE02NETControllerv2\KZE02NETv2SettingPage.resx">
+      <DependentUpon>KZE02NETv2SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE05NETController\KZE05NETSettingPage.en-US.resx">
+      <DependentUpon>KZE05NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE05NETController\KZE05NETSettingPage.resx">
+      <DependentUpon>KZE05NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE05NETController\KZE05NETSettingPage.vi.resx">
+      <DependentUpon>KZE05NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSettingPage.en-US.resx">
+      <DependentUpon>FAT810WDispenserSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSettingPage.resx">
+      <DependentUpon>FAT810WDispenserSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSettingPage.vi.resx">
+      <DependentUpon>FAT810WDispenserSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSetupPage.en-US.resx">
+      <DependentUpon>FAT810WDispenserSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSetupPage.resx">
+      <DependentUpon>FAT810WDispenserSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Dispenser\FAT810WDispenserSetupPage.vi.resx">
+      <DependentUpon>FAT810WDispenserSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSettingPage.en-US.resx">
+      <DependentUpon>FAT810WKanteenSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSettingPage.resx">
+      <DependentUpon>FAT810WKanteenSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSettingPage.vi.resx">
+      <DependentUpon>FAT810WKanteenSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSetupPage.en-US.resx">
+      <DependentUpon>FAT810WKanteenSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSetupPage.resx">
+      <DependentUpon>FAT810WKanteenSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Kanteen\FAT810WKanteenSetupPage.vi.resx">
+      <DependentUpon>FAT810WKanteenSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSettingPage.en-US.resx">
+      <DependentUpon>FAT810WParkingSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSettingPage.resx">
+      <DependentUpon>FAT810WParkingSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSettingPage.vi.resx">
+      <DependentUpon>FAT810WParkingSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSetupPage.en-US.resx">
+      <DependentUpon>FAT810WParkingSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSetupPage.resx">
+      <DependentUpon>FAT810WParkingSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_Parking\FAT810WParkingSetupPage.vi.resx">
+      <DependentUpon>FAT810WParkingSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSettingPage.en-US.resx">
+      <DependentUpon>FAT810WVendingMachineSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSettingPage.resx">
+      <DependentUpon>FAT810WVendingMachineSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSettingPage.vi.resx">
+      <DependentUpon>FAT810WVendingMachineSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSetupPage.en-US.resx">
+      <DependentUpon>FAT810WVendingMachineSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSetupPage.resx">
+      <DependentUpon>FAT810WVendingMachineSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAT810W_Group\FAT810W_VendingMachine\FAT810WVendingMachineSetupPage.vi.resx">
+      <DependentUpon>FAT810WVendingMachineSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FINGERTEC\FINGERTECSettingPage.en-US.resx">
+      <DependentUpon>FINGERTECSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FINGERTEC\FINGERTECSettingPage.resx">
+      <DependentUpon>FINGERTECSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FINGERTEC\FINGERTECSettingPage.vi.resx">
+      <DependentUpon>FINGERTECSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FINGERTEC\FINGERTECSetupPage.en-US.resx">
+      <DependentUpon>FINGERTECSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FINGERTEC\FINGERTECSetupPage.resx">
+      <DependentUpon>FINGERTECSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FINGERTEC\FINGERTECSetupPage.vi.resx">
+      <DependentUpon>FINGERTECSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUCM100\FUCM100SettingPage.en-US.resx">
+      <DependentUpon>FUCM100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUCM100\FUCM100SettingPage.resx">
+      <DependentUpon>FUCM100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUCM100\FUCM100SetupPage.en-US.resx">
+      <DependentUpon>FUCM100SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUCM100\FUCM100SetupPage.resx">
+      <DependentUpon>FUCM100SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUCM100_HID\FUCMHID100SettingPage.en-US.resx">
+      <DependentUpon>FUCMHID100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUCM100_HID\FUCMHID100SettingPage.resx">
+      <DependentUpon>FUCMHID100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUPC100\FUPC100SettingPage.en-US.resx">
+      <DependentUpon>FUPC100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUPC100\FUPC100SettingPage.resx">
+      <DependentUpon>FUPC100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUPC100\FUPC100SetupPage.en-US.resx">
+      <DependentUpon>FUPC100SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUPC100\FUPC100SetupPage.resx">
+      <DependentUpon>FUPC100SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HSR900\HSR900SettingPage.en-029.resx">
+      <DependentUpon>HSR900SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HSR900\HSR900SettingPage.en-US.resx">
+      <DependentUpon>HSR900SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HSR900\HSR900SettingPage.resx">
+      <DependentUpon>HSR900SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HSR900\HSR900SetupPage.en-US.resx">
+      <DependentUpon>HSR900SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HSR900\HSR900SetupPage.resx">
+      <DependentUpon>HSR900SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE02NETController\KZE02NETSettingPage.en-US.resx">
+      <DependentUpon>KZE02NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE02NETController\KZE02NETSettingPage.resx">
+      <DependentUpon>KZE02NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE02NETController\KZE02NETSettingPage.vi.resx">
+      <DependentUpon>KZE02NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZE16AccessControl\KZE16SettingPage.resx">
+      <DependentUpon>KZE16SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZMFCController\KZMFC01NETSettingPage.en-US.resx">
+      <DependentUpon>KZMFC01NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZMFCController\KZMFC01NETSettingPage.resx">
+      <DependentUpon>KZMFC01NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KZMFCController\KZMFC01NETSettingPage.vi.resx">
+      <DependentUpon>KZMFC01NETSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MT166_CardDispenser\MT166_SettingsPage.resx" />
+    <EmbeddedResource Include="NStar\NStarSettingPage.en-US.resx">
+      <DependentUpon>NStarSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NStar\NStarSettingPage.resx">
+      <DependentUpon>NStarSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NStar\NStarSettingPage.vi.resx">
+      <DependentUpon>NStarSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NStar\NStarSetupPage.en-US.resx">
+      <DependentUpon>NStarSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NStar\NStarSetupPage.resx">
+      <DependentUpon>NStarSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NStar\NStarSetupPage.vi.resx">
+      <DependentUpon>NStarSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pack\PackSettingPage.en-US.resx">
+      <DependentUpon>PackSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pack\PackSettingPage.resx">
+      <DependentUpon>PackSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pack\PackSettingPage.vi.resx">
+      <DependentUpon>PackSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pack\PackSetupPage.en-US.resx">
+      <DependentUpon>PackSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pack\PackSetupPage.resx">
+      <DependentUpon>PackSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pack\PackSetupPage.vi.resx">
+      <DependentUpon>PackSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PEGASUSFINGERSetupPage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PEGASUSFINGERSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PFP3700\PFP3700SettingPage.en-US.resx">
+      <DependentUpon>PFP3700SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PFP3700\PFP3700SettingPage.resx">
+      <DependentUpon>PFP3700SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PFP3700\PFP3700SetupPage.en-US.resx">
+      <DependentUpon>PFP3700SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PFP3700\PFP3700SetupPage.resx">
+      <DependentUpon>PFP3700SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PFP3700\PFP3700SetupPage.vi.resx">
+      <DependentUpon>PFP3700SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP3760\PP3760SettingPage.en-US.resx">
+      <DependentUpon>PP3760SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP3760\PP3760SettingPage.resx">
+      <DependentUpon>PP3760SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP3760\PP3760SettingPage.vi.resx">
+      <DependentUpon>PP3760SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP3760\PP3760SetupPage.en-US.resx">
+      <DependentUpon>PP3760SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP3760\PP3760SetupPage.resx">
+      <DependentUpon>PP3760SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP3760\PP3760SetupPage.vi.resx">
+      <DependentUpon>PP3760SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP6750\PP6750SettingPage.en-US.resx">
+      <DependentUpon>PP6750SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP6750\PP6750SettingPage.resx">
+      <DependentUpon>PP6750SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP6750\PP6750SettingPage.vi.resx">
+      <DependentUpon>PP6750SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP6750\PP6750SetupPage.en-US.resx">
+      <DependentUpon>PP6750SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP6750\PP6750SetupPage.resx">
+      <DependentUpon>PP6750SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PP6750\PP6750SetupPage.vi.resx">
+      <DependentUpon>PP6750SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphControl.resx">
+      <DependentUpon>GraphControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PUA310\PUA310SettingPage.en-US.resx">
+      <DependentUpon>PUA310SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PUA310\PUA310SettingPage.resx">
+      <DependentUpon>PUA310SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PUA310\PUA310SettingPage.vi.resx">
+      <DependentUpon>PUA310SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PUA310\PUA310SetupPage.en-US.resx">
+      <DependentUpon>PUA310SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PUA310\PUA310SetupPage.resx">
+      <DependentUpon>PUA310SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PUA310\PUA310SetupPage.vi.resx">
+      <DependentUpon>PUA310SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RCP4000\RCP4000SettingPage.en-US.resx">
+      <DependentUpon>RCP4000SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RCP4000\RCP4000SettingPage.resx">
+      <DependentUpon>RCP4000SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RCP4000\RCP4000SetupPage.en-US.resx">
+      <DependentUpon>RCP4000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RCP4000\RCP4000SetupPage.resx">
+      <DependentUpon>RCP4000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RCP4000\RCP4000SetupPage.vi.resx">
+      <DependentUpon>RCP4000SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSettingPage.en-US.resx">
+      <DependentUpon>SC100LANCASTERSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSettingPage.resx">
+      <DependentUpon>SC100LANCASTERSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSetupPage.en-US.resx">
+      <DependentUpon>SC100LANCASTERSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100LANCASTER\SC100LANCASTERSetupPage.resx">
+      <DependentUpon>SC100LANCASTERSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100\SC100SettingPage.en-US.resx">
+      <DependentUpon>SC100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100\SC100SettingPage.resx">
+      <DependentUpon>SC100SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100\SC100SetupPage.en-US.resx">
+      <DependentUpon>SC100SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100\SC100SetupPage.resx">
+      <DependentUpon>SC100SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100_FPT\SC100FPTSettingPage.en-US.resx">
+      <DependentUpon>SC100FPTSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100_FPT\SC100FPTSettingPage.resx">
+      <DependentUpon>SC100FPTSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100_FPT\SC100FPTSetupPage.en-US.resx">
+      <DependentUpon>SC100FPTSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC100_Group\SC100_FPT\SC100FPTSetupPage.resx">
+      <DependentUpon>SC100FPTSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC101\SC101SettingPage.en-US.resx">
+      <DependentUpon>SC101SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC101\SC101SettingPage.resx">
+      <DependentUpon>SC101SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC101\SC101SetupPage.en-US.resx">
+      <DependentUpon>SC101SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC101\SC101SetupPage.resx">
+      <DependentUpon>SC101SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC200Group\SC200v1\SC200SettingPage.en-US.resx">
+      <DependentUpon>SC200SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC200Group\SC200v1\SC200SettingPage.resx">
+      <DependentUpon>SC200SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC200Group\SC200v1\SC200SetupPage.en-US.resx">
+      <DependentUpon>SC200SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SC200Group\SC200v1\SC200SetupPage.resx">
+      <DependentUpon>SC200SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SettingPage.en-US.resx">
+      <DependentUpon>SOYAL_AR725_v2_SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SettingPage.resx">
+      <DependentUpon>SOYAL_AR725_v2_SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SettingPage.vi.resx">
+      <DependentUpon>SOYAL_AR725_v2_SettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SetupPage.en-US.resx">
+      <DependentUpon>SOYAL_AR725_v2_SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SetupPage.resx">
+      <DependentUpon>SOYAL_AR725_v2_SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\Soyal AR725 v2\SOYAL_AR725_v2_SetupPage.vi.resx">
+      <DependentUpon>SOYAL_AR725_v2_SetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\SOYALSettingPage.en-US.resx">
+      <DependentUpon>SOYALSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\SOYALSettingPage.resx">
+      <DependentUpon>SOYALSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\SOYALSettingPage.vi.resx">
+      <DependentUpon>SOYALSettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\SOYALSetupPage.en-US.resx">
+      <DependentUpon>SOYALSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\SOYALSetupPage.resx">
+      <DependentUpon>SOYALSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SOYALController\SOYALSetupPage.vi.resx">
+      <DependentUpon>SOYALSetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SYMSA\SYMSASettingPage.en-US.resx">
+      <DependentUpon>SYMSASettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SYMSA\SYMSASettingPage.resx">
+      <DependentUpon>SYMSASettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SYMSA\SYMSASettingPage.vi.resx">
+      <DependentUpon>SYMSASettingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SYMSA\SYMSASetupPage.en-US.resx">
+      <DependentUpon>SYMSASetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SYMSA\SYMSASetupPage.resx">
+      <DependentUpon>SYMSASetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SYMSA\SYMSASetupPage.vi.resx">
+      <DependentUpon>SYMSASetupPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="USBMifareSettingPage.en-US.resx" />
+    <EmbeddedResource Include="USBMifareSettingPage.resx" />
+    <EmbeddedResource Include="USBProximitySettingPage.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxDTKVideoCapLib">
+      <Guid>{B1E8E973-3FDE-4EAF-BA5D-5FE036F0422C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxFKAttendLib">
+      <Guid>{5DFD6B14-B084-47AF-9C0B-4FBF45649BCC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxIPSLIB3">
+      <Guid>{E0F84292-71C5-4294-814B-ABD6B79DD478}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="BioBridgeSDK">
+      <Guid>{15E3A5F3-6821-40A9-9C83-F63407F07E1F}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="BioBridgeSDKLib">
+      <Guid>{50324712-C594-406C-9370-C41B98691F32}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DTKVideoCapLib">
+      <Guid>{B1E8E973-3FDE-4EAF-BA5D-5FE036F0422C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="FKAttendLib">
+      <Guid>{5DFD6B14-B084-47AF-9C0B-4FBF45649BCC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="IPSLIB3">
+      <Guid>{E0F84292-71C5-4294-814B-ABD6B79DD478}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="STARBIOREADERLib">
+      <Guid>{A1EFA7EB-60FE-47B3-A82C-A957376F26B6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="STARINTERFACELib">
+      <Guid>{C5CF5095-BF6A-4029-ADF7-04086BE87D89}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="objects.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Protocol\Futech SC100.txt" />
+    <Content Include="Protocol\Pegasus PUA-310.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Futech.Tools\Futech.Tools.csproj">
+      <Project>{62e018f4-e607-4706-8d18-14a9db456e47}</Project>
+      <Name>Futech.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

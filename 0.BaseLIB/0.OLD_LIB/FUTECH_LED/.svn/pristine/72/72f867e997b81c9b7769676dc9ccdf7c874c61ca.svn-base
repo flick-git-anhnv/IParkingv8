@@ -1,0 +1,762 @@
+﻿using Futech.Tools;
+using System;
+using System.Collections.Generic;
+using System.IO.Ports;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Futech.Objects.KZE16AccessControl
+{
+    public class KZE16
+    {
+        public SerialPort serialPort = null;
+
+        // TCP/IP
+        private TcpClient tcpclient = null;
+        private NetworkStream networkstream = null;
+
+        // CardEvent 
+        public event CardEventHandler CardEvent;
+        // InputEvent 
+        public event InputEventHandler InputEvent;
+
+        private Thread thread = null;
+        private ManualResetEvent stopEvent = null;
+
+        // all controller in line
+        public ControllerCollection controllers = null;
+
+        System.Net.Sockets.Socket UdpServer;
+
+        UdpClient udp;
+        IPEndPoint ipEpBroadcast;
+
+        // Constructor
+        public KZE16()
+        {
+        }
+
+        #region Property
+
+        // Line ID
+        private int lineID = 0;
+        public int LineID
+        {
+            set { lineID = value; }
+        }
+
+        // Thoi gian tre lay du lieu
+        private int delaytime = 250;
+        public int DelayTime
+        {
+            get { return delaytime; }
+            set { delaytime = value; }
+        }
+
+        // Communication Type
+        private int communicationtype = 0;
+        public int CommunicationType
+        {
+            get { return communicationtype; }
+            set { communicationtype = value; }
+        }
+
+        private bool isconnect = false;
+        public bool IsConnect
+        {
+            get { return isconnect; }
+            set { isconnect = value; }
+        }
+
+        // ComPort
+        private string comport = "COM4";
+        public string ComPort
+        {
+            get { return comport; }
+            set { comport = value; }
+        }
+
+        // BaudRate
+        private int baudrate = 9600;
+        public int BaudRate
+        {
+            get { return baudrate; }
+            set { baudrate = value; }
+        }
+
+        // Dia chi thiet bi
+        private int address = 0;
+        private byte add1 = 0x30, add2 = 0x30, add3 = 0x30;
+        public int Address
+        {
+            get { return address; }
+            set
+            {
+                address = value;
+            }
+        }
+
+        // System Code
+        private string systemCode = "11111111";
+        private byte systemCode1 = 0x00, systemCode2 = 0x00, systemCode3 = 0x00, systemCode4 = 0x00;
+        public string SystemCode
+        {
+            set
+            {
+                systemCode = value;
+            }
+        }
+
+        // Ma he thong
+        private string keyA = "FFFFFFFFFFFF";
+        private byte keyA1 = 0xFF, keyA2 = 0xFF, keyA3 = 0xFF, keyA4 = 0xFF, keyA5 = 0xFF, keyA6 = 0xFF;
+        public string KeyA
+        {
+            set
+            {
+                keyA = value;
+            }
+        }
+
+        private string keyB = "FFFFFFFFFFFF";
+        private byte keyB1 = 0xFF, keyB2 = 0xFF, keyB3 = 0xFF, keyB4 = 0xFF, keyB5 = 0xFF, keyB6 = 0xFF;
+        public string KeyB
+        {
+            set
+            {
+                keyB = value;
+            }
+        }
+
+        #endregion
+
+        // Ket noi den thiet bi
+        public bool Connect(string _ComPort, int _BaudRate, int _CommunicationType)
+        {
+            try
+            {
+                ComPort = _ComPort;
+                BaudRate = _BaudRate;
+                CommunicationType = _CommunicationType;
+
+                if (CommunicationType == 0)
+                {
+                    serialPort = new SerialPort();
+                    serialPort.PortName = ComPort;
+                    serialPort.BaudRate = BaudRate;
+                    serialPort.ReadBufferSize = 4096;
+                    serialPort.WriteBufferSize = 4096;
+                    serialPort.DataBits = 8;
+                    serialPort.ReadTimeout = -1;
+                    serialPort.WriteTimeout = -1;
+                    serialPort.DtrEnable = true;
+                    serialPort.RtsEnable = true;
+                    serialPort.InitializeLifetimeService();
+                    serialPort.Open();
+                    IsConnect = true;
+                    return true;
+                }
+                else
+                {
+                    //while (true)
+                    //{
+                    Ping pingSender = new Ping();
+                    PingReply reply = null;
+                    reply = pingSender.Send(ComPort, 500);
+                    if (reply != null && reply.Status == IPStatus.Success)
+                        return true;
+                    else
+                        return false;
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            IsConnect = false;
+            return false;
+        }
+
+        // Ngung ket noi den thiet bi
+        public bool Disconnect()
+        {
+            try
+            {
+                if (CommunicationType == 0)
+                {
+                    if (serialPort.IsOpen)
+                        serialPort.Close();
+                    return true;
+                }
+                else
+                {
+                    if (tcpclient != null && tcpclient.Connected)
+                    {
+                        tcpclient.Close();
+                        tcpclient = null;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        // Thuc hien lenh den thiet bi (pc <-> host)
+        private string ExecuteCommand(byte[] buffer, string command, ref string viewraw, ref string[] message)
+        {
+            try
+            {
+                viewraw = "";
+                message = null;
+                if (CommunicationType == 0)
+                {
+                    if (serialPort.IsOpen)
+                    {
+                        // pc to host
+                        serialPort.Write(buffer, 0, buffer.Length);
+
+                        Thread.Sleep(delaytime);
+
+                        // host to pc
+                        buffer = new byte[serialPort.BytesToRead];
+                        viewraw = "";
+                        message = null;
+                        int index = 0;
+                        while (serialPort.BytesToRead > 0)
+                        {
+                            buffer[index] = (Byte)serialPort.ReadByte();
+                            if (viewraw == "")
+                                viewraw = ByteUI.DecimalToBase(buffer[index], 16);
+                            else
+                                viewraw = viewraw + " " + ByteUI.DecimalToBase(buffer[index], 16);
+                            index = index + 1;
+                        }
+
+                        if (viewraw != "" && viewraw.Contains(" ") && ByteUI.CRC(buffer, buffer.Length, 1) == buffer[buffer.Length - 1])
+                        {
+                            message = viewraw.Split(' ');
+                            return System.Text.Encoding.UTF8.GetString(buffer);
+                        }
+                    }
+                    else
+                        Thread.Sleep(delaytime);
+                }
+                else
+                {
+                    Ping pingSender = new Ping();
+                    PingReply reply = null;
+                    reply = pingSender.Send(ComPort, 500);
+                    if (reply != null && reply.Status == IPStatus.Success)
+                    {
+
+                        UdpServer = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+                        ipEpBroadcast = new IPEndPoint(IPAddress.Parse(comport), baudrate);
+
+                        UdpServer.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+
+                        //command = "SetRelay?/Relay=01/State=OFF";
+                        byte[] bData = System.Text.Encoding.ASCII.GetBytes(command);
+
+                        UdpServer.SendTo(bData, ipEpBroadcast);
+
+                        UdpServer.ReceiveTimeout = 2000;
+                        Thread.Sleep(150);
+                        viewraw = "";
+                        message = null;
+                        try
+                        {
+                            if (UdpServer.ReceiveBufferSize != 0)
+                            {
+                                byte[] bRebuff = new byte[UdpServer.ReceiveBufferSize];
+                                int readLen = UdpServer.Receive(bRebuff);
+
+                                byte checksum = 1;
+                                for (int i = 1; i < readLen - 2; i++)
+                                    checksum += bRebuff[i];
+
+                                message = ByteUI.Message(bRebuff, readLen, ref viewraw);
+                                if (message[0] == "02")// && checksum == bRebuff[readLen - 2])
+                                {
+                                    ByteUI.Message(bData, bData.Length, ref viewraw);
+                                    return System.Text.Encoding.UTF8.GetString(bRebuff, 1, readLen - 2);
+                                }
+
+                            }
+                        }
+                        catch
+                        {
+                        }
+
+                    }
+                    else
+                        Thread.Sleep(delaytime);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Thuc hien lenh den thiet bi (pc <-> host)\n" + ex.Message);
+                SystemUI.SaveLogFile("Thuc hien lenh den thiet bi (pc <-> host)\n" + ex.Message);
+            }
+            return "";
+        }
+
+
+        #region GetEvent
+
+        // Start
+        public void PollingStart(ControllerCollection controllers)
+        {
+            if (thread == null)
+            {
+                this.controllers = controllers;
+
+                // create events
+                stopEvent = new ManualResetEvent(false);
+
+                // start thread
+                thread = new Thread(new ThreadStart(WorkerThread));
+                thread.Start();
+            }
+        }
+
+        // is Running
+        public bool Running
+        {
+            get
+            {
+                if (thread != null)
+                {
+                    if (thread.Join(0) == false)
+                        return true;
+
+                    // the thread is not running, so free resources
+                    Free();
+                }
+                return false;
+            }
+        }
+
+        // Signal thread to stop work
+        public void SignalToStop()
+        {
+            // stop thread
+            if (thread != null)
+            {
+                // signal to stop
+                stopEvent.Set();
+            }
+        }
+
+        // Wait for thread stop
+        public void WaitForStop()
+        {
+            if (thread != null)
+            {
+                // wait for thread stop
+                thread.Join();
+
+                Free();
+            }
+        }
+
+        // Free resources
+        private void Free()
+        {
+            thread = null;
+
+            // release events
+            stopEvent.Close();
+            stopEvent = null;
+        }
+
+        // Stop
+        public void PollingStop()
+        {
+            if (this.Running)
+            {
+                SignalToStop();
+                while (thread.IsAlive)
+                {
+                    if (WaitHandle.WaitAll(
+                        (new ManualResetEvent[] { stopEvent }),
+                        100,
+                        true))
+                    {
+                        WaitForStop();
+                        break;
+                    }
+
+                    Application.DoEvents();
+                }
+            }
+        }
+
+        string _olddispenserstate = "";
+        // Worker thread ---------
+        public static Dictionary<string, string> GetEventContent(string[] datas)
+        {
+            Dictionary<string, string> output = new Dictionary<string, string>();
+            foreach (string data in datas)
+            {
+                if (data.Contains("="))
+                {
+                    string[] subData = data.Split('=');
+                    output.Add(subData[0].ToLower().Trim(), subData[1].Trim());
+                }
+            }
+            return output;
+        }
+        public void WorkerThread()
+        {
+            while (!stopEvent.WaitOne(0, true))
+            {
+                try
+                {
+                    string viewraw = "";
+                    string[] message = null;
+
+                    foreach (Controller controller in controllers)
+                    {
+
+                        Address = controller.Address;
+                        // Thuc hien lenh den thiet bi (pc <-> host)
+                        string response = ExecuteCommand(null, "GetEvent?/", ref viewraw, ref message);
+
+                        // Trang thai thiet bij
+                        controller.IsConnect = response != "";
+                        this.isconnect = response != "";
+                        //AccessCardGrant: Char(2) + GetEvent?/Style=Card/UserID=100/LenCard=4/Card=7C19F640/Reader=01/DateTime=YYYYMMDDhhmmss/CardState=U/AccessState=1/Door=00/StateMSG=00 + char(3)
+                        //AccessCardDenie: Char(2) + GetEvent?/Style=Card/UserID=Null/LenCard=4/Card=7C19F640/Reader=01/DateTime=YYYYMMDDhhmmss/CardState=U/AccessState=1/Door=00/StateMSG=00 + char(3)
+                        //InputEvent     : Char(2) + GetEvent?/Style=input/Input=INPUT1/DateTime=YYYYMMDDhhmmss + char(3)
+                        //NoEvent        : Char(2) + GetEvent?/NotEvent + char(3)
+                        if (response != "" && (response.Contains("GetEvent?/")) && !response.Contains("NotEvent"))
+                        {
+                            string[] data = response.Split('/');
+                            Dictionary<string, string> map = GetEventContent(data);
+                            bool isCardEvent = response.Contains("Card");
+                            if (isCardEvent)
+                            {
+                               Task.Run(new Action(()=> CallCardEvent(ref viewraw, ref message, controller, ref response, map)));
+                            }
+                            else
+                            {
+                                response = CallInputEvent(ref viewraw, ref message, controller, map);
+                            }
+                        }
+                    }
+                    Thread.Sleep(300);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                    SystemUI.SaveLogFile("WorkerThread\n" + lineID.ToString() + "\n" + ex.Message);
+                }
+            }
+        }
+
+        private string CallInputEvent(ref string viewraw, ref string[] message, Controller controller, Dictionary<string, string> map)
+        {
+            string response;
+            InputEventArgs ie = new InputEventArgs();
+
+            ie.LineID = controller.LineID;
+            ie.LineCode = controller.LineCode;
+            ie.ControllerAddress = controller.Address;
+            // YYMMDD
+            ie.EventDate = DateTime.Now.ToString("yyyy/MM/dd");
+            // HHMMSS
+            ie.EventTime = DateTime.Now.ToString("HH:mm:ss");
+            ie.IsOpenDoor = false;
+
+            string str_time = map.ContainsKey("datetime") ? map["datetime"] : "";
+            string str_inputName = map.ContainsKey("input") ? map["input"] : "";
+            if (!string.IsNullOrEmpty(str_inputName))
+            {
+                string str_inputIndex = str_inputName.Replace("INPUT", "");
+                ie.Inputport = Regex.IsMatch(str_inputIndex, @"^\d+$") ? str_inputIndex : "-1";
+            }
+            if (ie.Inputport == "1")
+            {
+                ie.EventType = "ExitB1";
+            }
+            else if (ie.Inputport == "2")
+            {
+                ie.EventType = "ExitB2";
+            }
+            else if (ie.Inputport == "3")
+            {
+                ie.EventType = "MSGA";
+            }
+            else if (ie.Inputport == "4")
+            {
+                ie.EventType = "MSGB";
+            }
+
+            response = ExecuteCommand(null, "DeleteEvent?/", ref viewraw, ref message);
+            if (response.Contains("DeleteEvent?/OK"))
+            {
+                InputEvent?.Invoke(this, ie);
+            }
+
+            return response;
+        }
+
+        private void CallCardEvent(ref string viewraw, ref string[] message, Controller controller, ref string response, Dictionary<string, string> map)
+        {
+            CardEventArgs e = new CardEventArgs();
+            e.LineID = controller.LineID;
+            e.LineCode = controller.LineCode;
+            e.ControllerAddress = controller.Address;
+            e.CardNumber = "";
+            string cardNumberHEX = map.ContainsKey("card") ? map["card"] : "";
+            e.CardNumber = cardNumberHEX;
+            //e.CardNumber = Convert.ToInt64(e.CardNumber, 16).ToString("0000000000");
+            string str_readerIndex = map.ContainsKey("reader") ? map["reader"] : "";
+            e.ReaderIndex = Regex.IsMatch(str_readerIndex, @"^\d+$") ? Convert.ToInt32(str_readerIndex) : -1;
+
+            string time = map.ContainsKey("datetime") ? map["datetime"] : "";
+            e.Date = time.Substring(0, 4) + "/" + time.Substring(4, 2) + "/" + time.Substring(6, 2);
+            e.Time = time.Substring(8, 2) + ":" + time.Substring(10, 2) + ":" + time.Substring(12, 2);
+            e.ViewRaw = viewraw;
+            e.Message = response;
+            response = ExecuteCommand(null, "DeleteEvent?/", ref viewraw, ref message);
+            if (response.Contains("DeleteEvent?/OK"))
+            {
+                CardEvent?.Invoke(this, e);
+            }
+        }
+        #endregion
+
+        #region Method
+
+        // Nhan thong tin thiet bi
+        public string GetVersion()
+        {
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+                // UDP: Broadcast
+                // char (2) + AutoDetech?+ char(3) 	
+                // Char(2) +  Futech-FAT3.0/IP=192.168.1.250/Port=5000/SubnetMask=255.255.255.0/ DefaultGateWay=192.168.1.1/MAC=0.24.77.80.25.30+char(3)
+                string tempStr = ExecuteCommand(null, "GetFirmwareVersion?", ref viewraw, ref message);
+                string[] data = tempStr.Split('/');
+                Dictionary<string, string> map = GetEventContent(data);
+
+                return map.ContainsKey("Version".ToLower()) ? map["Version".ToLower()] : string.Empty;
+            }
+            catch (Exception ex)
+            {
+                SystemUI.SaveLogFile(ex.ToString());
+                return string.Empty;
+            }
+        }
+
+        #region Input Function
+        public bool SetInputFunction(int inputIndex, bool isEnable, int relayIndex)
+        {
+            try
+            {
+                string isEnableStr = isEnable ? "ENABLE" : "DISABLE";
+
+                string viewraw = "";
+                string[] message = null;
+                // UDP: Broadcast
+                // SetInputFunction?/Input=INPUT1/ControlState=ENABLE/Relay=1
+                // SetInputFunction ?/ Input = INPUT2 / ControlState = DISABLE
+                string tempStr = ExecuteCommand(null, $"SetInputFunction?/Input=INPUT{inputIndex}/ControlState={isEnableStr}/Relay={relayIndex}", ref viewraw, ref message);
+                return tempStr.Contains("OK");
+            }
+            catch (Exception ex)
+            {
+                SystemUI.SaveLogFile(ex.ToString());
+                return false;
+            }
+        }
+        public bool GetInputFunction(int inputIndex, out bool isEnable, out int readerIndex)
+        {
+            isEnable = false;
+            readerIndex = -1;
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+                // GetInputFunction?/Input=INPUT1
+                string tempStr = ExecuteCommand(null, $"GetInputFunction?/Input=INPUT{inputIndex}", ref viewraw, ref message);
+
+                string[] data = tempStr.Split('/');
+                Dictionary<string, string> map = GetEventContent(data);
+
+                if (map.ContainsKey("Input".ToLower()))
+                {
+                    isEnable = map["ControlState".ToLower()] == "ENABLE";
+                    if (isEnable)
+                    {
+                        readerIndex = int.Parse(map["Relay".ToLower()].ToLower());
+                    }
+                    else readerIndex = 0;
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                SystemUI.SaveLogFile(ex.ToString());
+                return false;
+            }
+        }
+        #endregion END Input Function
+
+
+        #region Relay Delay
+        public bool SetRelayDelayTime(int timeInMilisecond)
+        {
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+                // UDP: Broadcast
+                // SetRelayDelayTime?/Time=5000
+                string tempStr = ExecuteCommand(null, $"SetRelayDelayTime?/Time={timeInMilisecond}", ref viewraw, ref message);
+                return tempStr.Contains("OK");
+            }
+            catch (Exception ex)
+            {
+                SystemUI.SaveLogFile(ex.ToString());
+                return false;
+            }
+        }
+        public bool OpenRelay(int relay)
+        {
+            string viewraw = "";
+            string[] message = null;
+            string strCommand = $"SetRelayPulse?/Relay={relay:00}";
+            string tempStr = ExecuteCommand(null, strCommand, ref viewraw, ref message);
+            return tempStr.Contains("OK");
+        }
+        #endregion End Relay Delay
+
+
+        #region DateTime
+        // GetDateTime
+        public string GetDateTime()
+        {
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+                // Char(2) +  GetDateTime?/(sum+1)+ char(3)
+                string tempStr = ExecuteCommand(null, "GetDateTime?/", ref viewraw, ref message);
+                if (tempStr != "")
+                {
+                    return "20" + tempStr.Substring(0, 2) + "/" + tempStr.Substring(2, 2) + "/" + tempStr.Substring(4, 2) + " " +
+                        tempStr.Substring(6, 2) + ":" + tempStr.Substring(8, 2) + ":" + tempStr.Substring(10, 2);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return "";
+        }
+        // SetDateTime
+        public bool SetDateTime(string strDateTime)
+        {
+            string viewraw = "";
+            string[] message = null;
+            try
+            {
+                // Char(2) + SetDateTime?/year=12/month=02/date=19/hour=22/minute=44/second=00/(sum+1)+ char(3)
+                // YYMMDDHHMMSS
+                string tempStr = ExecuteCommand(null, "SetDateTime?/" + strDateTime, ref viewraw, ref message);
+                if (tempStr != "" && tempStr.Contains("OK"))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
+        #endregion End DateTime
+
+
+        #region NETWORK
+        //-- AUTO DETECT
+        //-- CHANGE IP
+        //-- CHANG MAC
+        #endregion END NETWORK
+
+        #region System
+        public bool ResetDefault()
+        {
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+
+                {
+                    // Char(2) + ResetDefault?  + char(3)
+                    // Char(2) + ResetDefault=OK+ char(3)
+                    // Char(2) + ResetDefault=ERROR+ char(3)
+                    string tempStr = ExecuteCommand(null, "ResetDefault?/", ref viewraw, ref message);
+                    return tempStr.Contains("OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
+        public bool Reset()
+        {
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+                // Char(2) + Restart?   + char(3)
+                // Char(2) +”SetID=OK”+ char(3)
+                // Char(2) + “SetID=ERROR”+ char(3)
+                string tempStr = ExecuteCommand(null, "ResetDevice?/", ref viewraw, ref message);
+                return tempStr.Contains("OK");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
+        public void ClearMemory()
+        {
+            try
+            {
+                string viewraw = "";
+                string[] message = null;
+                // Char(2) + Restart?   + char(3)
+                // Char(2) +”SetID=OK”+ char(3)
+                // Char(2) + “SetID=ERROR”+ char(3)
+                string tempStr = ExecuteCommand(null, "InitEventMemory?/", ref viewraw, ref message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion END System
+        #endregion
+    }
+}

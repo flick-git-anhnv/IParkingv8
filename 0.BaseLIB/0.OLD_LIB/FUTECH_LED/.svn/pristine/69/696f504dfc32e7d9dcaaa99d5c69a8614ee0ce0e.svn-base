@@ -1,0 +1,1790 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Futech.Tools;
+using System.Threading;
+
+namespace Futech.Objects
+{
+    public partial class IDTECKSettingPage8Number : Form, IControllerSettingPage
+    {
+        public event CardEventHandler CardEvent;
+        public event InputEventHandler InputEvent;
+        private short minAddress = -1;
+        private short maxAddress = -1;
+        private string[] eventStatus = new string[] { "Access Granted", "UnregisterID", "TimeSchedule Error", "AntiPassBack Error(IN)", "AntiPassBack Error(OUT)", "Password Error", "Access Door Error", "Fingger Error", "Duress Mode", "Door Open", "Door Close" };
+
+        private ControllerType controllerType = null;
+        private string isFingerController = "0";
+
+        private bool is006 = false;
+
+        public IDTECKSettingPage8Number()
+        {
+            InitializeComponent();
+
+            cbxInputOutput.SelectedIndex = 0;
+            cbxTimeScheduleCode.SelectedIndex = 0;
+
+            axStarInterface.InitializeLifetimeService();
+            axSTARBIOREADER1.InitializeLifetimeService();
+        }
+
+        # region PropertyOfController
+        // Line ID
+        private short PortIndex = 0;
+        public int LineID
+        {
+            set
+            {
+                if (!is006)
+                {
+                    axStarInterface.WorkIndex = (short)value;
+                    PortIndex = (short)value;
+                }
+                PortIndex = (short)value;
+            }
+        }
+
+        // Controller Address property
+        private string BoardIndex = "00";
+        public int Address
+        {
+            set
+            {
+                if (!is006)
+                {
+                    axStarInterface.BoardIndex = value.ToString("00");
+                    BoardIndex = value.ToString("00");
+                }
+                BoardIndex = value.ToString("00");
+            }
+        }
+
+        private int controllerTypeID = 0;
+        private string controllerTypeName = "";
+        public int ControllerTypeID
+        {
+            set
+            {
+                controllerTypeID = value;
+                controllerType = controllerTypes.GetControllerTypeByID(controllerTypeID);
+                controllerTypeName = controllerType.Name;
+                if (controllerType.Name.Contains("006"))
+                {
+                    is006 = true;
+                }
+                else
+                {
+                    is006 = false;
+                    if (controllerType != null && controllerType.Name == "Finger 007")
+                    {
+                        isFingerController = "1";
+                    }
+                }
+            }
+        }
+
+        private int communicationType = 0;
+        public int CommunicationType
+        {
+            set { communicationType = value; }
+        }
+
+        private bool isconnect = false;
+        public bool IsConnect
+        {
+            get { return isconnect; }
+            set { isconnect = value; }
+        }
+
+        // Delay time property
+        private int delayTime = 300;
+        public int DelayTime
+        {
+            set { delayTime = value; }
+        }
+
+        private int downloadTime = 300;
+        public int DownloadTime
+        {
+            set { downloadTime = value; }
+        }
+
+        // all controllers in line
+        private ControllerCollection controllers = new ControllerCollection();
+        public ControllerCollection Controllers
+        {
+            set
+            {
+                controllers = value;
+                GetControllerAddress();
+            }
+        }
+
+        // all timezones
+        private TimezoneCollection timezones = new TimezoneCollection();
+        public TimezoneCollection Timezones
+        {
+            set
+            {
+                timezones = value;
+                foreach (Timezone timezone in value)
+                {
+                    cbxTimezone.Items.Add(timezone.Name);
+                }
+                if (timezones.Count > 0)
+                    cbxTimezone.SelectedIndex = 0;
+            }
+        }
+
+        // all controllerTypes
+        private ControllerTypeCollection controllerTypes = new ControllerTypeCollection();
+        public ControllerTypeCollection ControllerTypes
+        {
+            set
+            {
+                controllerTypes = value;
+                if (controllers != null && controllers.Count > 0)
+                {
+                    controllerType = controllerTypes.GetControllerTypeByID(controllerTypeID);
+                    controllerTypeName = controllerType.Name;
+                    if (controllerType.Name.Contains("006"))
+                    {
+                        is006 = true;
+                    }
+                    else
+                    {
+                        is006 = false;
+                        if (controllerType != null && controllerType.Name == "Finger 007")
+                        {
+                            isFingerController = "1";
+                        }
+                    }
+                }
+            }
+        }
+
+        // all blackLists
+        private BlackListCollection blackLists = new BlackListCollection();
+        public BlackListCollection BlackLists
+        {
+            get { return blackLists; }
+            set { blackLists = value; }
+        }
+
+        #endregion
+
+        private string _comPort = "COM1";
+        private short _baudRate = 9600;
+        public bool Connect(string comPort, int baudRate)
+        {
+            try
+            {
+                _comPort = comPort;
+                _baudRate = (short)baudRate;
+                if (communicationType == 0)
+                {
+                    axStarInterface.CommPortClose();
+                    isconnect = axStarInterface.CommPortOpen(comPort, (short)baudRate);
+                }
+                else if (communicationType == 1)
+                {
+                    if (axStarInterface.SocketInitialize())
+                        isconnect = axStarInterface.SocketConnect(comPort, (short)baudRate);
+                }
+            }
+            catch (Exception ex)
+            {
+                isconnect = false;
+                SystemUI.SaveLogFile(ex.Message + ":" + comPort + ":" + baudRate);
+                MessageBox.Show(ex.Message + ":" + comPort + ":" + baudRate);
+            }
+            return isconnect;
+        }
+
+        public bool ConnectTo006()
+        {
+            isconnect = false;
+            if (communicationType == 0)
+            {
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                isconnect = axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+            }
+            else if (communicationType == 1)
+            {
+                if (axSTARBIOREADER1.SocketInitialize())
+                    isconnect = axSTARBIOREADER1.SocketConnect(PortIndex, _comPort, _baudRate);// axStarInterface.SocketConnect(comPort, (short)baudRate);
+                Thread.Sleep(1000);
+            }
+            //MessageBox.Show(isconnect.ToString());
+            return isconnect;
+        }
+
+        public bool DisConnect()
+        {
+            try
+            {
+                if (communicationType == 0)
+                {
+                    return axStarInterface.CommPortClose();
+                }
+                else if (communicationType == 1)
+                {
+                    axStarInterface.SocketClose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ":" + "DisConnect");
+            }
+            return false;
+        }
+
+        public bool DisConnectTo006()
+        {
+            if (communicationType == 0)
+            {
+                return axSTARBIOREADER1.CommPortClose(PortIndex);// axStarInterface.CommPortClose();
+            }
+            else if (communicationType == 1)
+            {
+                axSTARBIOREADER1.SocketDisconnect(PortIndex);// axStarInterface.SocketClose();
+            }
+            return false;
+        }
+
+        // Start
+        public void PollingStart()
+        {
+            try
+            {
+                this.axStarInterface.CardEvent += new AxSTARINTERFACELib._DStarInterfaceEvents_CardEventEventHandler(this.axStarInterface_CardEvent);
+                this.axStarInterface.InputEvent += new AxSTARINTERFACELib._DStarInterfaceEvents_InputEventEventHandler(this.axStarInterface_InputEvent);
+
+                axStarInterface.PollingStart((short)minAddress, (short)maxAddress);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ": PoolingStart");
+            }
+        }
+
+        // Signal to Stop
+        public void SignalToStop()
+        {
+
+        }
+
+        // Stop
+        public void PollingStop()
+        {
+            try
+            {
+                axStarInterface.PollingStop();
+                this.axStarInterface.CardEvent -= new AxSTARINTERFACELib._DStarInterfaceEvents_CardEventEventHandler(this.axStarInterface_CardEvent);
+                this.axStarInterface.InputEvent -= new AxSTARINTERFACELib._DStarInterfaceEvents_InputEventEventHandler(this.axStarInterface_InputEvent);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ": PollingStop");
+            }
+        }
+
+        // Card Event
+        private void axStarInterface_CardEvent(object sender, AxSTARINTERFACELib._DStarInterfaceEvents_CardEventEvent e)
+        {
+            try
+            {
+                if (e.eventDate.Length == 9 && e.eventTime.Length == 6)
+                {
+                    string day = "", month = "", year = "";
+                    year = e.eventDate.Substring(0, 4);
+                    month = e.eventDate.Substring(4, 2);
+                    day = e.eventDate.Substring(6, 2);
+                    bool isyear = false, ismonth = false, isday = false;
+                    for (int i = 2000; i <= 2030; i++)
+                    {
+                        if (year == i.ToString())
+                        {
+                            isyear = true;
+                            break;
+                        }
+                    }
+
+                    for (int k = 1; k <= 12; k++)
+                    {
+                        if (month == k.ToString("00"))
+                        {
+                            ismonth = true;
+                            break;
+                        }
+                    }
+
+                    for (int j = 1; j <= 31; j++)
+                    {
+                        if (day == j.ToString("00"))
+                        {
+                            isday = true;
+                            break;
+                        }
+                    }
+
+                    bool isstatus = false;
+                    for (int m = 0; m <= 8; m++)
+                    {
+                        if (e.eventStatus == m.ToString())
+                        {
+                            isstatus = true;
+                            break;
+                        }
+                    }
+
+                    bool isreaderindex = false, isboardindex = false, isnindex = false;
+
+                    for (int n = 0; n <= 100; n++)
+                    {
+                        if (e.readerIndex == n.ToString())
+                        {
+                            isreaderindex = true;
+                        }
+
+                        if (e.boardIndex == n.ToString("00"))
+                        {
+                            isboardindex = true;
+                        }
+
+                        if (e.nIndex.ToString() == n.ToString())
+                        {
+                            isnindex = true;
+                        }
+                        if (isreaderindex && isboardindex && isnindex)
+                            break;
+                    }
+
+                    if (isyear && ismonth && isday && isstatus && isreaderindex && isboardindex && isnindex)
+                    {
+                        CardEventArgs ce = new CardEventArgs();
+                        ce.CardNumber = e.iDNumber; //Convert.ToInt32(e.iDNumber).ToString(); //ok
+                        ce.Date = GetYYYYMMDD(e.eventDate); //ok
+                        ce.Time = e.eventTime.Substring(0, 2) + ":" + e.eventTime.Substring(2, 2) + ":" + e.eventTime.Substring(4, 2); //ok
+                        ce.LineID = Convert.ToInt32(e.nIndex); //ok
+                        ce.ControllerAddress = Convert.ToInt32(e.boardIndex); //ok
+                        ce.ReaderIndex = Convert.ToInt32(e.readerIndex); // ok
+                        ce.EventStatus = eventStatus[int.Parse(e.eventStatus)]; //ok
+                        try
+                        {
+                            Controller _controller = controllers.GetControllerByAddress(ce.ControllerAddress);
+                            if (_controller != null)
+                                ce.LineCode = _controller.LineCode;
+                        }
+                        catch
+                        { }
+                        //
+                        if (CardEvent != null)
+                        {
+                            CardEvent(this, ce);
+                            isconnect = true;
+                        }
+                    }
+                    else
+                    {
+                        SystemUI.SaveLogFile("CardEvent |-> " + "iDNumber=" + e.iDNumber + ",eventDate=" + e.eventDate + ",eventTime=" + e.eventTime + ",eventStatus=" + e.eventStatus + ",nIndex=" + e.nIndex + ",boardIndex=" + e.boardIndex + ",readerIndex=" + e.readerIndex);
+                        Thread.Sleep(3000);
+                        // Khoi dong lai chuong trinh
+                        SystemUI.SaveLogFile("Khoi dong lai chuong trinh");
+                        Application.Restart();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SystemUI.SaveLogFile("CardEvent |-> " + "iDNumber=" + e.iDNumber + ",eventDate=" + e.eventDate + ",eventTime=" + e.eventTime + ",eventStatus=" + e.eventStatus + ",nIndex=" + e.nIndex + ",boardIndex=" + e.boardIndex + ",readerIndex=" + e.readerIndex);
+                Thread.Sleep(3000);
+                // Khoi dong lai chuong trinh
+                SystemUI.SaveLogFile("Khoi dong lai chuong trinh");
+                Application.Restart();
+            }
+
+        }
+
+        //input event
+        void axStarInterface_InputEvent(object sender, AxSTARINTERFACELib._DStarInterfaceEvents_InputEventEvent e)
+        {
+            try
+            {
+                if (e.eventDate.Length == 9 && e.eventTime.Length == 6)
+                {
+                    string day = "", month = "", year = "";
+                    year = e.eventDate.Substring(0, 4);
+                    month = e.eventDate.Substring(4, 2);
+                    day = e.eventDate.Substring(6, 2);
+                    bool isyear = false, ismonth = false, isday = false;
+                    for (int i = 2000; i <= 2030; i++)
+                    {
+                        if (year == i.ToString())
+                        {
+                            isyear = true;
+                            break;
+                        }
+                    }
+
+                    for (int k = 1; k <= 12; k++)
+                    {
+                        if (month == k.ToString("00"))
+                        {
+                            ismonth = true;
+                            break;
+                        }
+                    }
+
+                    for (int j = 1; j <= 31; j++)
+                    {
+                        if (day == j.ToString("00"))
+                        {
+                            isday = true;
+                            break;
+                        }
+                    }
+
+                    bool isstatus = false;
+                    for (int m = 0; m <= 8; m++)
+                    {
+                        if (e.eventStatus == m.ToString())
+                        {
+                            isstatus = true;
+                            break;
+                        }
+                    }
+
+                    bool isboardindex = false, isnindex = false;
+
+                    for (int n = 0; n <= 100; n++)
+                    {
+                        //if (e.readerIndex == n.ToString())
+                        //{
+                        //    isreaderindex = true;
+                        //}
+
+                        if (e.boardIndex == n.ToString("00"))
+                        {
+                            isboardindex = true;
+                        }
+
+                        if (e.nIndex.ToString() == n.ToString())
+                        {
+                            isnindex = true;
+                        }
+                        if (isboardindex && isnindex)
+                            break;
+                    }
+
+                    if (isyear && ismonth && isday && isstatus && isboardindex && isnindex && e.eventStatus == "0")
+                    {
+                        InputEventArgs ine = new InputEventArgs();
+                        ine.BoardIndex = e.boardIndex;
+                        ine.EventDate = e.eventDate;
+                        ine.EventStatus = e.eventStatus;
+                        ine.EventTime = e.eventTime;
+                        ine.Inputport = e.inputPort;
+                        ine.nIndex = e.nIndex;
+                        if (ine.Inputport == "1")
+                            ine.EventType = "Exit";
+                        else if (ine.Inputport == "2")
+                            ine.EventType = "ExitB";
+                        else if (ine.Inputport == "3")
+                            ine.EventType = "MSGA";
+                        else if (ine.Inputport == "4" || ine.Inputport == "5")
+                            ine.EventType = "MSGB";
+                        try
+                        {
+                            Controller _controller = controllers.GetControllerByAddress(int.Parse(ine.BoardIndex));
+                            if (_controller != null)
+                            {
+                                ine.LineCode = _controller.LineCode;
+                                ine.LineID = _controller.LineID;
+                                ine.ControllerAddress = _controller.Address;
+
+                            }
+                        }
+                        catch
+                        { }
+
+                        if (InputEvent != null)
+                        {
+                            InputEvent(this, ine);
+                        }
+                    }
+                    else
+                    {
+                        SystemUI.SaveLogFile("CardEvent |-> " + "iDNumber=" + ",eventDate=" + e.eventDate + ",eventTime=" + e.eventTime + ",eventStatus=" + e.eventStatus + ",nIndex=" + e.nIndex + ",boardIndex=" + e.boardIndex + ",readerIndex=" + e.inputPort);
+                        Thread.Sleep(3000);
+                        // Khoi dong lai chuong trinh
+                        //SystemUI.SaveLogFile("Khoi dong lai chuong trinh");
+                        // Application.Restart();
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                SystemUI.SaveLogFile("InputEvent - " + ex.Message);
+            }
+        }
+
+        // Download Card
+        public bool DownloadCard(Employee employee, int timezoneID, int memoryID)
+        {
+            string cardNumber = employee.CardNumber;
+            if (cardNumber.Length == 4)
+            {
+                if (isFingerController == "0")
+                    cardNumber = "aaaa" + cardNumber;
+                else
+                    cardNumber = "0000" + cardNumber;
+            }
+
+            timezoneID += 1;
+
+            if (is006)
+            {
+                try
+                {
+                    //if (employee.Fingers1 == "")// || employee.Fingers1.Length != 2400)
+                    //    return false;
+
+                    //axStarInterface.BatchStart(); // ###############################################################################
+
+                    DisConnect();
+                    Thread.Sleep(1000);
+                    //axSTARBIOREADER1.CommPortClose(PortIndex);
+                    //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                    if (ConnectTo006())
+                    {
+                        // Download Card
+                        lbResult.Text = axSTARBIOREADER1.CardIDDownload(PortIndex, BoardIndex, cardNumber, "0", employee.Passwords);
+                        SystemUI.SaveLogFile("006 - Download Card " + cardNumber + " of " + employee.Name + " To Reader " + BoardIndex + "-" + controllers.GetControllerByAddress((int)PortIndex, Convert.ToInt32(BoardIndex)).Name + " : " + lbResult.Text);
+
+                        //                'strResponse - Return Value
+                        //'   "Z" - ACK                   : Complete
+                        //'   "0" - NACK                  : Fail
+                        //'   "A" - Checksum Error        : Fail - Checksun Error
+                        //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                        //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                        //'   "R" - First Finger Reg. Error : Fail - First Finger Reg. Error
+                        //'   "B" - Memoru Full           : Fail - Memoru Full
+                        //'   "U" - ID is Master Error    : Fail - ID is Master Error
+
+                        if (lbResult.Text == "Z")
+                        {
+                            if (employee.Fingers1 != "")
+                            {
+                                lbResult.Text = axSTARBIOREADER1.FingerDownload(PortIndex, BoardIndex, cardNumber, "0", employee.Fingers1);
+                                SystemUI.SaveLogFile("006 - Download Finger " + cardNumber + " of " + employee.Name + " To Reader " + BoardIndex + "-" + controllers.GetControllerByAddress((int)PortIndex, Convert.ToInt32(BoardIndex)).Name + " : " + lbResult.Text);
+                            }
+                            //else
+                            //    lbResult.Text = "0";
+
+
+                            //                    'strResponse - Return Value
+                            //'   "Z" - ACK                   : Complete
+                            //'   "0" - NACK                  : Fail
+                            //'   "A" - Checksum Error        : Fail - Checksun Error
+                            //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                            //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                            //'   "R" - First Finger Reg. Error : Fail - First Finger Reg. Error
+                            //'   "N" - Finger Reg ID Error   : Fail - Finger Reg ID Error
+                            //'   "Q" - Master Flag Error     : Fail - Master Flag Error
+                            //'   "B" - Memoru Full           : Fail - Memoru Full
+                            //'   "T" - Error Fingerprint     : Fail - Error Fingerprint
+                            //'   "M" - Finger Register Error : Fail - Finger Register Error
+                            //'   "W" - Finger DB Full Error  : Fail - Finger DB Full Error
+                            //'   "S" - Wrong ID Finger Error : Fail - Wrong ID Finger Error
+                            //'   "U" - ID is Master Error    : Fail - ID is Master Error
+                        }
+                    }
+                    else
+                        SystemUI.SaveLogFile("006 - Can't connect to 006");
+                }
+                catch //(Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Thread.Sleep(1500);
+                Connect(_comPort, _baudRate);
+
+                //axStarInterface.BatchStop(); // ###############################################################################
+
+                if (lbResult.Text != "Z")
+                    return false;
+            }
+            else
+            {
+                // Download Card
+                if (employee.Fingers1 == "")
+                    isFingerController = "0";
+                else
+                    isFingerController = "1";
+
+                string returnvalue = axStarInterface.CardIDDownload(cardNumber, employee.Passwords, timezoneID.ToString("00"), "3", isFingerController);
+
+                SystemUI.SaveLogFile("007 - Download Card " + cardNumber + " of " + employee.Name + " To Controller " + axStarInterface.BoardIndex + "-" + controllers.GetControllerByAddress((int)PortIndex, Convert.ToInt32(axStarInterface.BoardIndex)).Name + " : " + returnvalue);
+                
+                if (returnvalue != "Z")
+                {
+                    return false;
+                }
+
+                // Download Finger    
+                if (isFingerController == "1")
+                {
+                    return DownloadFinger(employee);
+                }
+            }
+            return true;
+        }
+
+        private bool DownloadFinger(Employee employee)
+        {
+            if (employee.Fingers1 != "")
+            {
+                //axStarInterface.BatchStart(); // ###############################################################################
+
+                string returnvalue = axStarInterface.FingerDataDownload(employee.CardNumber, "0", employee.Fingers1);
+
+                SystemUI.SaveLogFile("Download Finger " + employee.CardNumber + " of " + employee.Name + " To Controller " + axStarInterface.BoardIndex + "-" + controllers.GetControllerByAddress((int)PortIndex, Convert.ToInt32(axStarInterface.BoardIndex)).Name + " : " + returnvalue);
+
+                //axStarInterface.BatchStop(); // ###############################################################################
+
+                if (returnvalue != "Z")
+                {
+                    return false;
+                }
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                axStarInterface.Refresh();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        // Delete Card
+        public bool DeleteCard(Employee employee, int memoryID)
+        {
+            string cardNumber = employee.CardNumber;
+            if (cardNumber.Length == 4)
+            {
+                if (isFingerController == "0")
+                    cardNumber = "aaaa" + cardNumber;
+                else
+                    cardNumber = "0000" + cardNumber;
+            }
+
+            if (is006)
+            {
+                try
+                {
+                    //if (employee.Fingers1 == "" || employee.Fingers1.Length != 2400)
+                    //    return false;
+
+                    //axStarInterface.BatchStart(); // ###############################################################################
+
+                    DisConnect();
+                    Thread.Sleep(1500);
+                    //axSTARBIOREADER1.CommPortClose(PortIndex);
+                    //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                    if (ConnectTo006())
+                    {
+                        lbResult.Text = axSTARBIOREADER1.CardIDDelete(PortIndex, BoardIndex, cardNumber);
+
+                        SystemUI.SaveLogFile("Delete Card " + cardNumber + " of " + employee.Name + " From Reader " + BoardIndex + "-" + controllers.GetControllerByAddress((int)PortIndex, Convert.ToInt32(BoardIndex)).Name + " : " + lbResult.Text);
+
+                        //                'strResponse - Return Value
+                        //'        "0" - NACK                  : Fail
+                        //'        "A" - Checksum Error        : Fail - Checksun Error
+                        //'        "Z" - ACK                   : Complete
+                        //'        "C" - Unregistered          : Fail - Card ID is Unregistered
+                        //'        "U" - ID is Master          : Fail - Card ID is Master
+                    }
+                }
+                catch //(Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Thread.Sleep(1500);
+                Connect(_comPort, _baudRate);
+
+                //axStarInterface.BatchStop(); // ###############################################################################
+
+                if (lbResult.Text != "Z")
+                    return false;
+            }
+            else
+            {
+                //axStarInterface.BatchStart(); // ###############################################################################
+                string returnvalue = axStarInterface.CardIDDelete(cardNumber);
+
+                SystemUI.SaveLogFile("Delete Card " + cardNumber + " of " + employee.Name + " From Controller " + axStarInterface.BoardIndex + "-" + controllers.GetControllerByAddress((int)PortIndex, Convert.ToInt32(axStarInterface.BoardIndex)).Name + " : " + returnvalue);
+                //Case "0" 'NACK
+                //Case "Z" 'ACK
+                //Case "A" 'Checksum Error
+                //Case "C" 'Unregistered
+                
+                //axStarInterface.BatchStop(); // ###############################################################################
+
+                if (returnvalue != "Z" && returnvalue != "C")
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Get Finger
+        public string GetFinger(string cardNumber, int fingerID)
+        {
+            if (is006)
+            {
+                try
+                {
+                    //axStarInterface.BatchStart(); // ###############################################################################
+
+                    DisConnect();
+                    Thread.Sleep(300);
+                    //axSTARBIOREADER1.CommPortClose(PortIndex);
+                    //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                    if (ConnectTo006())
+                    {
+                        lbResult.Text = axSTARBIOREADER1.FingerUpload(PortIndex, BoardIndex, cardNumber);
+                        //                'strResponse - Return Value
+                        //'   "0" - NACK                  : Fail
+                        //'   "A" - Checksum Error        : Fail - Checksun Error
+                        //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                        //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                        //'   "D" - ID is not in memory   : Fail - ID is not in memory
+                        //'   "T" - Error Fingerprint     : Fail - Error Fingerprint
+                        //'   "C" - ID Unregistered Error : Fail - ID Unregistered Error
+                        //'   "S" - Wrong ID Finger Error : Fail - Wrong ID Finger Error
+                        //'   Normal - 8 Digit
+                        //'   Example. "00834753" -> Card No.
+                        //'            Fingerprint -> OCX Funtion : uploadfinger(2400 Digit)
+                        //'            Password    -> OCX Funtion : uploadpassword(4 Digit)
+                    }
+                }
+                catch //(Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                //Thread.Sleep(1000);
+                Connect(_comPort, _baudRate);
+
+                //axStarInterface.BatchStop(); // ###############################################################################
+
+                //Thread.Sleep(300);
+                //PollingStop();
+                //PollingStart();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                axSTARBIOREADER1.Refresh();
+                if (lbResult.Text.Length == 8 || lbResult.Text.Length == 10)
+                    return axSTARBIOREADER1.uploadFinger;
+            }
+            else
+            {
+                if (fingerID == 1)
+                {
+                    //axStarInterface.BatchStart(); // ###############################################################################
+
+                    string returnvalue = axStarInterface.FingerDataUpload(cardNumber);
+
+                    //axStarInterface.BatchStop(); // ###############################################################################
+
+                    if (returnvalue.Length >= 2400)
+                        return axStarInterface.Finger;
+                }
+            }
+            return "";
+        }
+
+        
+        //Function	
+        //Set Output Time.
+        //Save Output Port No. in OutputNo.
+        //“1” Relay1, “2” Relay2,  “3” TTL1, “4” TTL2, “5” Buzzer
+        //Status -  “0” Not Operate
+        //“1” Operate
+        //Input Output Time in OperationTime.
+        //Register from “01” to “98” sec. If Output time is set “99”, is always operated.
+        //Return Value
+        //Refer example
+        public bool Unlock(int delay)
+        {
+            if (axStarInterface.OutputPortDownload("1", "1", delay.ToString("00")) == "Z")
+                return true;
+            else
+                return false;
+        }
+
+        public bool Unlock2(int outputNo, int delay)
+        {
+            if (axStarInterface.OutputPortDownload(outputNo.ToString(), "1", delay.ToString("00")) == "Z")
+                return true;
+            else
+                return false;
+        }
+
+        // Test connection
+        public bool TestConnection()
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                bool _isconnect = false;
+                lbResult.Text = axSTARBIOREADER1.SNCheck(PortIndex, BoardIndex);
+                if (lbResult.Text != "0")
+                {
+                    _isconnect = true;
+                }
+                else
+                {
+                    _isconnect = false;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                //Thread.Sleep(1000);
+                Connect(_comPort, _baudRate);
+                return _isconnect;
+            }
+            else
+            {
+                // Get date time on controller
+                string returnvalue = axStarInterface.DateTimeUpload();
+                if (returnvalue != "0" && returnvalue != "A" && returnvalue != "")
+                {
+                    isconnect = true;
+                }
+                else
+                    isconnect = false;
+                return isconnect;
+            }
+        }
+
+        #region Config505R_iCON100_007
+        // DateTime Upload
+        private void btnDateTimeUpLoad_Click(object sender, EventArgs e)
+        {
+            // Get date time on controller
+            string returnvalue = axStarInterface.DateTimeUpload();
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Không thể kết nối tới Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                txtDate.Text = Convert.ToDateTime(GetYYYYMMDD(returnvalue.Substring(0, 8))).ToString("dd/MM/yyyy");
+                txtTime.Text = returnvalue.Substring(9, 2) + ":" + returnvalue.Substring(11, 2) + ":" + returnvalue.Substring(13, 2);
+            }
+        }
+
+        // DateTime Download
+        private void btnDateTimeDownload_Click(object sender, EventArgs e)
+        {
+            string dates = dtpDate.Text.Substring(6, 4) + dtpDate.Text.Substring(3, 2) + dtpDate.Text.Substring(0, 2);
+            string times = dtpTime.Text.Substring(0, 2) + dtpTime.Text.Substring(3, 2) + dtpTime.Text.Substring(6, 2);
+            //
+            string returnvalue = axStarInterface.DateTimeDownload(dates, DateUI.GetDayOfWeekInNumber(dtpDate.Value).ToString(), times);
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi đặt ngày giờ lên Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã đặt ngày giờ lên các Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Init
+        private void btnInitialController_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.SystemInitialize("1");
+            if (returnvalue != "Z")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi khởi tạo Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã khởi tạo Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Delete All Register Card
+        private void btnDeleteAllRegisterCard_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.SystemInitialize("2");
+            System.Threading.Thread.Sleep(1000);
+            if (returnvalue != "Z")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi xóa hết thẻ đã đăng ký trong Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã xóa hết thẻ đã đăng ký trong Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Delete All Event
+        private void btnDeleteAllEvent_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.SystemInitialize("3");
+            if (returnvalue != "Z")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi xóa hết bộ nhớ sự kiện trong Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã xóa hết bộ nhớ sự kiện trong Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Delete All Time Schedule
+        private void btnDeleteAllTimeSchedule_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.SystemInitialize("4");
+            if (returnvalue != "Z")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi xóa hết thời gian biểu trong Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã xóa hết thời gian biểu trong Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Input Output Download
+        private void btnInputOutputDownload_Click(object sender, EventArgs e)
+        {
+            int inputNo = cbxInputOutput.SelectedIndex + 1;
+            string returnvalue = axStarInterface.InOutputTableDownload(inputNo.ToString("00"), cbxTimeScheduleCode.Text, numRelay1.Value.ToString("00"), numRelay2.Value.ToString("00"), numTTL1.Value.ToString("00"), numTTL2.Value.ToString("00"), numBuzzer.Value.ToString("00"));
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã đặt thời gian vào/ra lên bộ điều khiển", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Memory Upload
+        private void btnMemoryUpload_Click(object sender, EventArgs e)
+        {
+            // Upload CardID count
+            string returnvalue = axStarInterface.CardIDCount(isFingerController);
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                txtCardCount.Text = returnvalue;
+            }
+        }
+
+        // Memory Download
+        private void btnMemoryDownload_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.CardIDMemoryDownload(numNumberCard.Value.ToString("00000"));
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã đặt bộ nhớ thẻ và bộ nhớ sự kiện", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // AntiPassback Upload
+        private void btnAntiPassbackUpload_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.AntiPassbackUpload();
+            if (returnvalue != "4" && returnvalue != "5")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                chkAntiPassback.Checked = (returnvalue == "5") ? true : false;
+            }
+        }
+
+        // AntiPassback Download
+        private void btnAntiPassbackDownload_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.AntiPassbackDownload((chkAntiPassback.Checked == true) ? "1" : "0");
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã đặt chế độ AntiPassback.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Reset AntiPassback
+        private void btnInitialAntiPassback_Click(object sender, EventArgs e)
+        {
+            string returnvalue = axStarInterface.AntiPassbackDownload("2");
+            if (returnvalue == "0" || returnvalue == "A" || returnvalue == "")
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Đã thiết lập lại AntiPassback.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void chkAntiPassback_CheckedChanged(object sender, EventArgs e)
+        {
+            btnInitialAntiPassback.Enabled = chkAntiPassback.Checked;
+        }
+
+        private void numNumberCard_ValueChanged(object sender, EventArgs e)
+        {
+            txtNumberEvent.Text = Convert.ToString((10000 - numNumberCard.Value) / 2 + 2500);
+        }
+
+        private void numNumberCard_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void cbxTimezone_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Reset
+            this.tabPage3.Controls.Remove(graphControl);
+            graphControl = new GraphControl();
+            graphControl.Size = new Size(356, 244);
+            graphControl.Location = new Point(3, 46);
+            this.tabPage3.Controls.Add(graphControl);
+            //
+            Timezone timezone = timezones.GetTimezoneByName(cbxTimezone.SelectedItem.ToString());
+            if (timezone != null)
+            {
+                string[] mon = timezone.Mon.Split('-');
+                string[] tue = timezone.Tue.Split('-');
+                string[] wed = timezone.Wed.Split('-');
+                string[] thu = timezone.Thu.Split('-');
+                string[] fri = timezone.Fri.Split('-');
+                string[] sat = timezone.Sat.Split('-');
+                string[] sun = timezone.Sun.Split('-');
+                graphControl.AddLine(DateUI.GetTimeNumber(mon[0]), 1, DateUI.GetTimeNumber(mon[1]), 1);
+                graphControl.AddLine(DateUI.GetTimeNumber(tue[0]), 2, DateUI.GetTimeNumber(tue[1]), 2);
+                graphControl.AddLine(DateUI.GetTimeNumber(wed[0]), 3, DateUI.GetTimeNumber(wed[1]), 3);
+                graphControl.AddLine(DateUI.GetTimeNumber(thu[0]), 4, DateUI.GetTimeNumber(thu[1]), 4);
+                graphControl.AddLine(DateUI.GetTimeNumber(fri[0]), 5, DateUI.GetTimeNumber(fri[1]), 5);
+                graphControl.AddLine(DateUI.GetTimeNumber(sat[0]), 6, DateUI.GetTimeNumber(sat[1]), 6);
+                graphControl.AddLine(DateUI.GetTimeNumber(sun[0]), 7, DateUI.GetTimeNumber(sun[1]), 7);
+                //
+                graphControl.Invalidate();
+            }
+        }
+
+        // Time zone
+        private void btnTimezoneDownload_Click(object sender, EventArgs e)
+        {
+            Timezone timezone = timezones.GetTimezoneByName(cbxTimezone.SelectedItem.ToString());
+            if (timezone != null)
+            {
+                string timeScheduleString = "";
+                // Holiday
+                timeScheduleString += "0000000000000000000000000000000000000000";
+                //Sunday
+                timeScheduleString += TimezoneInDay(timezone.Sun) + "00000000000000000000000000000000";
+                //Monday
+                timeScheduleString += TimezoneInDay(timezone.Mon) + "00000000000000000000000000000000";
+                //Tuesday
+                timeScheduleString += TimezoneInDay(timezone.Tue) + "00000000000000000000000000000000";
+                //Wednesday
+                timeScheduleString += TimezoneInDay(timezone.Wed) + "00000000000000000000000000000000";
+                //Thursday
+                timeScheduleString += TimezoneInDay(timezone.Thu) + "00000000000000000000000000000000";
+                //Friday
+                timeScheduleString += TimezoneInDay(timezone.Fri) + "00000000000000000000000000000000";
+                //Saturday
+                timeScheduleString += TimezoneInDay(timezone.Sat) + "00000000000000000000000000000000";
+
+                //timeScheduleCode = 01 - 10, timezone = 0 - 9
+                int timezoneID = timezone.ID + 1;
+                string returnvalue = axStarInterface.TimeScheduleDownload(timezoneID.ToString("00"), timeScheduleString, "00");
+                if (returnvalue != "Z")
+                {
+                    MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Đã cập nhật Timezone ' " + cbxTimezone.Text + " ' lên Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private string TimezoneInDay(string timezoneInDay)
+        {
+            string[] temp = timezoneInDay.Split('-');
+            string[] t1 = temp[0].Split(':');
+            string[] t2 = temp[1].Split(':');
+            return t1[0] + t1[1] + t2[0] + t2[1];
+        }
+
+        // Get Controller Address
+        private void GetControllerAddress()
+        {
+            if (controllers.Count > 0)
+            {
+                ControllerType _controllerType = controllerTypes.GetControllerTypeByID(controllers[0].ControllerTypeID);
+                if (_controllerType != null && !_controllerType.Name.Contains("006"))
+                {
+                    minAddress = maxAddress = Convert.ToInt16(controllers[0].Address);
+                }
+                for (int i = 0; i < controllers.Count; i++)
+                {
+                    _controllerType = controllerTypes.GetControllerTypeByID(controllers[i].ControllerTypeID);
+
+                    if (_controllerType != null && !_controllerType.Name.Contains("006"))
+                    {
+                        if (Convert.ToInt16(controllers[i].Address) < minAddress)
+                        {
+                            minAddress = Convert.ToInt16(controllers[i].Address);
+                        }
+                        if (Convert.ToInt16(controllers[i].Address) > maxAddress)
+                        {
+                            maxAddress = Convert.ToInt16(controllers[i].Address);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Get Year Month Day from date string format yyyyMMdd
+        public string GetYYYYMMDD(string YYYYMMDD)
+        {
+            return (YYYYMMDD.Substring(0, 4) + "/" + YYYYMMDD.Substring(4, 2) + "/" + YYYYMMDD.Substring(6, 2));
+        }
+
+        private void btnFingerBatchUpload_Click(object sender, EventArgs e)
+        {
+            //if (axStarInterface.BatchStart())
+            //{
+            //    string returnvalue = axStarInterface.FingerBatchUpload(0);
+            //    while (returnvalue != "!")
+            //    {
+            //        returnvalue = axStarInterface.FingerBatchUpload(1);
+            //    }
+            //}
+        }
+
+        #endregion
+
+        private void IDTECKSettingPage_Load(object sender, EventArgs e)
+        {
+            PollingStop();
+            lbInfor.Text = "Type: " + controllerTypeName + "  PortIndex: " + PortIndex + "  BoardIndex: " + BoardIndex;
+        }
+
+        private void IDTECKSettingPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PollingStart();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #region Config006
+
+        private void btnDownloadMasterCard_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.MasterCardDownload(PortIndex, BoardIndex, txtMasterCard.Text);
+
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "Z" - ACK                   : Complete
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "Z":
+                        lbResult.Text = "Complete";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnUploadMasterCard_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                if (controllerTypeName == "FGR006")
+                {
+                    lbResult.Text = axSTARBIOREADER1.MasterCardUpload(PortIndex, BoardIndex, 0);
+                }
+                else
+                    lbResult.Text = axSTARBIOREADER1.MasterCardUpload(PortIndex, BoardIndex, 1);
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "C" - Unregistered          : Fail - Unregistered
+                //'   Normal - Master Card Number : Complete
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksum Error";
+                        break;
+                    case "C":
+                        lbResult.Text = "Fail - Unregistered";
+                        break;
+                    default:
+                        txtMasterCard.Text = lbResult.Text;
+                        lbResult.Text = "Complete";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnCheckSerialNumber_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                if (controllerTypeName == "FGR006")
+                {
+                    DisConnect();
+                    Thread.Sleep(300);
+                    //axSTARBIOREADER1.CommPortClose(PortIndex);
+                    //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                    ConnectTo006();
+
+                    lbResult.Text = axSTARBIOREADER1.SNCheck(PortIndex, BoardIndex);
+                    MessageBox.Show(lbResult.Text, "Serial Number");
+                    //axSTARBIOREADER1.CommPortClose(PortIndex);
+                    DisConnectTo006();
+                    Connect(_comPort, _baudRate);
+
+                }
+            }
+
+        }
+
+        private void btnDownloadModeChange_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                int modechange = 0;
+                if (cbModeChange.Text == "")
+                {
+                    MessageBox.Show("Bạn phải chọn chế độ của đầu đọc", "Thông báo");
+                    return;
+                }
+                else
+                    modechange = cbModeChange.SelectedIndex + 1;
+
+                lbResult.Text = axSTARBIOREADER1.ModeChangeDownload(PortIndex, BoardIndex, modechange.ToString());
+
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "Z" - ACK                   : Complete
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "Z":
+                        lbResult.Text = "Complete";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnUploadModeChange_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.ModeChangeUpload(PortIndex, BoardIndex);
+
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                //'   Normal
+                //'   "1" - RF Only Mode                : Complete
+                //'   "2" - RF + Fingerprint(Password)  : Complete
+                //'   "3" - RF + Password + Fingerprint : Complete
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                    case "1":
+                        cbModeChange.SelectedIndex = 0;
+                        lbResult.Text = "Complete";
+                        break;
+                    case "2":
+                        cbModeChange.SelectedIndex = 1;
+                        lbResult.Text = "Complete";
+                        break;
+                    case "3":
+                        cbModeChange.SelectedIndex = 2;
+                        lbResult.Text = "Complete";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnInitSystem_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.SysInitialize(PortIndex, BoardIndex);
+
+                MessageBox.Show("Làm ơn đợi đầu đọc khở tạo lại trong vòng 50 giây ...", "Đang khởi tạo lại đầu đọc...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (lbResult.Text == "Z")
+                    lbResult.Text = "Complete";
+                else
+                    lbResult.Text = "Fail";
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnInitCardID_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.CardIDInitialize(PortIndex, BoardIndex);
+
+                MessageBox.Show("Làm ơn đợi đầu đọc khở tạo lại thẻ trong vòng 50 giây ...", "Đang khởi tạo lại thẻ...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (lbResult.Text == "Z")
+                    lbResult.Text = "Complete";
+                else
+                    lbResult.Text = "Fail";
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnDownloadBaudRate_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                int BaudRate = 9600;
+                if (cbBaudRate.Text == "")
+                {
+                    MessageBox.Show("Làm ơn chọn tốc độ cho đầu đọc", "Thông báo");
+                    return;
+                }
+                else
+                    BaudRate = Convert.ToInt32(cbBaudRate.Text);
+
+                lbResult.Text = axSTARBIOREADER1.BaudrateDownload(PortIndex, BoardIndex, BaudRate);
+
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "Z" - ACK                   : Complete
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "Z":
+                        lbResult.Text = "Complete";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnUploadBaudRate_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.BoudrateUpload(PortIndex, BoardIndex);
+
+                //'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                //'   Normal
+                //'   - 1. "115200"      - FGR006 Only
+                //'     2. "57600"       - FGR006 Only
+                //'     3. "38400"
+                //'     4. "19200"
+                //'     5. "9600"        - Default
+                //'     6. "4800"
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                    default:
+                        cbBaudRate.Text = lbResult.Text;
+                        lbResult.Text = "Complete";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnDonloadConfig_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                if (cbFingerMode.Text == "" || cbAdaptive.Text == "" || cbOutputType.Text == "" || cbFGR006Mode.Text == "")
+                {
+                    MessageBox.Show("Làm ơn chọn các thông số của đầu đọc", "Thông báo");
+                    return;
+                }
+
+                lbResult.Text = axSTARBIOREADER1.FGR006SystemChangeDownload(PortIndex, BoardIndex, cbFingerMode.Text.Substring(0, 1), cbAdaptive.Text.Substring(0, 1),
+                    cbOutputType.Text.Substring(0, 1), cbFGR006Mode.Text.Substring(0, 1));
+
+                //                    'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "Z" - ACK                   : Complete
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                    case "Z":
+                        lbResult.Text = "Complete";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnUploadConfig_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.FGR006SystemChangeUpload(PortIndex, BoardIndex);
+
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                //'   Normal - 5 Digit
+                //'   Example. "10101" ->  "1",                  "0",            "1",                 "0",               "0"
+                //'                        Finger Mode,          Adaptive Mode,  Output Mode,         FGR006 Mode,       X(Reservation)
+                //'                        -> "0" - Single Mode  "0" - Not Use   "0" - 26Bit Wiegand  "0" - Reader Mode
+                //'                        -> "1" - Dual Mode    "1" - Use       "1" - ABA Track II   "1" - REG Mode
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                    default:
+                        if (lbResult.Text.Length == 5)
+                        {
+                            cbFingerMode.SelectedIndex = Convert.ToInt16(lbResult.Text.Substring(0, 1));
+                            cbAdaptive.SelectedIndex = Convert.ToInt16(lbResult.Text.Substring(1, 1));
+                            cbOutputType.SelectedIndex = Convert.ToInt16(lbResult.Text.Substring(2, 1));
+                            cbFGR006Mode.SelectedIndex = Convert.ToInt16(lbResult.Text.Substring(3, 1));
+
+                            lbResult.Text = "Complete";
+                        }
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        private void btnCardIDCount_Click(object sender, EventArgs e)
+        {
+            if (is006)
+            {
+                DisConnect();
+                Thread.Sleep(300);
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                //axSTARBIOREADER1.CommPortOpen(PortIndex, _comPort, _baudRate);
+                ConnectTo006();
+
+                lbResult.Text = axSTARBIOREADER1.CardIDCount(PortIndex, BoardIndex, "0");
+
+                //                'rValue - Return Value
+                //'   "0" - NACK                  : Fail
+                //'   "A" - Checksum Error        : Fail - Checksun Error
+                //'   "I" - Number Overflow Error : Fail - Number Overflow Error
+                //'   "H" - Data Length Wrong     : Fail - Data Length Wrong
+                //'   "T" - Fingerprint Error     : Fail - Fingerprint Error
+                //'   Normal - 5 Digit
+                //'   Example "00934" -> Count.
+
+                switch (lbResult.Text)
+                {
+                    case "0":
+                        lbResult.Text = "Fail";
+                        break;
+                    case "A":
+                        lbResult.Text = "Fail - Checksun Error";
+                        break;
+                    case "I":
+                        lbResult.Text = "Fail - Number Overflow Error";
+                        break;
+                    case "H":
+                        lbResult.Text = "Fail - Data Length Wrong";
+                        break;
+                    case "T":
+                        lbResult.Text = "";
+                        break;
+                    default:
+                        lbCardIDCount.Text = "Số vân tay đăng ký: " + lbResult.Text;
+                        lbResult.Text = "Complete";
+                        break;
+                }
+
+                //axSTARBIOREADER1.CommPortClose(PortIndex);
+                DisConnectTo006();
+                Connect(_comPort, _baudRate);
+            }
+        }
+
+        #endregion
+
+        private void axStarInterface_ReceiveData(object sender, AxSTARINTERFACELib._DStarInterfaceEvents_ReceiveDataEvent e)
+        {
+        }
+
+        private void axStarInterface_SendData(object sender, AxSTARINTERFACELib._DStarInterfaceEvents_SendDataEvent e)
+        {
+        }
+
+        private void axStarInterface_PollingError(object sender, AxSTARINTERFACELib._DStarInterfaceEvents_PollingErrorEvent e)
+        {
+            SystemUI.SaveLogFile("PollingError -> boardIndex=" + e.boardIndex + ",errorCode=" + e.errorCode + ", nIndex=" + e.nIndex + ",ToString=" + e.ToString());
+            //foreach (Controller controller in controllers)
+            //{
+            //    if (controller.LineID == PortIndex && controller.Address.ToString("00") == e.boardIndex)
+            //        controller.IsConnect = false;
+            //}
+        }
+
+        public void DelAllEvent()
+        {
+            string returnvalue = axStarInterface.SystemInitialize("3");
+        }
+        public string GetInputState()
+        {
+            return "";
+        }
+    }
+}

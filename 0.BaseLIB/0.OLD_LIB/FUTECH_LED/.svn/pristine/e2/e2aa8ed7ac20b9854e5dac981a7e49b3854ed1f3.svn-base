@@ -1,0 +1,196 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Futech.Tools;
+
+namespace Futech.Objects
+{
+    public partial class PUA310SettingPage : Form, IControllerSettingPage
+    {
+        private PUA310 pua310 = new PUA310();
+
+        public event CardEventHandler CardEvent;
+        public event InputEventHandler InputEvent;
+        public PUA310SettingPage()
+        {
+            InitializeComponent();
+        }
+
+        // Line ID
+        public int LineID
+        {
+            set { pua310.LineID = value; }
+        }
+
+        // Controller Address
+        public int Address
+        {
+            set { pua310.Address = value; }
+        }
+
+        private int controllerTypeID = 0;
+        public int ControllerTypeID
+        {
+            set { controllerTypeID = value; }
+        }
+
+        private int communicationType = 0;
+        public int CommunicationType
+        {
+            set { communicationType = value; }
+        }
+
+        private bool isconnect = false;
+        public bool IsConnect
+        {
+            get { return pua310.IsConnect; }
+            set { isconnect = value; }
+        }
+
+        // Delay time property
+        public int DelayTime
+        {
+            set { pua310.DelayTime = value; }
+        }
+
+        private int downloadTime = 300;
+        public int DownloadTime
+        {
+            set { downloadTime = value; }
+        }
+
+        // all controller in line
+        private ControllerCollection controllers = new ControllerCollection();
+        public ControllerCollection Controllers
+        {
+            set { controllers = value; }
+        }
+
+        // all timezones
+        private TimezoneCollection timezones = new TimezoneCollection();
+        public TimezoneCollection Timezones
+        {
+            set 
+            {
+                timezones = value;
+            }
+        }
+
+        // all controllerTypes
+        private ControllerTypeCollection controllerTypes = new ControllerTypeCollection();
+        public ControllerTypeCollection ControllerTypes
+        {
+            set { controllerTypes = value; }
+        }
+
+        // all blackLists
+        private BlackListCollection blackLists = new BlackListCollection();
+        public BlackListCollection BlackLists
+        {
+            get { return blackLists; }
+            set { blackLists = value; }
+        }
+
+        public bool Connect(string comPort, int baudRate)
+        {
+            if (communicationType == 0)
+            {
+                return pua310.CommPortOpen(comPort, (short)baudRate);
+            }
+            else if (communicationType == 1)
+            {
+
+            }
+            return false;
+        }
+
+        public bool DisConnect()
+        {
+            if (communicationType == 0)
+            {
+                return pua310.CommPortClose();
+            }
+            else if (communicationType == 1)
+            {
+
+            }
+            return false;
+        }
+
+        // Start
+        public void PollingStart()
+        {
+            pua310.CardEvent += new CardEventHandler(pua310_CardEvent);
+            pua310.Controllers = controllers;
+        }
+
+        // Signal to Stop
+        public void SignalToStop()
+        {
+            
+        }
+
+        // Stop
+        public void PollingStop()
+        {
+            
+        }
+
+        private void pua310_CardEvent(object sender, CardEventArgs e)
+        {
+            if (CardEvent != null)
+            {
+                CardEvent(this, e);
+            }
+        }
+
+        public bool DownloadCard(Employee employee, int timezoneID, int memoryID)
+        {
+            return false;
+        }
+
+        public bool DeleteCard(Employee employee, int memoryID)
+        {
+            return false;
+        }
+
+        public string GetFinger(string cardNumber, int fingerID)
+        {
+            return "";
+        }
+
+        public bool Unlock(int delay)
+        {
+            return false;
+        }
+
+        public bool Unlock2(int outputNo, int delay)
+        {
+            return false;
+        }
+
+        // Test connection
+        public bool TestConnection()
+        {
+            return pua310.GetStatus();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public void DelAllEvent()
+        {
+
+        }
+        public string GetInputState()
+        {
+            return "";
+        }
+    }
+}

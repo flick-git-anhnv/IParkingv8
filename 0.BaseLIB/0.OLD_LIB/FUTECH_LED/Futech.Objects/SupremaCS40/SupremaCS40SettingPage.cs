@@ -1,0 +1,191 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Futech.Objects.SupremaCS40
+{
+    public class SupremaCS40SettingPage : IControllerSettingPage
+    {
+        SupremaCS40 supremacs40 = new SupremaCS40();
+        public event CardEventHandler CardEvent;
+        public event InputEventHandler InputEvent;
+
+        public SupremaCS40SettingPage()
+        {
+            
+        }
+
+        // Line ID
+        public int LineID
+        {
+            set { supremacs40.LineID = value; }
+        }
+
+        // Controller Address
+        public int Address
+        {
+            set { supremacs40.Address = value; }
+        }
+
+        private int controllerTypeID = 0;
+        public int ControllerTypeID
+        {
+            set { controllerTypeID = value; }
+        }
+
+        private int communicationType = 0;
+        public int CommunicationType
+        {
+            set { communicationType = value; }
+        }
+
+        private bool _isconnect = false;
+        public bool IsConnect
+        {
+            get { return supremacs40.IsConnect; }
+            set { _isconnect = value; }
+        }
+
+        // Delay time property
+        public int DelayTime
+        {
+            set { supremacs40.DelayTime = value; }
+        }
+
+        private int downloadTime = 3;
+        public int DownloadTime
+        {
+            set { downloadTime = value; }
+        }
+
+        // all controller in line
+        private ControllerCollection controllers = new ControllerCollection();
+        public ControllerCollection Controllers
+        {
+            set { controllers = value; }
+        }
+
+        // all controllerTypes
+        private ControllerTypeCollection controllerTypes = new ControllerTypeCollection();
+        public ControllerTypeCollection ControllerTypes
+        {
+            set { controllerTypes = value; }
+        }
+
+        // all blackLists
+        private BlackListCollection blackLists = new BlackListCollection();
+        public BlackListCollection BlackLists
+        {
+            get { return blackLists; }
+            set { blackLists = value; }
+        }
+
+        // all timezones
+        private TimezoneCollection timezones = new TimezoneCollection();
+        public TimezoneCollection Timezones
+        {
+            set
+            {
+                timezones = value;
+            }
+        }
+
+        public bool Connect(string ip, int port)
+        {
+            if (communicationType == 0)
+            {
+                return false;
+            }
+            else if (communicationType == 1)
+            {     
+                supremacs40.CardEvent += tcpip_CardEvent;
+                supremacs40.InputEvent += tcpip_InputEvent;
+                supremacs40.Controllers = controllers;
+                return supremacs40.Connect(ip, port);
+            }
+            return false;
+        }
+
+        public bool DisConnect()
+        {
+            if (communicationType == 0)
+            {
+                return false;
+            }
+            else if (communicationType == 1)
+            {
+                return supremacs40.DisConnect();
+            }
+            return false;
+        }
+
+        // Start
+        public void PollingStart()
+        {
+
+        }
+
+        public void SignalToStop()
+        {
+            PollingStop();
+        }
+
+        public void PollingStop()
+        {
+
+        }
+
+        void tcpip_InputEvent(object sender, InputEventArgs e)
+        {
+            //throw new Exception("The method or operation is not implemented.");
+            InputEvent?.Invoke(this, e);
+        }
+
+        void tcpip_CardEvent(object sender, CardEventArgs e)
+        {
+            //throw new Exception("The method or operation is not implemented.");
+            CardEvent?.Invoke(this, e);
+        }
+
+        public bool DownloadCard(Employee employee, int timezoneID, int memoryID)
+        {
+            return false;
+        }
+
+        public bool DeleteCard(Employee employee, int memoryID)
+        {
+            return false;
+        }
+
+        public string GetFinger(string cardNumber, int fingerID)
+        {
+            return "";
+        }
+
+        public bool Unlock(int delay)
+        {
+            return supremacs40.OpenDoor(1);
+        }
+
+        public bool Unlock2(int outputNo, int delay)
+        {
+            return supremacs40.OpenDoor((byte)outputNo);
+        }
+
+        public bool TestConnection()
+        {
+            return supremacs40.IsConnect;
+        }
+
+        public void DelAllEvent()
+        {
+            
+        }
+        public string GetInputState()
+        {
+            return "";
+        }
+    }
+}

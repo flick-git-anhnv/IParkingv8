@@ -1,0 +1,961 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using Futech.Tools;
+
+using System.Net.NetworkInformation;
+
+namespace Futech.Objects
+{
+    public partial class FINGERTECSettingPage : Form, IControllerSettingPage
+    {
+        public event CardEventHandler CardEvent;
+        public event InputEventHandler InputEvent;
+        private string comPort = "";
+        private int baudRate = 0;
+
+        private Thread thread = null;
+        private ManualResetEvent stopEvent = null;
+
+        private string[] eventStatus = new string[] { "Access Granted", "UnregisterID", "TimeSchedule Error", "AntiPassBack Error(IN)", "AntiPassBack Error(OUT)", "Password Error", "Access Door Error", "Fingger Error", "Duress Mode", "Door Open", "Door Close" };
+
+        private ControllerType controllerType = null;
+
+        public FINGERTECSettingPage()
+        {
+            InitializeComponent();
+        }
+
+        #region property
+        // Line ID
+        private int lineID = 0;
+        public int LineID
+        {
+            set { lineID = value; }
+        }
+
+        // Controller Address property
+        private int address = 1;
+        public int Address
+        {
+            set { address = value; }
+        }
+
+        private int controllerTypeID = 9;
+        private string devideModel = "AC100";
+        public int ControllerTypeID
+        {
+            set
+            {
+                controllerTypeID = value;
+            }
+        }
+
+        private int communicationType = 0;
+        public int CommunicationType
+        {
+            set { communicationType = value; }
+        }
+
+        private bool isconnect = false;
+        public bool IsConnect
+        {
+            get { return isconnect; }
+            set { isconnect = value; }
+        }
+
+        // Delay time property
+        private int delayTime = 300;
+        public int DelayTime
+        {
+            set { delayTime = value; }
+        }
+
+        private int downloadTime = 300;
+        public int DownloadTime
+        {
+            set { downloadTime = value; }
+        }
+
+        // all controllers in line
+        private ControllerCollection controllers = new ControllerCollection();
+        public ControllerCollection Controllers
+        {
+            set { controllers = value; }
+        }
+
+        // all timezones
+        private TimezoneCollection timezones = new TimezoneCollection();
+        public TimezoneCollection Timezones
+        {
+            set
+            {
+                timezones = value;
+                foreach (Timezone timezone in value)
+                {
+                    cbxTimezone.Items.Add(timezone.Name);
+                }
+                if (timezones.Count > 0)
+                    cbxTimezone.SelectedIndex = 0;
+            }
+        }
+
+        // all controllerTypes
+        private ControllerTypeCollection controllerTypes = new ControllerTypeCollection();
+        public ControllerTypeCollection ControllerTypes
+        {
+            set
+            {
+                controllerTypes = value;
+                controllerType = controllerTypes.GetControllerTypeByID(controllerTypeID);
+                if (controllerType != null)
+                {
+                    devideModel = controllerType.Name.Replace("Plus", "+");
+                }
+            }
+        }
+
+        private int comKey = 0;
+        public int ComKey
+        {
+            get { return comKey; }
+            set { comKey = value; }
+        }
+
+        // all blackLists
+        private BlackListCollection blackLists = new BlackListCollection();
+        public BlackListCollection BlackLists
+        {
+            get { return blackLists; }
+            set { blackLists = value; }
+        }
+
+        #endregion
+
+        // connect to reader
+        public bool Connect(string comPort, int baudRate)
+        {
+            isconnect = false;
+            try
+            {
+                this.comPort = comPort;
+                this.baudRate = baudRate;
+                if (controllers.Count > 0)
+                {
+                    // Lay su kien online
+                    //this.axBioBridgeSDK.OnAttTransactionEx += new AxBioBridgeSDKLib._DBioBridgeSDKEvents_OnAttTransactionExEventHandler(this.axBioBridgeSDK_OnAttTransactionEx);
+
+                    address = controllers[0].Address;
+                    if (!int.TryParse(controllers[0].Description, out comKey))
+                        comKey = 0;
+
+                    if (communicationType == 0)
+                    {
+                        axBioBridgeSDK.Disconnect();
+                        int comPortID = Convert.ToInt32(comPort.Substring(3));
+                        if (axBioBridgeSDK.Connect_COMM(devideModel, address, comPortID, baudRate, comKey) == 0)
+                        {
+                            isconnect = true;
+                            return true;
+                        }
+                    }
+                    else if (communicationType == 1)
+                    {
+                        Ping pingSender = new Ping();
+                        PingReply reply = null;
+                        reply = pingSender.Send(comPort, 100);
+                        if (reply != null && reply.Status == IPStatus.Success)
+                        {
+                            if (this.axBioBridgeSDK.Connect_TCPIP(this.devideModel, this.address, comPort, baudRate, this.comKey) == 0)
+                            {
+                                this.isconnect = true;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
+
+        // disconnect to reader
+        public bool DisConnect()
+        {
+            if (isconnect)
+            {
+                isconnect = false;
+                if (axBioBridgeSDK.Disconnect() == 0)
+                {
+                    // Ngung lay su kien online
+                    this.axBioBridgeSDK.OnAttTransactionEx -= new AxBioBridgeSDKLib._DBioBridgeSDKEvents_OnAttTransactionExEventHandler(this.axBioBridgeSDK_OnAttTransactionEx);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Start
+        public void PollingStart()
+        {
+            if (thread == null)
+            {
+                // create events
+                stopEvent = new ManualResetEvent(false);
+
+                // start thread
+                thread = new Thread(new ThreadStart(WorkerThread));
+                thread.Start();
+            }
+        }
+
+        // is Running
+        public bool Running
+        {
+            get
+            {
+                if (thread != null)
+                {
+                    if (thread.Join(0) == false)
+                        return true;
+
+                    // the thread is not running, so free resources
+                    Free();
+                }
+                return false;
+            }
+        }
+
+        // Signal thread to stop work
+        public void SignalToStop()
+        {
+            // stop thread
+            if (thread != null)
+            {
+                // signal to stop
+                stopEvent.Set();
+            }
+        }
+
+        // Wait for thread stop
+        public void WaitForStop()
+        {
+            if (thread != null)
+            {
+                // wait for thread stop
+                thread.Join();
+
+                Free();
+            }
+        }
+
+        // Free resources
+        private void Free()
+        {
+            thread = null;
+
+            // release events
+            stopEvent.Close();
+            stopEvent = null;
+        }
+
+        // Stop
+        public void PollingStop()
+        {
+            if (this.Running)
+            {
+                thread.Abort();
+                WaitForStop();
+            }
+        }
+
+        // Worker thread
+        int timeout = 0;
+        public void WorkerThread()
+        {
+            while (!stopEvent.WaitOne(0, true))
+            {
+                try
+                {
+                    //DateTime dtnow = DateTime.Now;
+                    if (isconnect)
+                    {
+                        foreach (Futech.Objects.Controller controller in controllers)
+                        {
+                            Thread.Sleep(downloadTime * 1000);
+                            int logSize = 0;
+                            if (axBioBridgeSDK.ReadGeneralLog(ref logSize) == 0)
+                            {
+                                timeout = 0;
+                                if (logSize > 0) // && dtnow.Hour >= 0 && dtnow.Hour <= 5)
+                                {
+                                    // Disable thiet bi
+                                    axBioBridgeSDK.DisableDevice();
+
+                                    int iEnrollNo = 0;
+                                    string enrollNo = "0";
+                                    int year = 1899;
+                                    int month = 12;
+                                    int day = 30;
+                                    int hour = 12;
+                                    int minute = 0;
+                                    int second = 0;
+                                    int verifyMode = 0;
+                                    int io = 0;
+                                    int workCode = 0;
+
+                                    if (controller.ControllerTypeID >= 19)
+                                    {
+                                        while (axBioBridgeSDK.SSR_GetGeneralLog(ref enrollNo, ref year, ref month, ref day, ref hour, ref minute, ref second, ref verifyMode, ref io, ref workCode) == 0)
+                                        {
+                                            CardEventArgs e = new CardEventArgs
+                                            {
+                                                LineID = controller.LineID,
+                                                LineCode = controller.LineCode,
+                                                ControllerAddress = controller.Address,
+                                                CardNumber = enrollNo,
+                                                Date = year.ToString("0000") + "/" + month.ToString("00") + "/" + day.ToString("00"),
+                                                Time = hour.ToString("00") + ":" + minute.ToString("00") + ":" + second.ToString("00"),
+                                                ReaderIndex = (io == 0) ? 1 : 2,
+                                                EventStatus = "Access Granted"
+                                            };
+                                            CardEvent(this, e);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        while (axBioBridgeSDK.GetGeneralLog(ref iEnrollNo, ref year, ref month, ref day, ref hour, ref minute, ref second, ref verifyMode, ref io, ref workCode) == 0)
+                                        {
+                                            CardEventArgs e = new CardEventArgs
+                                            {
+                                                LineID = controller.LineID,
+                                                ControllerAddress = controller.Address,
+                                                CardNumber = iEnrollNo.ToString(),
+                                                Date = year.ToString("0000") + "/" + month.ToString("00") + "/" + day.ToString("00"),
+                                                Time = hour.ToString("00") + ":" + minute.ToString("00") + ":" + second.ToString("00"),
+                                                ReaderIndex = (io == 0) ? 1 : 2,
+                                                EventStatus = "Access Granted"
+                                            };
+                                            CardEvent(this, e);
+                                        }
+                                    }
+                                    // Xoa du lieu trong dau doc
+                                    if (isconnect)
+                                    {
+                                        axBioBridgeSDK.DeleteGeneralLog();
+                                    }
+
+                                    // Enable thiet bi
+                                    axBioBridgeSDK.EnableDevice();
+                                }
+                            }
+                            else
+                            {
+                                //isconnect = false;
+                                timeout = timeout + 1;
+                                if (timeout >= 30)
+                                {
+                                    // Reconnect to reader
+                                    timeout = 0;
+                                    isconnect = false;
+                                    //Connect(this.comPort, this.baudRate);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Thread.Sleep(downloadTime * 1000);
+                        Connect(this.comPort, this.baudRate);
+                    }
+                }
+                catch 
+                {
+                    // Enable thiet bi
+                    axBioBridgeSDK.EnableDevice();
+                }
+            }
+        }
+
+        // Download Card
+        public bool DownloadCard(Employee employee, int timezoneID, int memoryID)
+        {
+            SetUserInfo(employee);
+            DownloadFinger(employee);
+            SetUserVerType(employee);
+            SetUserGroup(employee, timezoneID + 1);
+
+            return SetUserTimezone(employee, timezoneID + 1);
+        }
+
+        // Delete Card
+        public bool DeleteCard(Employee employee, int memoryID)
+        {
+            return DeleteUserData(employee);
+        }
+
+        private bool DownloadFinger(Employee employee)
+        {
+            bool complete = false;
+            if (isconnect)
+            {
+                if (controllerTypeID >= 19)
+                {
+                    if (employee.Fingers1 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 0, employee.Fingers1) == 0)
+                            complete = true;
+                    if (employee.Fingers2 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 1, employee.Fingers2) == 0)
+                            complete = true;
+                    if (employee.Fingers3 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 2, employee.Fingers3) == 0)
+                            complete = true;
+                    if (employee.Fingers4 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 3, employee.Fingers4) == 0)
+                            complete = true;
+                    if (employee.Fingers5 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 4, employee.Fingers5) == 0)
+                            complete = true;
+                    if (employee.Fingers6 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 5, employee.Fingers6) == 0)
+                            complete = true;
+                    if (employee.Fingers7 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 6, employee.Fingers7) == 0)
+                            complete = true;
+                    if (employee.Fingers8 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 7, employee.Fingers8) == 0)
+                            complete = true;
+                    if (employee.Fingers9 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 8, employee.Fingers9) == 0)
+                            complete = true;
+                    if (employee.Fingers10 != "")
+                        if (axBioBridgeSDK.SSR_SetUserTemplate(employee.CardNumber, 9, employee.Fingers10) == 0)
+                            complete = true;
+
+                    //axBioBridgeSDK.EnableDevice();
+                }
+                else
+                {
+                    if (int.TryParse(employee.CardNumber, out int enrollNo))
+                    {
+                        if (employee.Fingers1 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 0, employee.Fingers1) == 0)
+                                complete = true;
+                        if (employee.Fingers2 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 1, employee.Fingers2) == 0)
+                                complete = true;
+                        if (employee.Fingers3 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 2, employee.Fingers3) == 0)
+                                complete = true;
+                        if (employee.Fingers4 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 3, employee.Fingers4) == 0)
+                                complete = true;
+                        if (employee.Fingers5 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 4, employee.Fingers5) == 0)
+                                complete = true;
+                        if (employee.Fingers6 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 5, employee.Fingers6) == 0)
+                                complete = true;
+                        if (employee.Fingers7 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 6, employee.Fingers7) == 0)
+                                complete = true;
+                        if (employee.Fingers8 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 7, employee.Fingers8) == 0)
+                                complete = true;
+                        if (employee.Fingers9 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 8, employee.Fingers9) == 0)
+                                complete = true;
+                        if (employee.Fingers10 != "")
+                            if (axBioBridgeSDK.SetUserTemplate(enrollNo, 9, employee.Fingers10) == 0)
+                                complete = true;
+
+                        //axBioBridgeSDK.EnableDevice();
+                    }
+                }
+            }
+            return complete;
+        }
+
+        private bool DeleteFinger(Employee employee)
+        {
+            bool complete = false;
+            if (isconnect)
+            {
+                if (controllerTypeID >= 19)
+                {
+                    if (employee.Fingers1 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 0) == 0)
+                            complete = true;
+                    if (employee.Fingers2 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 1) == 0)
+                            complete = true;
+                    if (employee.Fingers3 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 2) == 0)
+                            complete = true;
+                    if (employee.Fingers4 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 3) == 0)
+                            complete = true;
+                    if (employee.Fingers5 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 4) == 0)
+                            complete = true;
+                    if (employee.Fingers6 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 5) == 0)
+                            complete = true;
+                    if (employee.Fingers7 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 6) == 0)
+                            complete = true;
+                    if (employee.Fingers8 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 7) == 0)
+                            complete = true;
+                    if (employee.Fingers9 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 8) == 0)
+                            complete = true;
+                    if (employee.Fingers10 != "")
+                        if (axBioBridgeSDK.SSR_DeleteUserTemplate(employee.CardNumber, 9) == 0)
+                            complete = true;
+                }
+                else
+                {
+                    if (int.TryParse(employee.CardNumber, out int enrollNo))
+                    {
+                        if (employee.Fingers1 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 0) == 0)
+                                complete = true;
+                        if (employee.Fingers2 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 1) == 0)
+                                complete = true;
+                        if (employee.Fingers3 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 2) == 0)
+                                complete = true;
+                        if (employee.Fingers4 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 3) == 0)
+                                complete = true;
+                        if (employee.Fingers5 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 4) == 0)
+                                complete = true;
+                        if (employee.Fingers6 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 5) == 0)
+                                complete = true;
+                        if (employee.Fingers7 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 6) == 0)
+                                complete = true;
+                        if (employee.Fingers8 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 7) == 0)
+                                complete = true;
+                        if (employee.Fingers9 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 8) == 0)
+                                complete = true;
+                        if (employee.Fingers10 != "")
+                            if (axBioBridgeSDK.DeleteUserTemplate(enrollNo, 9) == 0)
+                                complete = true;
+                    }
+                }
+            }
+            return complete;
+        }
+
+        // Get Finger
+        public string GetFinger(string cardNumber, int fingerID)
+        {
+            string template = "";
+            if (isconnect)
+            {
+                if (controllerTypeID >= 19)
+                {
+                    if (axBioBridgeSDK.SSR_GetUserTemplate(cardNumber, fingerID - 1, ref template) == 0)
+                    {
+                        return template;
+                    }
+                }
+                else
+                {
+                    if (int.TryParse(cardNumber, out int enrollNo))
+                    {
+                        if (axBioBridgeSDK.GetUserTemplate(enrollNo, fingerID - 1, ref template) == 0)
+                        {
+                            return template;
+                        }
+                    }
+                }
+            }
+            return template;
+        }
+
+        // Unlock
+        public bool Unlock(int delay)
+        {
+            if (isconnect && axBioBridgeSDK.UnlockDoor(delay) == 0)
+                return true;
+            return false;
+        }
+
+        public bool Unlock2(int outputNo, int delay)
+        {
+            return false;
+        }
+
+        // Test connection
+        public bool TestConnection()
+        {
+            string sdkVersion = "";
+            if (axBioBridgeSDK.GetSDKVersion(ref sdkVersion, 0) == 0)
+                return true;
+            isconnect = false;
+            return false;
+        }
+
+        private bool SetUserInfo(Employee employee)
+        {
+            if (isconnect)
+            {
+                string password = "";
+                if (employee.Passwords != "" || employee.Passwords != "0000")
+                    password = employee.Passwords;
+                //string[] tmp = SystemUI.RemoveUnicode(employee.Name).Split(' ');
+                //if (tmp.Length > 0)
+                //{
+                //    if (tmp[tmp.Length - 1].Length < 8)
+                //    {
+                //        if (tmp.Length >= 2)
+                //        {
+                //            for (int i = 0; i <= tmp.Length - 2; i++)
+                //            {
+                //                if (tmp[i].ToString() != "")
+                //                    employeeName += tmp[i].Substring(0, 1) + ".";
+                //            }
+                //        }
+                //        employeeName += tmp[tmp.Length - 1];
+                //    }
+                //    else
+                //        employeeName = tmp[tmp.Length - 1];
+                //}
+
+                // Dat ten hien thi trung voi ma Nhan vien
+                string employeeName = employee.Code;
+                if (employeeName.Length > 8)
+                {
+                    //employeeName = employeeName.Substring(employeeName.Length - 8);
+                    employeeName = employeeName.Substring(0, 8);
+                }
+
+                if (int.TryParse(employee.CardNumber1, out int cardNo))
+                {
+                    axBioBridgeSDK.CardNo = cardNo;
+                }
+                
+                if (controllerTypeID >= 19)
+                {
+                    if (axBioBridgeSDK.SSR_SetUserInfo(employee.CardNumber, employeeName, password, 0, true) == 0)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (int.TryParse(employee.CardNumber, out int enrollNo))
+                    {
+                        if (axBioBridgeSDK.SetUserInfo(enrollNo, employeeName, password, 0, true) == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool DeleteUserData(Employee employee)
+        {
+            if (isconnect)
+            {
+                if (controllerTypeID >= 19)
+                {
+                    if (axBioBridgeSDK.SSR_DeleteUserData(employee.CardNumber) == 0)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (int.TryParse(employee.CardNumber, out int enrollNo))
+                    {
+                        if (axBioBridgeSDK.DeleteUserData(enrollNo) == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Set user Verify Type, avaibability: M2, R2
+        int[] verType = new int[15] { 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142 };
+        private bool SetUserVerType(Employee employee)
+        {
+            if (isconnect)
+            {
+                if (int.TryParse(employee.CardNumber, out int enrollNo))
+                {
+                    if (axBioBridgeSDK.SetUserVerType(enrollNo, verType[employee.VerifyTypeID]) == 0)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+        private bool SetUserGroup(Employee employee, int timezoneID)
+        {
+            if (isconnect)
+            {
+                if (int.TryParse(employee.CardNumber, out int enrollNo))
+                {
+                    if (axBioBridgeSDK.SetUserGroup(enrollNo, timezoneID) == 0)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+        private bool SetUserTimezone(Employee employee, int timezoneID)
+        {
+            if (isconnect)
+            {
+                if (int.TryParse(employee.CardNumber, out int enrollNo))
+                {
+                    if (axBioBridgeSDK.SetUserTimezone(enrollNo, timezoneID + "::") == 0)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+        // Set Timezone Info, avaibability: AC800, AC800 Plus, AC900
+        private void btnDateTimeUpLoad_Click(object sender, EventArgs e)
+        {
+            int year = 1899;
+            int month = 12;
+            int day = 30;
+            int hour = 12;
+            int minute = 0;
+            int second = 0;
+
+            if (isconnect && axBioBridgeSDK.GetDeviceTime(ref year, ref month, ref day, ref hour, ref minute, ref second) == 0)
+            {
+                txtDate.Text = day.ToString("00") + "/" + month.ToString("00") + "/" + year.ToString("0000");
+                txtTime.Text = hour.ToString("00") + ":" + minute.ToString("00") + ":" + second.ToString("00");
+            }
+            else
+                MessageBox.Show("Xảy ra lỗi khi nhận ngày giờ từ Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnDateTimeDownload_Click(object sender, EventArgs e)
+        {
+            if (isconnect && axBioBridgeSDK.SetDeviceTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, dtpTime.Value.Hour, dtpTime.Value.Minute, dtpTime.Value.Second) == 0)
+                MessageBox.Show("Đã đặt ngày giờ lên các Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi đặt ngày giờ lên Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnClearAllData_Click(object sender, EventArgs e)
+        {
+            if (isconnect && axBioBridgeSDK.ClearAllData() == 0)
+                MessageBox.Show("Đã khởi tạo Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi khởi tạo Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void btnClearAdministrator_Click(object sender, EventArgs e)
+        {
+            if (isconnect && axBioBridgeSDK.ClearAdministrator() == 0)
+                MessageBox.Show("Đã xóa tất cả các quyền quản trị trên Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi xóa tất cả các quyền quản trị trên Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void cbxTimezone_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Reset
+            this.tabPage3.Controls.Remove(graphControl);
+            graphControl = new GraphControl
+            {
+                Size = new Size(356, 244),
+                Location = new Point(3, 46)
+            };
+            this.tabPage3.Controls.Add(graphControl);
+            //
+            Timezone timezone = timezones.GetTimezoneByName(cbxTimezone.SelectedItem.ToString());
+            if (timezone != null)
+            {
+                string[] mon = timezone.Mon.Split('-');
+                string[] tue = timezone.Tue.Split('-');
+                string[] wed = timezone.Wed.Split('-');
+                string[] thu = timezone.Thu.Split('-');
+                string[] fri = timezone.Fri.Split('-');
+                string[] sat = timezone.Sat.Split('-');
+                string[] sun = timezone.Sun.Split('-');
+                graphControl.AddLine(DateUI.GetTimeNumber(mon[0]), 1, DateUI.GetTimeNumber(mon[1]), 1);
+                graphControl.AddLine(DateUI.GetTimeNumber(tue[0]), 2, DateUI.GetTimeNumber(tue[1]), 2);
+                graphControl.AddLine(DateUI.GetTimeNumber(wed[0]), 3, DateUI.GetTimeNumber(wed[1]), 3);
+                graphControl.AddLine(DateUI.GetTimeNumber(thu[0]), 4, DateUI.GetTimeNumber(thu[1]), 4);
+                graphControl.AddLine(DateUI.GetTimeNumber(fri[0]), 5, DateUI.GetTimeNumber(fri[1]), 5);
+                graphControl.AddLine(DateUI.GetTimeNumber(sat[0]), 6, DateUI.GetTimeNumber(sat[1]), 6);
+                graphControl.AddLine(DateUI.GetTimeNumber(sun[0]), 7, DateUI.GetTimeNumber(sun[1]), 7);
+                //
+                graphControl.Invalidate();
+            }
+        }
+
+        private void btnTimezoneDownload_Click(object sender, EventArgs e)
+        {
+            Timezone timezone = timezones.GetTimezoneByName(cbxTimezone.SelectedItem.ToString());
+            if (timezone != null)
+            {
+                string timezoneString = "";
+                timezoneString += TimezoneInDay(timezone.Sun);
+                timezoneString += TimezoneInDay(timezone.Mon);
+                timezoneString += TimezoneInDay(timezone.Tue);
+                timezoneString += TimezoneInDay(timezone.Wed);
+                timezoneString += TimezoneInDay(timezone.Thu);
+                timezoneString += TimezoneInDay(timezone.Fri);
+                timezoneString += TimezoneInDay(timezone.Sat);
+                // Set timezone info
+                if (isconnect && axBioBridgeSDK.SetTimezoneInfo(timezone.ID + 1, timezoneString) == 0)
+                {
+                    // Set Group Timezone
+                    if (controllerTypeID >= 19)
+                    {
+                        axBioBridgeSDK.SSR_SetGroupTZ(timezone.ID + 1, timezone.ID + 1, 0, 0, 0, verType[0]);
+                        axBioBridgeSDK.SSR_SetUnLockGroup(timezone.ID + 1, timezone.ID + 1, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        string groupTimezone = Convert.ToString(timezone.ID + 1) + "::";
+                        axBioBridgeSDK.SetGroupTimezone(timezone.ID + 1, groupTimezone);
+                        axBioBridgeSDK.SetUnlockGroup(Convert.ToString(timezone.ID + 1));
+                    }
+                    MessageBox.Show("Đã cập nhật Timezone ' " + cbxTimezone.Text + " ' lên Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Đã xảy ra lỗi khi giao tiếp với Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private string TimezoneInDay(string timezoneInDay)
+        {
+            string[] temp = timezoneInDay.Split('-');
+            string[] t1 = temp[0].Split(':');
+            string[] t2 = temp[1].Split(':');
+            return t1[0] + t1[1] + t2[0] + t2[1];
+        }
+
+        private void FINGERTECSettingPage_Load(object sender, EventArgs e)
+        {
+            PollingStop();
+        }
+
+        private void FINGERTECSettingPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PollingStart();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnGetSDKVersion_Click(object sender, EventArgs e)
+        {
+            string sdkVersion = "";
+            lbStatus.Text = axBioBridgeSDK.GetSDKVersion(ref sdkVersion, 0).ToString();
+            lbSDKVersion.Text = sdkVersion;
+        }
+
+        private void btnSetCommunicationKey_Click(object sender, EventArgs e)
+        {
+            if (isconnect && axBioBridgeSDK.SetDeviceCommKey((int)numCommunicationKey.Value) == 0)
+                MessageBox.Show("Đã cập nhật Communication Key của Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Đã xảy ra lỗi khi cập nhật Communication Key của Bộ điều khiển.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void axBioBridgeSDK_OnAttTransactionEx(object sender, AxBioBridgeSDKLib._DBioBridgeSDKEvents_OnAttTransactionExEvent e)
+        {
+            try
+            {
+                //if (e != null)
+                //{
+                //    int io = 0;
+                //    CardEventArgs ce = new CardEventArgs();
+                //    ce.LineID = lineID;
+                //    ce.ControllerAddress = address;
+                //    ce.CardNumber = e.enrollNo;
+                //    ce.Date = e.year.ToString("0000") + "/" + e.month.ToString("00") + "/" + e.day.ToString("00");
+                //    ce.Time = e.hour.ToString("00") + ":" + e.minute.ToString("00") + ":" + e.second.ToString("00");
+                //    io = e.attState;
+                //    ce.ReaderIndex = (io == 0) ? 1 : 2;
+                //    ce.EventStatus = (e.isInValid == 0) ? "Access Granted" : "Access Denied";
+                //    CardEvent(this, ce);
+                //}
+            }
+            catch (Exception ex)
+            {
+                //LogHelperv2.SaveErrorLog(ex.Message);
+            }
+        }
+
+        private void btnGetWorkCode_Click(object sender, EventArgs e)
+        {
+            string _workcode = "";
+            lbStatus.Text = axBioBridgeSDK.SSR_GetWorkCode(0, ref _workcode).ToString();
+            lbWorkCode.Text = _workcode;
+        }
+
+        private void btnSetWorkCode_Click(object sender, EventArgs e)
+        {
+            lbStatus.Text = axBioBridgeSDK.SSR_SetWorkCode(Convert.ToInt16(txtWorkCode.Text), txtWorkCode.Text).ToString();
+        }
+
+        private void btnClearWorkCode_Click(object sender, EventArgs e)
+        {
+            lbStatus.Text = axBioBridgeSDK.SSR_ClearWorkCode().ToString();
+        }
+
+        private void btnGetFirmware_Click(object sender, EventArgs e)
+        {
+            string strfirmwareversion = "";
+            lbStatus.Text = axBioBridgeSDK.GetFirmwareVersion(ref strfirmwareversion).ToString();
+            lbFirmwareVersion.Text = strfirmwareversion;
+        }
+
+        public void DelAllEvent()
+        {
+        }
+        public string GetInputState()
+        {
+            return "";
+        }
+    }
+}
+
+
+                                      

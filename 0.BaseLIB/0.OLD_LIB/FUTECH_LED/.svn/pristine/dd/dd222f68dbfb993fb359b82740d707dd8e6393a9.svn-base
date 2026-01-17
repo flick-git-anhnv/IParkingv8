@@ -1,0 +1,40 @@
+﻿using log4net;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Futech.Tools
+{
+    public static class LogHelper
+    {
+        private static string currentUser = string.Empty;
+
+        private static readonly ILog KzLogger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        public static string CurrentUser { get => currentUser; set => currentUser = value; }
+
+        public static void WarnLog(string s)
+        {
+            if (currentUser != null)
+                KzLogger.Warn(s + ". User: " + currentUser);
+            else
+                KzLogger.Warn(s);
+        }
+        public static void ErrorLog(string s)
+        {
+            if (currentUser != null)
+                KzLogger.Error(s + ". User: " + currentUser);
+            else
+                KzLogger.Error(s);
+        }
+        public static void InfoLog(string s)
+        {
+            if (currentUser != null)
+                KzLogger.Info(s + ". User: " + currentUser);
+            else
+                KzLogger.Info(s);
+        }
+    }
+}

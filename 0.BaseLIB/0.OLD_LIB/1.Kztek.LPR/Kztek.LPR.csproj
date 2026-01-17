@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Company>Kztek</Company>
+    <Authors>Kztek Software Dept</Authors>
+    <AssemblyVersion>1.0.0.10</AssemblyVersion>
+    <FileVersion>1.0.0.10</FileVersion>
+    <Version>1.0.0.9</Version>
+    <SignAssembly>false</SignAssembly>
+    <Description>1.0.0.10</Description>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>E:\Kztek.Libraries\bin x64\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <OutputPath>E:\Kztek.Libraries\bin x64\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>E:\Kztek.Libraries\bin x64\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AForge.Imaging">
+      <HintPath>..\..\2.Workspace\2.Projects\2023\4.Petrolimex\1.source_2023\Petrolimex_2023\Lib_packages\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp">
+      <HintPath>..\..\2.Workspace\2.Projects\2023\4.Petrolimex\1.source_2023\Petrolimex_2023\Lib_packages\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions">
+      <HintPath>..\..\2.Workspace\2.Projects\2023\4.Petrolimex\1.source_2023\Petrolimex_2023\Lib_packages\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleLPR2">
+      <HintPath>..\..\2.Workspace\2.Projects\2023\4.Petrolimex\1.source_2023\Petrolimex_2023\Lib_packages\SimpleLPR2.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleLPR3">
+      <HintPath>..\..\2.Workspace\2.Projects\2023\4.Petrolimex\1.source_2023\Petrolimex_2023\Lib_packages\SimpleLPR3.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

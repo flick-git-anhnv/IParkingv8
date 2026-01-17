@@ -1,360 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ILedv8\\ILedv8.csproj": {}
+    "K:\\MyGithub\\IParkingv8\\ILedv8\\ILedv8.csproj": {}
   },
   "projects": {
-    "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj",
-        "projectName": "Kztek.Api",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj",
-        "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\VietAnh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netstandard2.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netstandard2.1": {
-            "targetAlias": "netstandard2.1",
-            "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "false",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "netstandard2.1": {
-          "targetAlias": "netstandard2.1",
-          "dependencies": {
-            "RestSharp": {
-              "target": "Package",
-              "version": "[112.1.0, )"
-            },
-            "System.IO.Ports": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "NETStandard.Library": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj": {
-      "version": "1.0.0.4",
-      "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj",
-        "projectName": "Kztek.Cameras",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj",
-        "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\VietAnh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0-windows"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
-          "dependencies": {
-            "AForge.Imaging": {
-              "target": "Package",
-              "version": "[2.2.5, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            },
-            "Microsoft.WindowsDesktop.App.WindowsForms": {
-              "privateAssets": "none"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj",
-        "projectName": "Kztek.Object.Entity",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj",
-        "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\VietAnh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netstandard2.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netstandard2.1": {
-            "targetAlias": "netstandard2.1",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "false",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "netstandard2.1": {
-          "targetAlias": "netstandard2.1",
-          "dependencies": {
-            "Minio": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "System.Data.OleDb": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "System.Data.SqlClient": {
-              "target": "Package",
-              "version": "[4.9.0, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[8.0.7, )"
-            },
-            "System.IO.Ports": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "NETStandard.Library": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-      "version": "1.0.0.6",
-      "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj",
-        "projectName": "Kztek.Tool",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj",
-        "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\VietAnh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netstandard2.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netstandard2.1": {
-            "targetAlias": "netstandard2.1",
-            "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "false",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "netstandard2.1": {
-          "targetAlias": "netstandard2.1",
-          "dependencies": {
-            "Microsoft.Data.Sqlite": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "Microsoft.Win32.Registry": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "Minio": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[8.0.7, )"
-            },
-            "System.IO.Ports": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            },
-            "System.Security.Permissions": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "NETStandard.Library": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ILedv8\\ILedv8.csproj": {
+    "K:\\MyGithub\\IParkingv8\\ILedv8\\ILedv8.csproj": {
       "version": "8.0.0.1",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ILedv8\\ILedv8.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\ILedv8\\ILedv8.csproj",
         "projectName": "ILedv8",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ILedv8\\ILedv8.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\ILedv8\\ILedv8.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\ILedv8\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\ILedv8\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -376,26 +33,26 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj"
+              "K:\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Auth\\iParkingv8.Auth.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Auth\\iParkingv8.Auth.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj"
               }
             }
           }
@@ -438,14 +95,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj": {
       "version": "8.0.0.5",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj",
         "projectName": "iParking.ConfigurationManager",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParking.ConfigurationManager\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -467,23 +124,23 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj"
+              "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj"
+              "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj"
               }
             }
           }
@@ -548,14 +205,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Controller\\iParkingv5.Controller.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj": {
       "version": "6.0.2",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Controller\\iParkingv5.Controller.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj",
         "projectName": "iParkingv5.Controller",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Controller\\iParkingv5.Controller.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Controller\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -577,11 +234,11 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               }
             }
           }
@@ -634,14 +291,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
       "version": "1.0.0.2",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj",
         "projectName": "iParkingv5.LedDisplay",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -663,11 +320,11 @@
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               }
             }
           }
@@ -713,14 +370,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj": {
       "version": "1.0.0.3",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj",
         "projectName": "iParkingv5.Lpr",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Lpr\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -742,14 +399,14 @@
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj"
+              "K:\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               }
             }
           }
@@ -803,14 +460,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj": {
+    "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj": {
       "version": "8.0.0.7",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj",
         "projectName": "IParkingv8.API",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -832,17 +489,17 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj"
+              "K:\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.API\\1.Main\\Kztek.API\\1.Source\\Kztek.Api\\Kztek.Api.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj"
               }
             }
           }
@@ -892,14 +549,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Auth\\iParkingv8.Auth.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj": {
       "version": "8.0.0.2",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Auth\\iParkingv8.Auth.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj",
         "projectName": "iParkingv8.Auth",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Auth\\iParkingv8.Auth.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Auth\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -921,14 +578,14 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj"
+              "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj"
+              "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj"
               }
             }
           }
@@ -989,14 +646,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.Cash\\IParkingv8.Cash.csproj": {
+    "K:\\MyGithub\\IParkingv8\\IParkingv8.Cash\\IParkingv8.Cash.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.Cash\\IParkingv8.Cash.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\IParkingv8.Cash\\IParkingv8.Cash.csproj",
         "projectName": "IParkingv8.Cash",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.Cash\\IParkingv8.Cash.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.Cash\\IParkingv8.Cash.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.Cash\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.Cash\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1018,11 +675,11 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj"
               }
             }
           }
@@ -1065,14 +722,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
       "version": "8.0.0.6",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj",
         "projectName": "iParkingv8.Object",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1094,11 +751,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj"
               }
             }
           }
@@ -1144,14 +801,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj": {
+    "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj": {
       "version": "8.0.0.5",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj",
         "projectName": "IParkingv8.QRScreenController",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1173,8 +830,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj"
               }
             }
           }
@@ -1223,14 +880,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
+    "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
       "version": "8.0.0.5",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj",
         "projectName": "iParkingv8.Ultility",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1252,11 +909,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               }
             }
           }
@@ -1296,14 +953,14 @@
         }
       }
     },
-    "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj": {
+    "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj": {
       "version": "8.0.1.1",
       "restore": {
-        "projectUniqueName": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj",
+        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj",
         "projectName": "Kztek.Control8",
-        "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\Kztek.Control8.csproj",
+        "projectPath": "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\Kztek.Control8.csproj",
         "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\Kztek.Control8\\obj\\",
+        "outputPath": "K:\\MyGithub\\IParkingv8\\Kztek.Control8\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1325,38 +982,38 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj"
+              "K:\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Camera\\Kztek.Camera\\1.Source\\Kztek.Cameras\\Kztek.Cameras.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
+              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
+              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
+                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Controller\\iParkingv5.Controller.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Controller\\iParkingv5.Controller.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.API\\IParkingv8.API.csproj"
+              "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.API\\IParkingv8.API.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.Cash\\IParkingv8.Cash.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.Cash\\IParkingv8.Cash.csproj"
+              "K:\\MyGithub\\IParkingv8\\IParkingv8.Cash\\IParkingv8.Cash.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.Cash\\IParkingv8.Cash.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Object\\iParkingv8.Object.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Object\\iParkingv8.Object.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj"
+              "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\IParkingv8.QRScreenController\\IParkingv8.QRScreenController.csproj"
               },
-              "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
-                "projectPath": "D:\\KZTEK\\Code_Git\\1.Window\\1.IPARKING\\v8\\1.Main\\parking-v8-app\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj"
+              "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj": {
+                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Ultility\\iParkingv8.Ultility.csproj"
               }
             }
           }

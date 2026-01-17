@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Futech.DisplayLED
+{
+    internal static class ConstantText
+    {
+        public static string Xinchaoquykhach = "Xin chào\nQuý khách";
+        public static string Xinchao = "Xin chào";
+        public static string Xinmoivao = "Xin mời vào";
+        public static string Xinmoiqua = "Xin mời qua";
+        public static string Moivao = "Mời vào";
+        public static string Hengaplaiquykhac = "Hẹn gặp lại\nQuý khách";
+        public static string Sotien = "Số tiền:";
+        public static string Thoigian = "Thời gian:";
+        public static string Bienso = "Biến số:";
+        public static string iParking = "iParking";
+        public static string CardM = "Thẻ tháng";
+        public static string CardVip = "Thẻ VIP";
+        public static string WelcomeLotte = "Welcome\nLotte";
+        public static string Thankyou = "Thank you";
+        public static string SeeUlater = "See you later!";
+    }
+}
