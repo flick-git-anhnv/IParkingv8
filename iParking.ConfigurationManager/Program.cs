@@ -2,6 +2,7 @@ using iParking.ConfigurationManager.Forms;
 using iParkingv8.Ultility;
 using iParkingv8.Ultility.dictionary;
 using iParkingv8.Ultility.Style;
+using Kztek.Control8.Forms;
 using System.Globalization;
 
 namespace iParking.ConfigurationManager
@@ -26,7 +27,10 @@ namespace iParking.ConfigurationManager
             KZUIStyles.BuiltInResources.TryAdd(new en_US_KZResources().CultureInfo.LCID, new en_US_KZResources());
             KZUIStyles.BuiltInResources.TryAdd(new lo_LA_KZResources().CultureInfo.LCID, new lo_LA_KZResources());
             KZUIStyles.CultureInfo = culture;
-            Application.Run(new FrmConnectionConfig());
+            if (new FrmConfirmPassword().ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new FrmConnectionConfig());
+            }
         }
     }
 }

@@ -41,4 +41,11 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Models\" />
+	  <Folder Include="Presenter\" />
+	  <Folder Include="Views\Implementations\" />
+	  <Folder Include="Views\Interfaces\" />
+	</ItemGroup>
+
 </Project>

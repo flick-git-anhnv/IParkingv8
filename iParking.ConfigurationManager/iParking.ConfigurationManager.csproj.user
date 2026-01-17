@@ -2,25 +2,25 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Forms\FrmConnectionConfig.cs">
+    <Compile Update="Views\Implementations\Forms\FrmConnectionConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UserControls\UcAppOption.cs">
+    <Compile Update="Views\Implementations\UserControls\UcAppOption.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UserControls\UcLprOption.cs">
+    <Compile Update="Views\Implementations\UserControls\UcLprOption.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UserControls\UcOEM.cs">
+    <Compile Update="Views\Implementations\UserControls\UcOEM.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UserControls\UcPaymentConfig.cs">
+    <Compile Update="Views\Implementations\UserControls\UcPaymentConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UserControls\UcServerConfig.cs">
+    <Compile Update="Views\Implementations\UserControls\UcServerConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UserControls\UcThirdParty.cs">
+    <Compile Update="Views\Implementations\UserControls\UcThirdParty.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
