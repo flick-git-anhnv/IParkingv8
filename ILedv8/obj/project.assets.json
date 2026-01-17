@@ -630,21 +630,6 @@
           "Microsoft.WindowsDesktop.App.WindowsForms"
         ]
       },
-      "iParkingv5.LedDisplay/1.0.0.2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
-        "dependencies": {
-          "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": "1.0.0",
-          "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": "1.0.0",
-          "System.IO.Ports": "8.0.0"
-        },
-        "compile": {
-          "bin/placeholder/iParkingv5.LedDisplay.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/iParkingv5.LedDisplay.dll": {}
-        }
-      },
       "iParkingv5.Lpr/1.0.0.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
@@ -783,7 +768,6 @@
           "SunnyUI.Common": "3.8.4",
           "guna.ui2.winforms": "2.0.4.7",
           "iParkingv5.Controller": "6.0.2",
-          "iParkingv5.LedDisplay": "1.0.0.2",
           "iParkingv5.Lpr": "1.0.0.3",
           "iParkingv8.Object": "8.0.0.6",
           "iParkingv8.Ultility": "8.0.0.5",
@@ -1789,11 +1773,6 @@
       "path": "../iParkingv5.Controller/iParkingv5.Controller.csproj",
       "msbuildProject": "../iParkingv5.Controller/iParkingv5.Controller.csproj"
     },
-    "iParkingv5.LedDisplay/1.0.0.2": {
-      "type": "project",
-      "path": "../iParkingv5.LedDisplay/iParkingv5.LedDisplay.csproj",
-      "msbuildProject": "../iParkingv5.LedDisplay/iParkingv5.LedDisplay.csproj"
-    },
     "iParkingv5.Lpr/1.0.0.3": {
       "type": "project",
       "path": "../iParkingv5.Lpr/iParkingv5.Lpr.csproj",
@@ -1841,7 +1820,6 @@
       "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj",
       "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj",
       "iParking.ConfigurationManager >= 8.0.0.5",
-      "iParkingv5.LedDisplay >= 1.0.0.2",
       "iParkingv8.Auth >= 8.0.0.2",
       "iParkingv8.Object >= 8.0.0.6"
     ]
@@ -1890,9 +1868,6 @@
             },
             "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj": {
               "projectPath": "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj"
-            },
-            "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
-              "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
             },
             "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj": {
               "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj"

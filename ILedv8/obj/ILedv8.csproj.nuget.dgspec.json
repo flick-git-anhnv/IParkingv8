@@ -45,9 +45,6 @@
               "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj": {
                 "projectPath": "K:\\MyGithub\\IParkingv8\\iParking.ConfigurationManager\\iParking.ConfigurationManager.csproj"
               },
-              "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
-                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
-              },
               "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj": {
                 "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv8.Auth\\iParkingv8.Auth.csproj"
               },
@@ -285,85 +282,6 @@
             },
             "Microsoft.WindowsDesktop.App.WindowsForms": {
               "privateAssets": "none"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
-      "version": "1.0.0.2",
-      "restore": {
-        "projectUniqueName": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj",
-        "projectName": "iParkingv5.LedDisplay",
-        "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj",
-        "packagesPath": "C:\\Users\\VietAnh\\.nuget\\packages\\",
-        "outputPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\VietAnh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netstandard2.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netstandard2.1": {
-            "targetAlias": "netstandard2.1",
-            "projectReferences": {
-              "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj": {
-                "projectPath": "K:\\0.BaseLIB\\Kztek.Object\\Kztek.Object\\1.Source\\Kztek.Object.Entity\\Kztek.Object.Entity.csproj"
-              },
-              "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj": {
-                "projectPath": "K:\\0.BaseLIB\\Kztek.Tool\\Kztek.Tool\\1.Source\\Kztek.Tool\\Kztek.Tool.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "false",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "netstandard2.1": {
-          "targetAlias": "netstandard2.1",
-          "dependencies": {
-            "System.IO.Ports": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "NETStandard.Library": {
-              "privateAssets": "all"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
@@ -993,9 +911,6 @@
               },
               "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj": {
                 "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Controller\\iParkingv5.Controller.csproj"
-              },
-              "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj": {
-                "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.LedDisplay\\iParkingv5.LedDisplay.csproj"
               },
               "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj": {
                 "projectPath": "K:\\MyGithub\\IParkingv8\\iParkingv5.Lpr\\iParkingv5.Lpr.csproj"
