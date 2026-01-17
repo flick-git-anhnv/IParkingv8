@@ -1,0 +1,203 @@
+﻿{
+  //FORM TITLE
+  "FRM_CHANGE_PASSWORD": "Change password",
+  "FRM_VERIFY_PASSWORD": "Verify your password",
+  "FRM_SELECT_ACCESS_KEY_COLLECTION": "Change access key collection",
+  "FRM_SELECT_VEHICLE": "Verify vehicle",
+  "FRM_LOGIN": "Login to system",
+  "FRM_LOADING": "Loading",
+  "FRM_SELECT_LANE": "Select working lane",
+  "FRM_TEST_CONTROLLER": "Controller checking",
+
+  //KIOSK - IN
+  "KIOSK_IN_DASHBOARD_APP_TITLE": "SMART PARKING KIOSK",
+  //"KIOSK_IN_DASHBOARD_APP_SUB_TITLE": "Please select the type of card you are using",
+  "KIOSK_IN_DASHBOARD_APP_SUB_TITLE": "",
+  "KIOSK_IN_WELCOME": "Welcome",
+  "KIOSK_IN_HAVE_A_GOOD_DAY": "Have a good day",
+
+  //KIOSK - OUT
+  "KIOSK_OUT_DASHBOARD_APP_TITLE": "SMART PARKING KIOSK",
+  "KIOSK_OUT_DASHBOARD_APP_SUB_TITLE": "",
+  //"KIOSK_OUT_DASHBOARD_APP_SUB_TITLE": "Please select the type of card you are using",
+  "KIOSK_OUT_VALID_EVENT": "The transaction was successfull",
+  "KIOSK_OUT_SEE_YOU_AGAIN": "See you again",
+  //LANE - IN
+  //LANE - OUT
+  //DIALOG
+  "DIALOG_INFO_TITLE": "Information",
+  "DIALOG_WARNING_TITLE": "Warning",
+  "DIALOG_ERROR_TITLE": "Error",
+  "DIALOG_SYSTEM_ERROR_TITLE": "Something went wrong",
+  "DIALOG_SERVER_DISCONNECT_TITLE": "Disconnected with server",
+  "DIALOG_INVALID_PERMISSION_TITLE": "Invalid permission",
+  "DIALOG_DEVICE_DICONNECT": "Something went wrong when connect with device",
+  "DIALOG_TRANSACTION_CREATED_ERROR": "Something went wrong when create transaction",
+
+  //NOTIFY
+  "NOTIFY_INVALID_PLATE": "Invalid license plate",
+  "NOTIFY_ACCESS_KEY_NOTFOUND": "Your identity is not exist in system",
+  "NOTIFY_ACCESS_KEY_LOCKED": "Your card has been locked",
+  "NOTIFY_ACCESS_KEY_EXPIRED": "Your vehicle is not actived",
+  "NOTIFY_VEHICLE_LOCKED": "Your vehicle is locked",
+  "NOTIFY_ACCESS_KEY_IN_WAITING_TIME": "In waiting time",
+  "NOTIFY_ACCESS_KEY_MONTH_NO_VEHICLE": "Monthly card is not registered vehicle",
+  "NOTIFY_ACCESS_KEY_VIP_NO_VEHICLE": "VIP card is not registered vehicle",
+  "NOTIFY_BLACK_LISTED": "Blacklisted",
+  "NOTIFY_ENTRY_NOTFOUND": "INFORMATION is not found",
+  "NOTIFY_ENTRY_DUPLICATED": "Vehicle has entered before",
+
+  "NOTIFY_PLATE_SAME": "License plate is same",
+  "NOTIFY_PLATE_NOT_SAME": "License plate is not same",
+  "NOTIFY_PLATE_NOT_MATCH_WITH_SYSTEM": "License plate is not match with system",
+  "NOTIFY_PAYMENT_REQUIRED": "Please pay your parking fee",
+  "NOTIFY_PAYMENT_INFO": "Payment information",
+  "NOTIFY_WAIT_CONFIRM_OPEN_BARRIE": "Wait for confirmed open barrie",
+  "NOTIFY_TRY_AGAIN": "Please try again",
+  "NOTIFY_TRY_AGAIN_LATER": "Please try again later",
+  "NOTIFY_NOT_CONFIRM_OPEN_BARRIE": "Security doesn't confirm open barrie",
+  "NOTIFY_VEHICLE_NOT_FOUND": "Vehicle is not found in system",
+  "NOTIFY_CANT_DETECT_PLATE": "Can't detect license plate",
+  "NOTIFY_ALLOW_ENTRY_BY_PLATE": "Vehicle is not allowed to enter by license plate",
+
+  "NOTIFY_TAKE_CARD_REQUEST": "The card has been released, please take your card",
+  "NOTIFY_CARD_NOT_SUPPORT": "The card is not supported, please check your card",
+  "NOTIFY_CHOOSE_LANE_REQUIRED": "Please choose working lanes",
+  //LABEL
+  "LBL_DAILY": "Daily",
+  "LBL_MONTHLY": "Monthly",
+  "LBL_INVALID_READER_DAILY_TITLE": "You are using daily card",
+  "LBL_INVALID_READER_DAILY_SUB_TITLE": "Please input card into returned card",
+  "LBL_INVALID_READER_MONTHLY_TITLE": "You are using monthly card",
+  "LBL_INVALID_READER_MONTHLY_SUB_TITLE": "Please swipe your card into monthly reader",
+  "LABEL_ACCESS_KEY_NAME": "Ticket:",
+  "LABEL_VEHICLE_TYPE_NAME": "Vehicle type:",
+  "LABEL_REGISTER_VEHICLE_NAME": "Register vehicle name:",
+  "LABEL_REGISTER_VEHICLE_CODE": "Register vehicle code:",
+  "LABEL_REGISTER_VEHICLE_CODE_SMALL": "Register vehicle code:",
+  "LABEL_REGISTER_VEHICLE_EXPIRE_DATE": "Expire date:",
+  "LABEL_REGISTER_CUSTOMER_NAME": "Customer name:",
+  "LABEL_REGISTER_CUSTOMER_CODE": "Customer code:",
+  "LBL_IDENTITY_GROUP": "Group:",
+  "LBL_LANE": "Lane:",
+  "LBL_WAIT_SECURITY_CONFIRM": "Please wait for security confirm",
+  "LBL_PLATE_IN": "License plate IN:",
+  "LBL_PLATE_OUT": "License plate OUT:",
+  "LBL_PLATE_DETECTED": "Detected Plate:",
+  "LBL_PLATE_DETECTED_SMALL": "Detected Plate:",
+  "LABEL_TIME_IN": "Time IN:",
+  "LABEL_TIME_OUT": "Time OUT:",
+  "LABEL_PARKING_DURATION": "Parking Time:",
+  "LABEL_FEE": "Parking Fee:",
+  "LABEL_PAID": "Paid:",
+  "LABEL_REMAIN": "Remain:",
+  "LBL_PIC_PLATE_IN": "License plate IN",
+  "LBL_PIC_VEHICLE_IN": "Vehicle IN",
+  "LBL_PIC_PANORAMA_IN": "Panorama IN",
+  "LBL_PIC_PLATE_OUT": "License plate OUT",
+  "LBL_PIC_VEHICLE_OUT": "Vehicle OUT",
+  "LBL_PIC_PANORAMA_OUT": "Panorama OUT",
+  "LBL_CHOOSE_PAYMENT_METHOD": "Please choose your payment method",
+  "LBL_WAITING_TRANSACTION": "Generating payment information",
+  "LBL_TRANSACTION_ID": "Transaction Id:",
+  "LBL_PLEASE_WAIT": "Please wait a moment",
+  "LBL_QR_TITLE": "Please scan QR to pay",
+  "LBL_VISA_TITLE": "Please insert card to pay",
+  "LBL_VISA_SUB_TITLE": "Please check the transaction id and swipe your bank card into device",
+  "LBL_VOUHCER_TITLE": "PLEASE INSERT VOUCHER TO PAY",
+  "LBL_VOUHCER_SUB_TITLE": "Machine does not refund",
+  "LBL_CASH_TITLE": "PLEASE INSERT CASH TO PAY",
+  "LBL_CASH_SUB_TITLE": "Machine does not refund",
+
+  "LBL_USERNAME": "Username",
+  "LBL_PASSWORD": "Password",
+  "LBL_CURRENT_PASSWORD": "Current password",
+  "LBL_NEW_PASSWORD": "New password",
+  "LBL_CONFIRM_PASSWORD": "Re-enter new password",
+  "LBL_PASSWORD_REQUIRED": "Please enter your password to perform this function",
+
+  "LBL_CHOOSE_VEHICLE_ENTRY": "Confirm vehicle entry into the parking lot",
+  "LBL_CHOOSE_VEHICLE_EXIT": "Confirm vehicle exit from the parking lot",
+
+  "LBL_SHORTCUT_GUIDE": "Enter to confirm\r\nEsc to cancel",
+  "LBL_SHORTCUT_GUIDE_1_LINE": "Enter to confirm | Esc to cancel",
+  "LBL_IN_PLATE_TITLE": "Plate In",
+  "LBL_OUT_PLATE_TITLE": "Plate Out",
+  "LBL_PARKING_TIME": "Parking time",
+  "LBL_PARKING_FEE": "Fee",
+  "LBL_VOUCHER_IN_USE": "Voucher In Used",
+
+  //Cấu hình camera
+  "LBL_CAMERA": "Camera",
+  "LBL_ANGLE": "Angle",
+
+  "LBL_CONFIRM_APPLY_VOUCHER": "Do you confirm to apply this voucher?",
+  "LBL_VOUCHER_LIST": "Voucher",
+  "LBL_ACCESS_KEY_COLLECTION_LIST": "Collection",
+  "LBL_VEHICLE_LIST": "Vehicles",
+  "LBL_CHOOSE_LANE": "Please choose working lane",
+
+  "LBL_AUTO_CONFIRM_AFTER": "Auto confirm after", //Tự động xác nhận sau
+  "LBL_AUTO_CANCEL_AFTER": "Auto cancel after", // Tự động đóng sau
+  "LBL_AUTO_LOGIN_AFTER": "Auto login after", // Tự động đăng nhập sau
+  "LBL_LOGIN_ERROR": "Invalid username or password", // Đăng nhập không thành công!
+  "LBL_AUTO_OPEN_HOME_SCREEN": "Auto open home page after",
+
+  "LBL_DEVICE": "Device",
+  "LBL_EVENT_LIST": "Event list",
+
+  "LBL_SUCCESS": "Success",
+  "LBL_FAILED": "False",
+  "LBL_TOTAL_PAGE": "Total: ",
+
+  //BUTTON
+  "BTN_BACK": "Back",
+  "BTN_BACK_TO_MAIN_SCREEN": "Back to main screen",
+  "BTN_PAY_PARKING_FEE": "Pay parking fee",
+  "BTN_CASH": "Cash",
+  "BTN_VOUCHER": "Voucher",
+  "BTN_QR": "QR Code",
+  "BTN_VISA": "Visa Card",
+
+  "BTN_CONFIRM": "Confirm",
+  "BTN_CANCEL": "Cancel",
+
+  "BTN_LIVEVIEW": "Liveview",
+  "BTN_LPR_CAR_DETECT": "Car LPR",
+  "BTN_LPR_MOOTOR_DETECT": "Motor LPR",
+  "BTN_DRAW_LPR_REGION": "Draw LPR region",
+  "BTN_DRAR_VIRTUAL_LOOP_REGION": "Draw motion region",
+  "BTN_SAVE_CONFIG": "Save config",
+  "BTN_CLEAR_CONFIG": "Clear config",
+  "BTN_OPEN_BARRIE": "Open",
+  "BTN_COLLECT_CARD": "Collect card",
+  "BTN_REJECT_CARD": "Reject card",
+  "BTN_CHANGE_COLLECTION": "Change",
+
+  //CHECKBOX
+  "CHB_REMEMBER_PASSWORD": "Remember",
+  "CHB_SELECT_ALL": "Select All",
+
+  //LOAIDNG
+  "LOADING_DEVICE_CONFIG": "Get device config",
+  "LOADING_INVLAID_DEVICE_CONFIG": "Invalid device config",
+  "LOAING_CONNECT_TO_CONTROLLER": "Connect with devices",
+  "LOADING_INIT_LPR_ENGINE": "Init LPR Engine",
+  "LOADING_ACCESS_KEY_COLLECTION": "Get access key collection",
+
+  //PAYMENT
+  "PAYMENT_SUPPORT_TITLE": "Supported payment methods",
+  "PAYMENT_CASH": "Cash",
+  "PAYMENT_VOUCHER": "Voucher",
+  "PAYMENT_QR_CODE": "QR code",
+  "PAYMENT_VISA": "Visa card",
+
+  //DATA GRID VIEW
+  "DGV_TIME": "Time",
+  "DGV_EVENT_TYPE": "Event type",
+  "DGV_CARD_OR_LOOP": "Reader | Loop",
+  "DGV_CARD_NUMBER": "Card number",
+
+  "UNKNOWN": "Unknown",
+  "NONE": ""
+}

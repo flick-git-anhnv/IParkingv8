@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>icons8_voucher_2.ico</ApplicationIcon>
+    <Version>1.0.0.1</Version>
+    <Company>KZTEK</Company>
+    <Authors>KZTEK</Authors>
+    <PackageIcon>icons8_voucher_128px_1.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icons8_voucher_2.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\nguye\Desktop\Resource\icons8_voucher_128px_1.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Source_Library\Kztek_Library\Kztek.API\1.Source\Kztek.Api\Kztek.Api.csproj" />
+    <ProjectReference Include="..\..\..\..\Source_Library\Kztek_Library\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+    <ProjectReference Include="..\..\..\..\Source_Library\Kztek_Library\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
+    <ProjectReference Include="..\IParkingv8.API\IParkingv8.API.csproj" />
+    <ProjectReference Include="..\iParkingv8.Ultility\iParkingv8.Ultility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmConfirmPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

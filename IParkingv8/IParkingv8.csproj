@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Platforms>AnyCPU;x64</Platforms>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ApplicationIcon>bin\x64\Debug\net8.0-windows\Resources\icons8_parking_2.ico</ApplicationIcon>
+		<Version>8.0.2.3</Version>
+		<Authors>KZTEK</Authors>
+		<Company>KZTEK</Company>
+		<Description>KZTEK</Description>
+		<Copyright>KZTEK</Copyright>
+		<PackageProjectUrl>https://kztek.net/</PackageProjectUrl>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="bin\**" />
+		<EmbeddedResource Remove="bin\**" />
+		<None Remove="bin\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="LaneUIs\KioskOut\frmKioskOut.Designer.cs~RF2aa2eea.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.1" />
+		<PackageReference Include="MQTTnet" Version="4.3.7.1207" />
+		<PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+		<PackageReference Include="RestSharp.Authenticators.Digest" Version="2.0.0" />
+		<PackageReference Include="siticone.netcore.ui" Version="2025.8.15.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.API\1.Main\Kztek.API\1.Source\Kztek.Api\Kztek.Api.csproj" />
+		<ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+		<ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
+		<ProjectReference Include="..\iParking.ConfigurationManager\iParking.ConfigurationManager.csproj" />
+		<ProjectReference Include="..\iParkingv8.Auth\iParkingv8.Auth.csproj" />
+		<ProjectReference Include="..\iParkingv8.Object\iParkingv8.Object.csproj" />
+		<ProjectReference Include="..\IParkingv8.Printer\IParkingv8.Printer.csproj" />
+		<ProjectReference Include="..\IParkingv8.Reporting\IParkingv8.Reporting.csproj" />
+		<ProjectReference Include="..\iParkingv8.Ultility\iParkingv8.Ultility.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Kztek.Security">
+		  <HintPath>C:\KZTEK.LIB.REF\Package\KeyLib\Kztek.Security.dll</HintPath>
+		</Reference>
+		<Reference Include="Kztek.Utilities">
+		  <HintPath>C:\KZTEK.LIB.REF\Package\KeyLib\Kztek.Utilities.dll</HintPath>
+		</Reference>
+		<Reference Include="KztekKeyRegister">
+		  <HintPath>C:\KZTEK.LIB.REF\Package\KeyLib\KztekKeyRegister.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="UserControls\UcViewGrid.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Resources\icons8_parking_2.ico">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties Reactor_Deploy="0" /></VisualStudio></ProjectExtensions>
+
+</Project>

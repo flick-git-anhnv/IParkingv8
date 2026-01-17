@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>8.0.0.5</Version>
+		<Authors>KZTEK</Authors>
+		<Company>KZTEK</Company>
+		<Description>KZTEK</Description>
+		<Copyright>KZTEK</Copyright>
+		<PackageProjectUrl>https://kztek.net/</PackageProjectUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.Object\Kztek.Object\1.Source\Kztek.Object.Entity\Kztek.Object.Entity.csproj" />
+	  <ProjectReference Include="..\..\..\..\..\0.BaseLIB\Kztek.Tool\Kztek.Tool\1.Source\Kztek.Tool\Kztek.Tool.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="dictionary\En.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="LogFormat\log.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="LogFormat\log_item.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="LogFormat\style.css">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
